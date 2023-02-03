@@ -1,0 +1,7 @@
+C:\Users\Eystone\source\repos\prosoft\EasySave\obj\Debug\EasySave.csproj.AssemblyReference.cache
+C:\Users\Eystone\source\repos\prosoft\EasySave\obj\Debug\EasySave.csproj.CoreCompileInputs.cache
+C:\Users\Eystone\source\repos\prosoft\EasySave\bin\Debug\EasySave.exe.config
+C:\Users\Eystone\source\repos\prosoft\EasySave\bin\Debug\EasySave.exe
+C:\Users\Eystone\source\repos\prosoft\EasySave\bin\Debug\EasySave.pdb
+C:\Users\Eystone\source\repos\prosoft\EasySave\obj\Debug\EasySave.exe
+C:\Users\Eystone\source\repos\prosoft\EasySave\obj\Debug\EasySave.pdb

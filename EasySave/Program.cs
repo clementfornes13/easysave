@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace EasySave
 {
@@ -10,29 +7,62 @@ namespace EasySave
     {
         static void Main(string[] args)
         {
+            SaveFile File1 = new SaveFile("1.txt","C:\\Users\\Eystone\\source\\repos", "C:\\Users\\Eystone\\source");
+            while (Console.ReadLine() != "q") { }
         }
     }
 
     class SaveFile
     {
-        private string m_name;
-        private string m_pathFrom, m_pathTo;
+        private string m_name; //file.co
+        private string m_pathFrom, m_pathTo; //C:/dir/dir/dir
         private uint sizeFile;
         private uint transfertTime;
 
-        SaveFile(string filename)
+        public SaveFile(string filename)
         {
             m_name = filename;
+            if (init() != 1) {
+                //Destroy Object
+                Console.WriteLine("1");
+            }
+            Console.WriteLine("0");
         }
-        SaveFile(string filename, string pathFrom, string pathTo) 
+        public SaveFile(string filename, string pathFrom, string pathTo) 
         {
             m_name = filename;
             m_pathFrom = pathFrom;
             m_pathTo = pathTo;
+            if (init() != 1) {
+                //Destroy Object
+                Console.WriteLine("1");
+            }
+            Console.WriteLine("0");
+        }
+
+        private int init()
+        {
+            string filePathName = $"{m_pathFrom}\\{m_name}";
+            Console.WriteLine($"My file is : {0}", filePathName);
+            try {
+                using (StreamReader sr = new StreamReader(filePathName))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                    }
+                }
+                return 1;
+            }
+            catch (Exception e) {
+                System.Console.Error.WriteLine(e.ToString());
+                return 0;
+            }
         }
         ~SaveFile()
         {
-
+            //File.close();
         }
 
         public bool calcTransfertTime()
