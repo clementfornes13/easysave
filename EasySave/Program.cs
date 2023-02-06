@@ -3,14 +3,19 @@ using System.IO;
 
 namespace EasySave
 {
-    class EasySave
+    /*class EasySave
     {
         static void Main(string[] args)
         {
             SaveFile File1 = new SaveFile("1.txt","C:\\Users\\Eystone\\source\\repos", "C:\\Users\\Eystone\\source");
+            Console.WriteLine($"Transfert {0} from {1} to {2} ...", File1.Name, File1.PathFrom, File1.PathTo);
+            TransfertStatesItems transfert = new TransfertStatesItems(File1);
+            transfert.MoveFromTo();
+            Console.Write("Done");
+
             while (Console.ReadLine() != "q") { }
         }
-    }
+    }*/
 
     class SaveFile
     {
@@ -42,7 +47,7 @@ namespace EasySave
 
         private int init()
         {
-            string filePathName = $"{m_pathFrom}\\{m_name}";
+            string filePathName = System.IO.Path.Combine(m_pathFrom, m_name);
             Console.WriteLine($"My file is : {0}", filePathName);
             try {
                 using (StreamReader sr = new StreamReader(filePathName))
