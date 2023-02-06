@@ -33,28 +33,11 @@ namespace EasySave
         {
 
             string filePath = @"C:\Users\jorda\source\repos\eystone\prosoft\EasySave\Example.txt";
-
-
-            if (!File.Exists(filePath))
-            {
-                using (FileStream fs = File.Create(filePath))
-                {
-
-                    byte[] info = new UTF8Encoding(true).GetBytes("Hello World");
-                    fs.Write(info, 0, info.Length);
-                }
-            }
+            File.WriteAllText(filePath, "Hello World");
+            return true
         }
     }
 
-    private bool read()
-    {
 
-    }
-
-        private bool write()
-        {
-
-        }
-    }
+    
 }
