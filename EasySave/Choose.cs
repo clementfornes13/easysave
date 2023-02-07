@@ -43,6 +43,7 @@ namespace EasySave
                     Console.WriteLine(Thread.CurrentThread.CurrentUICulture.Name);
                     Console.WriteLine(lng.GetString("Select files", new CultureInfo("fr"));
                     Console.ReadLine();
+                    Console.ReadLine();
                 }
         }
     }
