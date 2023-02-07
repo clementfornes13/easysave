@@ -34,7 +34,7 @@ namespace EasySave
 
             string filePath = @"C:\Users\jorda\source\repos\eystone\prosoft\EasySave\Example.txt";
             File.WriteAllText(filePath, "Hello World");
-            return true
+            return true;
         }
     }
 
