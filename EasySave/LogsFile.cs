@@ -15,6 +15,7 @@ namespace EasySave
         public static StreamReader ReadingStream { get => m_readingStream; set => m_readingStream = value; }
         public static StreamWriter WritingStream { get => m_writinggStream; set => m_writinggStream = value; }
 
+
         public LogsFile()
         {
             string name = "name";
