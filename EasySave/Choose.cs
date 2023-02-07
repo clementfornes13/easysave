@@ -13,40 +13,36 @@ using System.Runtime.Remoting.Channels;
 
 namespace EasySave
 {
-    public class Choose
+    public class Console
     {
-        public void ChooseFct()
+        ResourceManager rm = new ResourceManager("prosoft.Resources.Langue", typeof(Console).Assembly);
+
+        public void ChoixLangue()
         {
-            ResourceManager rm = new ResourceManager("prosoft.Resources.Langue",
-        typeof(Choose).Assembly);
-            Console.WriteLine("Choisir la langue désirée : Anglais (0), Français (1) : ");
-            Console.WriteLine("Choose desired language : English (0), French (1) : ");
-            int Valeurs;
-            bool success = int.TryParse(Console.ReadLine(), out Valeurs);
-            bool english = false;
-            if (success)
+            do
             {
-                if (Valeurs == 1)
+                Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
+                Console.WriteLine("Choisir la langue désirée : Anglais (0), Français (1) : ");
+                Console.WriteLine("Choose desired language : English (0), French (1) : \n");
+                bool Langue = Convert.ToBoolean(Console.Read());
+                if (Langue == 1)
                 {
-                    english = true;
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
+                    Console.WriteLine(rm.GetString("Select files"));
                 }
-            }
-            else
-            {
-                Console.WriteLine("Entrée invalide, réessayez");
-            }
-
-            if (english == false)
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
-                Console.WriteLine(rm.GetString("Select files"));
-
-            }
-            else
-            {
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
-                Console.WriteLine(rm.GetString("Select files"));
-            }
+                else if (Langue == 0)
+                {
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                    Console.WriteLine(rm.GetString("Select files"));
+                }
+                else
+                {
+                    Console.WriteLine("Erreur, rentrez à nouveau la langue désirée");
+                    Console.WriteLine("Error, enter desired language again\n");
+                }
+            } while (Langue != 1 and Langue != 0); 
         }
     }
 }
