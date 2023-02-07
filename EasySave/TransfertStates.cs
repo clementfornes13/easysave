@@ -34,7 +34,6 @@ namespace EasySave
             catch (Exception e) { Console.Error.Write(e.ToString()); }
             m_actualStates = false;
         }
-
         public bool ActualStates { get => m_actualStates; set => m_actualStates = value; }
         public uint ElapsedTransfertTime { get => m_elapsedTransfertTime; set => m_elapsedTransfertTime = value; }
         public uint RemaingElapsedTime { get => m_remaingElapsedTime; set => m_remaingElapsedTime = value; }
