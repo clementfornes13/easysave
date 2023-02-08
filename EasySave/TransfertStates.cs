@@ -43,7 +43,19 @@ namespace EasySave
             }
             stopwatch.Stop();
             m_actualStates = false;
+            Loggin();
         }
+
+        public void Loggin()
+        {
+            string m_nameLog = System.IO.Path.GetFileName(m_files.PathFrom);
+            string totalSizeFileLog = m_files.TotalSizeFile.ToString();
+            string m_elapsedTransfertTimeLog = m_elapsedTransfertTime.ToString();
+
+            LogsFile myLog = new LogsFile();
+            myLog.WriteLogJson(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+        }
+
         public bool ActualStates { get => m_actualStates; set => m_actualStates = value; }
         public double ElapsedTransfertTime { get => m_elapsedTransfertTime; }
         internal SaveFiles File { get => m_files; }
