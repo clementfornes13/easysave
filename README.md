@@ -40,7 +40,7 @@
 <!-- A propos -->
 ## A propos
 
-[![Capture d'écran du projet'][product-screenshot]](EasySave/Images/capture.png)
+[![Capture d'écran du projet][product-screenshot]](EasySave/Images/capture.png)
 
 EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
 EasySave est utilisable en Français et en Anglais
@@ -121,4 +121,4 @@ Distribué sous la licence de "On doit trouver un nom". Voir `LICENSE.txt` pour p
 
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: EasySave/Images/easysave logo.svg
+[product-screenshot]: EasySave/Images/capture.png
