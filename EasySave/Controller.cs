@@ -11,7 +11,8 @@ namespace EasySave
     class Controller
     {
         private ConsoleCLI m_cli;
-        private SaveFiles[] m_workingFiles;
+        private List<SaveFiles> m_workingFiles = new List<SaveFiles>();
+        private List<TransfertStatesItems> m_transferts = new List<TransfertStatesItems>();
         public Controller()
         {
             while (true)
@@ -67,7 +68,7 @@ namespace EasySave
 
         private void addWorkingFiles() //Thomas - Jordan
         {
-            if (m_workingFiles.Length >= 5)
+            if (m_workingFiles.Count >= 5)
             {
                 Console.WriteLine("Can't Have more than 5 working project delete one if you need to add one.");
             }
@@ -75,28 +76,43 @@ namespace EasySave
             {
                 if (m_cli.PathTo1 == null)
                 {
-                    m_workingFiles[m_workingFiles.Length] = new SaveFiles(m_cli.PathFrom1);
+                    m_workingFiles.Add(new SaveFiles(m_cli.PathFrom1));
                 }
                 else
                 {
-                    m_workingFiles[m_workingFiles.Length] = new SaveFiles(m_cli.PathFrom1, m_cli.PathTo1);
+                    m_workingFiles.Add(new SaveFiles(m_cli.PathFrom1, m_cli.PathTo1));
                 }
             }
         }
 
         private void delWorkingFiles()
         {
-
+            foreach (SaveFiles file in m_workingFiles)
+            {
+                if (file.PathFrom == m_cli.DeletePath1)
+                {
+                    m_workingFiles.Remove(file);
+                }
+            }
         }
 
-        private void createJob() //Thomas
+        private void createJob()
         {
+            foreach (SaveFiles file in m_workingFiles)
+            {
+                Console.WriteLine(file.ToString());
+            }
 
-        }
-
-        private void showStates()
-        {
-
+            foreach (SaveFiles file in m_workingFiles)
+            {
+                if (file.PathFrom == m_cli.ExecutePath1)
+                {
+                    m_transferts.Add(new TransfertStatesItems(file));
+                    Console.WriteLine("Beginning backUp of files...");
+                    m_transferts[m_transferts.Count-1].BackUp();
+                    Console.Write($"Done in {0}", m_transferts[m_transferts.Count-1].ElapsedTransfertTime);
+                }
+            }
         }
     }
 }
