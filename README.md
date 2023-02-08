@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/eystone/prosoft">
-    <img src="https://prnt.sc/clqJ5RWDFUj-" alt="Logo" width="80" height="80">
+    <img src="EasySave/Images/easysave logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">EasySave</h3>
@@ -40,12 +40,12 @@
 <!-- A propos -->
 ## A propos
 
-[![Capture d'écran du projet'][product-screenshot]](https://prnt.sc/_s-TrRvTEewD)
+[![Capture d'écran du projet'][product-screenshot]](EasySave/)
 
 EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
 EasySave est utilisable en Français et en Anglais
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 
 <!-- Mise en place -->
@@ -74,7 +74,7 @@ EasySave est utilisable en Français et en Anglais
   dotnet add package Newtonsoft.Json --version 13.0.2
    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 
 <!-- Exemples -->
@@ -84,7 +84,7 @@ Use this space to show useful examples of how a project can be used. Additional 
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 
 <!-- ROADMAP -->
@@ -112,8 +112,6 @@ Distribué sous la licence de "On doit trouver un nom". Voir `LICENSE.txt` pour p
 
 <!-- Remerciements -->
 ## Remerciements
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
 * [Tutoriels Visual Studio | C#](https://learn.microsoft.com/fr-fr/visualstudio/get-started/csharp/?view=vs-2022)
