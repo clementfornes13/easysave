@@ -21,10 +21,11 @@ namespace EasySave
         {
             do
             {
+                int Langue;
                 Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
                 Console.WriteLine("Choisir la langue désirée : Anglais (0), Français (1) : ");
                 Console.WriteLine("Choose desired language : English (0), French (1) : \n");
-                bool Langue = Convert.ToBoolean(Console.Read());
+                Langue = Convert.ToInt64(Console.Read());
                 if (Langue == 1)
                 {
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
@@ -42,7 +43,7 @@ namespace EasySave
                     Console.WriteLine("Erreur, rentrez à nouveau la langue désirée");
                     Console.WriteLine("Error, enter desired language again\n");
                 }
-            } while (Langue != 1 and Langue != 0); 
+            } while (Langue != 1 && Langue != 0); 
         }
     }
 }
