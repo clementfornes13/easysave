@@ -15,35 +15,63 @@ namespace EasySave
 {
     public class ConsoleCLI
     {
-        ResourceManager rm = new ResourceManager("prosoft.Resources.Langue", typeof(ConsoleCLI).Assembly);
+        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(ConsoleCLI).Assembly);
 
         public void ChoixLangue()
         {
-            uint Langue;
+            string LangueChoix = "2";
             do
             {
                 Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
                 Console.WriteLine("Choisir la langue désirée : Anglais (0), Français (1) : ");
                 Console.WriteLine("Choose desired language : English (0), French (1) : \n");
-                Langue = Convert.ToUInt32(Console.Read());
-                if (Langue == 1)
+                LangueChoix = Console.ReadLine();
+                if (LangueChoix == "1")
                 {
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
                     Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
-                    Console.WriteLine(rm.GetString("Select files"));
                 }
-                else if (Langue == 0)
+                else if (LangueChoix == "0")
                 {
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
                     Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                    Console.WriteLine(rm.GetString("Select files"));
                 }
                 else
                 {
-                    Console.WriteLine("Erreur, rentrez à nouveau la langue désirée");
-                    Console.WriteLine("Error, enter desired language again\n");
+                Console.WriteLine("Erreur, rentrez à nouveau la langue désirée");
+                Console.WriteLine("Error, enter desired language again\n");
                 }
-            } while (Langue != 1 && Langue != 0); 
+            } while (LangueChoix != "1" && LangueChoix != "0");
         }
+
+    public void ChoixSave()
+    {
+        string SaveChoix = "0";
+        do
+        {
+            Console.WriteLine(rm.GetString("Choose save option"));
+            Console.WriteLine(rm.GetString("Create save"));
+            Console.WriteLine(rm.GetString("Delete save"));
+            Console.WriteLine(rm.GetString("Execute save"));
+            SaveChoix = Console.ReadLine();
+            if (SaveChoix == "1")
+            {
+                Console.WriteLine(rm.GetString("Create save"));
+            }
+            else if (SaveChoix == "2")
+            {
+                Console.WriteLine(rm.GetString("Delete save"));
+            }
+            else if (SaveChoix == "3")
+            {
+                Console.WriteLine(rm.GetString("Execute save"));
+            }
+            else
+            {
+                Console.WriteLine(rm.GetString("Error"));
+            }
+
+        } while (SaveChoix != "1" && SaveChoix != "2" && SaveChoix != "3");
     }
+}
 }
