@@ -40,7 +40,7 @@
 <!-- A propos -->
 ## A propos
 
-[![Capture d'écran du projet][product-screenshot]](EasySave/Images/capture.png)
+[![Capture d'écran du projet][product-screenshot]]
 
 EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
 EasySave est utilisable en Français et en Anglais
@@ -57,7 +57,7 @@ EasySave est utilisable en Français et en Anglais
     .NET Framework installé
     Json.NET Framework installé
 
-* .NET
+* Json.NET
   ```sh
   dotnet add package Newtonsoft.Json --version 13.0.2
   ```
@@ -69,9 +69,9 @@ EasySave est utilisable en Français et en Anglais
    ```sh
    git clone https://github.com/eystone/prosoft.git
    ```
-2. Install Json.NET Framework
+2. Installer Json.NET Framework
    ```sh
-  dotnet add package Newtonsoft.Json --version 13.0.2
+   dotnet add package Newtonsoft.Json --version 13.0.2
    ```
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
