@@ -25,13 +25,13 @@
     <li>
       <a href="#mise-en-place">Mise en place</a>
       <ul>
-        <li><a href="#prerequis">Pré-requis</a></li>
+        <li><a href="#prerequis">PrÃ©-requis</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#utilisation">Utilisation</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#ressources">Ressources utilisés</a></li>
+    <li><a href="#ressources">Ressources utilisÃ©s</a></li>
   </ol>
 </details>
 
@@ -39,10 +39,10 @@
 <!-- A propos -->
 ## A propos
 
-[![Capture d'écran du projet][product-screenshot]]
+![Capture d'Ã©cran du projet][product-screenshot]
 
-EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
-EasySave est utilisable en Français et en Anglais
+EasySave est un programme console qui permet aux utilisateurs de crÃ©er, supprimer et exÃ©cuter des travaux de sauvegarde. 
+EasySave est utilisable en FranÃ§ais et en Anglais
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -50,11 +50,11 @@ EasySave est utilisable en Français et en Anglais
 <!-- Mise en place -->
 ## Mise en place
 
-### Pré-requis
+### PrÃ©-requis
 
     Windows
-    .NET Framework installé
-    Json.NET Framework installé
+    .NET Framework installÃ©
+    Json.NET Framework installÃ©
 
 * Json.NET
   ```sh
@@ -87,19 +87,19 @@ Mettre des exemples par la suite.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Possibilité de sauvegarder un travail
+- [x] PossibilitÃ© de sauvegarder un travail
 - [x] Ajout des logs
-- [x] Possibilité de supprimer un travail
-- [x] Possibilité d'exécuter un travail
+- [x] PossibilitÃ© de supprimer un travail
+- [x] PossibilitÃ© d'exÃ©cuter un travail
 - [x] Support de plusieurs langues
-    - [x] Français
+    - [x] FranÃ§ais
     - [x] Anglais
 - [ ] Application WPF
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- Ressources utilisées -->
+<!-- Ressources utilisÃ©es -->
 ## Ressources
 
 * [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
