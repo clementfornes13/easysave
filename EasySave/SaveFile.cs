@@ -37,6 +37,7 @@ namespace EasySave
             {
                 throw new DirectoryNotFoundException("ERROR 404 : Directory Not Found ! " + m_pathFrom);
             }
+            
         }
         ~SaveFiles()
         {
@@ -51,6 +52,17 @@ namespace EasySave
                 fileData = new FileInfo(System.IO.Path.Combine(m_pathFrom, name));
                 totalSizeFile += fileData.Length;
             }
+            Logging();
+        }
+        public void Logging()
+        {
+            
+            string m_nameLog = System.IO.Path.GetFileName(m_pathFrom);
+            string totalSizeFileLog = totalSizeFile.ToString();
+            string transferTime = "0";
+
+            LogsFile myLog = new LogsFile();
+            myLog.WriteLogJson(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog,  transferTime);
         }
 
         public string[] Names { get => m_names; }
@@ -58,4 +70,6 @@ namespace EasySave
         public string PathTo { get => m_pathTo; set => m_pathTo = value; }
         public long TotalSizeFile { get => totalSizeFile;}
     }
+
+
 }
