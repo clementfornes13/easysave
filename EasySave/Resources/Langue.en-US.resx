@@ -117,17 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BackMenu" xml:space="preserve">
+    <value>-&gt; Back to language selection (0)</value>
+  </data>
   <data name="Choose save option" xml:space="preserve">
     <value>----- Select what you want to do -----</value>
   </data>
-  <data name="Chosen language" xml:space="preserve">
-    <value>Chosen language</value>
-  </data>
   <data name="Create choice" xml:space="preserve">
     <value>-&gt; You have chosen to create a save</value>
-  </data>
-  <data name="Create path" xml:space="preserve">
-    <value>-&gt; Enter the path where you want to create the save </value>
   </data>
   <data name="Create save" xml:space="preserve">
     <value>-&gt; Create save (1)</value>
@@ -141,9 +138,6 @@
   <data name="Delete save" xml:space="preserve">
     <value>-&gt; Delete save (2)</value>
   </data>
-  <data name="Destination path" xml:space="preserve">
-    <value>Destination path</value>
-  </data>
   <data name="Error" xml:space="preserve">
     <value>/!\ Error, enter desired action again /!\</value>
   </data>
@@ -156,8 +150,8 @@
   <data name="Execute save" xml:space="preserve">
     <value>-&gt; Execute save (3)</value>
   </data>
-  <data name="File name" xml:space="preserve">
-    <value>File name</value>
+  <data name="ExitProgram" xml:space="preserve">
+    <value>- &gt; Exit EasySave (4)</value>
   </data>
   <data name="Invalid path" xml:space="preserve">
     <value>/!\ Error, invalid path /!\</value>
@@ -165,13 +159,10 @@
   <data name="Langue choice" xml:space="preserve">
     <value>-&gt; You have chosen English</value>
   </data>
-  <data name="Select files" xml:space="preserve">
-    <value>Select files</value>
+  <data name="pathFrom" xml:space="preserve">
+    <value>-&gt; Enter the path where is located the folder to save</value>
   </data>
-  <data name="Source path" xml:space="preserve">
-    <value>Source path</value>
-  </data>
-  <data name="State" xml:space="preserve">
-    <value>State</value>
+  <data name="pathTo" xml:space="preserve">
+    <value>-&gt; Enter the path where you want to save your folder</value>
   </data>
 </root>
