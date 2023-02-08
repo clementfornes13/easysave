@@ -22,7 +22,7 @@ namespace EasySave
         private string ExecutePath = "";
         private string PathTo = "";
         private string LangueChoix = "";
-
+        private string ContinueBlank = "";
         ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(ConsoleCLI).Assembly);
 
         public string SaveChoix1 { get => SaveChoix;}
@@ -31,8 +31,7 @@ namespace EasySave
         public string ExecutePath1 { get => ExecutePath;}
         public string PathTo1 { get => PathTo; }
         public string LangueChoix1 { get => LangueChoix;}
-
-        public void ChoixLangue()
+        public void ChoixLangue() // 
         {
             Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
             Console.WriteLine("-> Choisir la langue désirée : Anglais (0), Français (1) : ");
@@ -95,11 +94,22 @@ namespace EasySave
                             switch (Directory.Exists(PathTo))
                             { 
                                 case true:
-                                    Console.WriteLine("Cest bon frero t'as bien écrit");
+                                    Console.WriteLine("ok c'est noté");
                                     break;
                                 case false:
-                                    Console.WriteLine(rm.GetString("Invalid path"));
-                                    ChoixSave();
+                                    Console.WriteLine(rm.GetString("BlankOrInvalid"));
+                                    ContinueBlank = Console.ReadLine();
+                                    switch (ContinueBlank)
+                                    {
+                                        case "Y":
+                                            break;
+                                        case "N":
+                                            ChoixSave();
+                                            break;
+                                        default:
+                                            ChoixSave();
+                                            break;
+                                    }
                                     break;
                             }
                             break;

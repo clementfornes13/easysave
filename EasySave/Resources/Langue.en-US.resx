@@ -120,6 +120,9 @@
   <data name="BackMenu" xml:space="preserve">
     <value>-&gt; Back to language selection (0)</value>
   </data>
+  <data name="BlankOrInvalid" xml:space="preserve">
+    <value>-&gt; Invalid path or blank, a folder will be created automatically, continue ? (Y/N)</value>
+  </data>
   <data name="Choose save option" xml:space="preserve">
     <value>----- Select what you want to do -----</value>
   </data>
