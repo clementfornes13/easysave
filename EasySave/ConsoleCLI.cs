@@ -25,13 +25,13 @@ namespace EasySave
         private string ContinueBlank = "";
         ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(ConsoleCLI).Assembly);
 
-        public string SaveChoix1 { get => SaveChoix;}
+        public string SaveChoix1 { get => SaveChoix; }
         public string PathFrom1 { get => PathFrom; }
         public string DeletePath1 { get => DeletePath; }
-        public string ExecutePath1 { get => ExecutePath;}
+        public string ExecutePath1 { get => ExecutePath; }
         public string PathTo1 { get => PathTo; }
-        public string LangueChoix1 { get => LangueChoix;}
-        public void ChoixLangue() // 
+        public string LangueChoix1 { get => LangueChoix; }
+        public bool ChoixLangue()
         {
             Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
             Console.WriteLine("-> Choisir la langue désirée : Anglais (0), Français (1) : ");
@@ -43,29 +43,30 @@ namespace EasySave
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
                     Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                     Console.WriteLine(rm.GetString("Langue choice"));
-                    ChoixSave();
-                    break;
+                    return true;
                 case "1":
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
                     Thread.CurrentThread.CurrentCulture = new CultureInfo("fr-FR");
                     Console.WriteLine(rm.GetString("Langue choice"));
-                    ChoixSave();
-                    break;
+                    return true;
                 default:
                     Console.WriteLine("!!!!! Erreur, rentrez à nouveau la langue désirée !!!!!");
                     Console.WriteLine("!!!!! Error, enter desired language again !!!!!\n");
-                    ChoixLangue();
-                    break;
+                    return ChoixLangue();
             }
         }
 
-        public void ChoixSave()
+        //Return an INT for the action commanded :
+        //1 for create working file
+        //2 for delete
+        //3 for execute
+        public int ChoixSave()
         {
             Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("Choose save option"));
             Console.WriteLine("\n");
-            Console.WriteLine(rm.GetString("BackMenu"));
-            Console.WriteLine("\n");
+//            Console.WriteLine(rm.GetString("BackMenu"));
+//            Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("Create save"));
             Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("Delete save"));
@@ -77,10 +78,6 @@ namespace EasySave
             SaveChoix = Console.ReadLine();
             switch (SaveChoix)
             {
-
-                case "0":
-                    ChoixLangue();
-                    break;
                 case "1":
                     Console.WriteLine(rm.GetString("Create choice"));
                     Console.WriteLine(rm.GetString("pathFrom"));
@@ -92,33 +89,31 @@ namespace EasySave
                             Console.WriteLine(rm.GetString("pathTo"));
                             PathTo = Console.ReadLine();
                             switch (Directory.Exists(PathTo))
-                            { 
+                            {
                                 case true:
-                                    Console.WriteLine("ok c'est noté");
-                                    break;
+                                    return 1;
                                 case false:
                                     Console.WriteLine(rm.GetString("BlankOrInvalid"));
                                     ContinueBlank = Console.ReadLine();
                                     switch (ContinueBlank)
                                     {
                                         case "Y":
-                                            break;
+                                            PathTo = null;
+                                            return 1;
                                         case "N":
-                                            ChoixSave();
-                                            break;
+                                            return ChoixSave();
                                         default:
-                                            ChoixSave();
-                                            break;
+                                            return ChoixSave();
                                     }
-                                    break;
+                                default:
+                                    return 0;
                             }
-                            break;
                         case false:
                             Console.WriteLine(rm.GetString("Invalid path"));
-                            ChoixSave();
-                            break;
+                            return ChoixSave();
+                        default:
+                            return 0;
                     }
-                    break;
                 case "2":
                     Console.WriteLine(rm.GetString("Delete choice"));
                     Console.WriteLine(rm.GetString("Delete path"));
@@ -127,13 +122,13 @@ namespace EasySave
                     switch (Directory.Exists(DeletePath))
                     {
                         case true:
-                            break;
+                            return 2;
                         case false:
                             Console.WriteLine(rm.GetString("Invalid path"));
-                            ChoixSave();
-                            break;
+                            return ChoixSave();
+                        default:
+                            return 0;
                     }
-                    break;
                 case "3":
                     Console.WriteLine(rm.GetString("Execute choice"));
                     Console.WriteLine(rm.GetString("Execute path"));
@@ -142,20 +137,19 @@ namespace EasySave
                     switch (Directory.Exists(ExecutePath))
                     {
                         case true:
-                            break;
+                            return 3;
                         case false:
                             Console.WriteLine(rm.GetString("Invalid path"));
-                            ChoixSave();
-                            break;
+                            return ChoixSave();
+                        default:
+                            return 0;
                     }
-                    break;
                 case "4":
                     System.Environment.Exit(0);
-                    break;
+                    return 0;
                 default:
                     Console.WriteLine(rm.GetString("Error"));
-                    ChoixSave();
-                    break;
+                    return ChoixSave();
             }
         }
 
