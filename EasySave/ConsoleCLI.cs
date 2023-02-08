@@ -25,7 +25,7 @@ namespace EasySave
                 Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
                 Console.WriteLine("Choisir la langue désirée : Anglais (0), Français (1) : ");
                 Console.WriteLine("Choose desired language : English (0), French (1) : \n");
-                Langue = Convert.ToInt64(Console.Read());
+                Langue = Convert.ToInt32(Console.Read());
                 if (Langue == 1)
                 {
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("fr-FR");
