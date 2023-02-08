@@ -3,48 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasySave;
 using System.IO;
 
-class Program
+namespace EasySave
 {
-    static void Main(string[] args)
+    class Controller
     {
-        Controller controller = new Controller();
-
-        Console.WriteLine("Veuillez entrer les chemins de fichier séparés par des virgules :");
-        string filePathsInput = Console.ReadLine();
-
-        string[] filePaths = filePathsInput.Split(',');
-
-        controller.addWorkingFiles(filePaths);
-
-    }
-    // test 
-
-}
-
-class Controller
-{
-    List<string> workingFiles;
-
-    public void addWorkingFiles(string[] filePaths)
-    {
-        workingFiles = new List<string>();
-
-        foreach (string filePath in filePaths)
+        public Controller()
         {
-            // Vérifiez si le fichier existe avant de l'ajouter à la liste de travail
-            if (File.Exists(filePath))
-            {
-                workingFiles.Add(filePath);
-            }
-            else
-            {
-                Console.WriteLine("Le fichier " + filePath + " n'existe pas.");
-            }
+            createUI(); //Summon UI to get choice
+            Console.WriteLine("Debiluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus");
+            Console.ReadKey();
+        }
+
+        private void createUI() // clement
+        {
+            ConsoleCLI cli = new ConsoleCLI();
+            cli.ChoixLangue();
+        }
+
+        private void addWorkingFiles(string[] filePaths) //Thomas - Jordan
+        {
+            
+        }
+
+        private void createJob() //Thomas
+        {
+
+        }
+
+        private void showStates()
+        {
+
+        }
+
+        //tests methods
+        private void JordanAmusetoi()
+        {
+
         }
     }
-
-    // Autres méthodes ...
 }
