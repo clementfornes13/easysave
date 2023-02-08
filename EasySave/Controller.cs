@@ -11,13 +11,15 @@ namespace EasySave
     {
         public Controller()
         {
+            createUI(); //Summon UI to get choice
             Console.WriteLine("Debiluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus");
             Console.ReadKey();
         }
 
         private void createUI() // clement
         {
-
+            ConsoleCLI cli = new ConsoleCLI();
+            cli.ChoixLangue();
         }
 
         private void addWorkingFiles(string[] filePaths) //Thomas - Jordan
