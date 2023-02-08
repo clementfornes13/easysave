@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 
 namespace EasySave
+
 {
     class Controller
     {
@@ -24,6 +25,7 @@ namespace EasySave
 
         private void addWorkingFiles(string[] filePaths) //Thomas - Jordan
         {
+                
             
         }
 
