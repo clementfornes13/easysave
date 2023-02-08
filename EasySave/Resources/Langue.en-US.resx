@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Chosen language" xml:space="preserve">
-    <value />
+    <value>Chosen language</value>
   </data>
   <data name="Destination path" xml:space="preserve">
-    <value />
+    <value>Destination path</value>
   </data>
   <data name="File name" xml:space="preserve">
-    <value />
+    <value>File name</value>
   </data>
   <data name="Select files" xml:space="preserve">
-    <value />
+    <value>Select files</value>
   </data>
   <data name="Source path" xml:space="preserve">
-    <value />
+    <value>Source path</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value />
+    <value>State</value>
   </data>
 </root>
