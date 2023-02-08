@@ -31,8 +31,7 @@
     </li>
     <li><a href="#utilisation">Utilisation</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#licence">Licence</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#ressources">Ressources utilisés</a></li>
   </ol>
 </details>
 
@@ -80,9 +79,7 @@ EasySave est utilisable en Français et en Anglais
 <!-- Exemples -->
 ## Utilisation
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+Mettre des exemples par la suite.
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -102,16 +99,8 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- LICENCE -->
-## Licence
-
-Distribué sous la licence de "On doit trouver un nom". Voir `LICENSE.txt` pour plus d'information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- Remerciements -->
-## Remerciements
+<!-- Ressources utilisées -->
+## Ressources
 
 * [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
 * [Tutoriels Visual Studio | C#](https://learn.microsoft.com/fr-fr/visualstudio/get-started/csharp/?view=vs-2022)
