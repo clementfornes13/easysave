@@ -4,13 +4,13 @@ using System.IO;
 namespace EasySave
 {
     // Class for tests
-    class EasySave
+    /*class EasySave
     {
         static void Main(string[] args)
         {
             LogsFile mylog = new LogsFile();
         }
-    }
+    }*/
 
     class LogsFile
     {
