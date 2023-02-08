@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Choose save option" xml:space="preserve">
+    <value>Select what you want to do</value>
+  </data>
   <data name="Chosen language" xml:space="preserve">
     <value>Chosen language</value>
   </data>
+  <data name="Create save" xml:space="preserve">
+    <value>Create save (1)</value>
+  </data>
+  <data name="Delete save" xml:space="preserve">
+    <value>Delete save (2)</value>
+  </data>
   <data name="Destination path" xml:space="preserve">
     <value>Destination path</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error, enter again desired action</value>
+  </data>
+  <data name="Execute save" xml:space="preserve">
+    <value>Execute save (3)</value>
   </data>
   <data name="File name" xml:space="preserve">
     <value>File name</value>
