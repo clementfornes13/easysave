@@ -13,9 +13,9 @@ using System.Runtime.Remoting.Channels;
 
 namespace EasySave
 {
-    public class Console
+    public class ConsoleCLI
     {
-        ResourceManager rm = new ResourceManager("prosoft.Resources.Langue", typeof(Console).Assembly);
+        ResourceManager rm = new ResourceManager("prosoft.Resources.Langue", typeof(ConsoleCLI).Assembly);
 
         public void ChoixLangue()
         {
