@@ -1,42 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Diagnostics;
 
 namespace EasySave
 {
     class TransfertStatesItems
     {
-        private SaveFile m_file;
+        private SaveFiles m_files;
         private bool m_actualStates = false; //Active/Waiting
-        private uint m_elapsedTransfertTime = 0;
-        private uint m_remaingElapsedTime = 0;
+        private double m_elapsedTransfertTime;
+        private int m_nbFiles, m_nbFilesMoved;
 
-        public TransfertStatesItems(SaveFile file)
+        public TransfertStatesItems(SaveFiles files)
         {
-            m_file = file;
-            //Calc Transfert Time ??
-            m_remaingElapsedTime = file.TransfertTime;
+            m_files = files;
+            m_nbFiles = files.Names.Length;
         }
 
-        public void MoveFromTo ()
+        public void BackUp()
         {
-            string sourceFile = System.IO.Path.Combine(m_file.PathFrom, m_file.Name);
-            string targetFile = System.IO.Path.Combine(m_file.PathTo, m_file.Name);
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start(); //Starting the timed for the log file
+
+            if (!System.IO.Directory.Exists(m_files.PathTo))
+            {
+                System.IO.Directory.CreateDirectory(m_files.PathTo);
+            }
 
             m_actualStates = true;
-            try
+            foreach (string name in m_files.Names)
             {
-                System.IO.File.Copy(sourceFile, targetFile);
+                string sourceFile = System.IO.Path.Combine(m_files.PathFrom, name);
+                string targetFile = System.IO.Path.Combine(m_files.PathTo, name);
+
+                try
+                {
+                    System.IO.File.Copy(sourceFile, targetFile);
+                }
+                catch (Exception e) { Console.Error.Write(e.ToString()); }
+
+                m_elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
+                m_nbFilesMoved++;
             }
-            catch (Exception e) { Console.Error.Write(e.ToString()); }
+            stopwatch.Stop();
             m_actualStates = false;
         }
         public bool ActualStates { get => m_actualStates; set => m_actualStates = value; }
-        public uint ElapsedTransfertTime { get => m_elapsedTransfertTime; set => m_elapsedTransfertTime = value; }
-        public uint RemaingElapsedTime { get => m_remaingElapsedTime; set => m_remaingElapsedTime = value; }
-        internal SaveFile File { get => m_file;}
+        public double ElapsedTransfertTime { get => m_elapsedTransfertTime; }
+        internal SaveFiles File { get => m_files; }
+        public int NbFiles { get => m_nbFiles; set => m_nbFiles = value; }
+        public int NbFilesMoved { get => m_nbFilesMoved; set => m_nbFilesMoved = value; }
     }
 }
