@@ -15,7 +15,16 @@ namespace EasySave
 {
     public class ConsoleCLI
     {
+        private string SaveChoix = "";
+        private string CreatePath = "";
+        private string DeletePath = "";
+        private string ExecutePath = "";
         ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(ConsoleCLI).Assembly);
+
+        public string SaveChoix1 { get => SaveChoix;}
+        public string CreatePath1 { get => CreatePath; }
+        public string DeletePath1 { get => DeletePath; }
+        public string ExecutePath1 { get => ExecutePath;}
 
         public void ChoixLangue()
         {
@@ -46,37 +55,70 @@ namespace EasySave
 
         public void ChoixSave()
         {
-            string SaveChoix = "0";
-            do
-            {
-                Console.WriteLine("\n");
-                Console.WriteLine(rm.GetString("Choose save option"));
-                Console.WriteLine("\n");
-                Console.WriteLine(rm.GetString("Create save"));
-                Console.WriteLine("\n");
-                Console.WriteLine(rm.GetString("Delete save"));
-                Console.WriteLine("\n");
-                Console.WriteLine(rm.GetString("Execute save"));
-                Console.WriteLine("\n");
-                SaveChoix = Console.ReadLine();
-                if (SaveChoix == "1")
-                {
-                    Console.WriteLine(rm.GetString("Create choice"));
-                }
-                else if (SaveChoix == "2")
-                {
-                    Console.WriteLine(rm.GetString("Delete choice"));
-                }
-                else if (SaveChoix == "3")
-                {
-                    Console.WriteLine(rm.GetString("Execute choice"));
-                }
-                else
-                {
-                    Console.WriteLine(rm.GetString("Error"));
-                }
 
-            } while (SaveChoix != "1" && SaveChoix != "2" && SaveChoix != "3");
+            Console.WriteLine("\n");
+            Console.WriteLine(rm.GetString("Choose save option"));
+            Console.WriteLine("\n");
+            Console.WriteLine(rm.GetString("Create save"));
+            Console.WriteLine("\n");
+            Console.WriteLine(rm.GetString("Delete save"));
+            Console.WriteLine("\n");
+            Console.WriteLine(rm.GetString("Execute save"));
+            Console.WriteLine("\n");
+            SaveChoix1 = Console.ReadLine();
+            switch (SaveChoix1)
+            {
+                case "1":
+                    Console.WriteLine(rm.GetString("Create choice"));
+                    Console.WriteLine(rm.GetString("Create path"));
+                    Console.WriteLine("\tC:\\...\\...");
+                    CreatePath1 = Console.ReadLine();
+                    switch (Directory.Exists(CreatePath1))
+                    {
+                        case true:
+                            break;
+                        case false:
+                            Console.WriteLine(rm.GetString("Invalid path"));
+                            ChoixSave();
+                            break;
+                    }
+                    break;
+                case "2":
+                    Console.WriteLine(rm.GetString("Delete choice"));
+                    Console.WriteLine(rm.GetString("Delete path"));
+                    Console.WriteLine("\tC:\\...\\...");
+                    DeletePath1 = Console.ReadLine();
+                    switch (Directory.Exists(DeletePath1))
+                    {
+                        case true:
+                            break;
+                        case false:
+                            Console.WriteLine(rm.GetString("Invalid path"));
+                            ChoixSave();
+                            break;
+                    }
+                    break;
+                case "3":
+                    Console.WriteLine(rm.GetString("Execute choice"));
+                    Console.WriteLine(rm.GetString("Execute path"));
+                    Console.WriteLine("\tC:\\...\\...");
+                    ExecutePath1 = Console.ReadLine();
+                    switch (Directory.Exists(ExecutePath1))
+                    {
+                        case true:
+                            break;
+                        case false:
+                            Console.WriteLine(rm.GetString("Invalid path"));
+                            ChoixSave();
+                            break;
+                    }
+                    break;
+                default:
+                    Console.WriteLine(rm.GetString("Error"));
+                    ChoixSave();
+                    break;
+            }
         }
+
     }
 }

@@ -123,8 +123,20 @@
   <data name="Chosen language" xml:space="preserve">
     <value>Chosen language</value>
   </data>
+  <data name="Create choice" xml:space="preserve">
+    <value>-&gt; You have chosen to create a save</value>
+  </data>
+  <data name="Create path" xml:space="preserve">
+    <value>-&gt; Enter the path where you want to create the save </value>
+  </data>
   <data name="Create save" xml:space="preserve">
-    <value>-&gt;Create save (1)</value>
+    <value>-&gt; Create save (1)</value>
+  </data>
+  <data name="Delete choice" xml:space="preserve">
+    <value>-&gt; You have chosen to delete a save</value>
+  </data>
+  <data name="Delete path" xml:space="preserve">
+    <value>-&gt; Enter the path where the save to delete is located</value>
   </data>
   <data name="Delete save" xml:space="preserve">
     <value>-&gt; Delete save (2)</value>
@@ -133,13 +145,25 @@
     <value>Destination path</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error, enter again desired action</value>
+    <value>/!\ Error, enter desired action again /!\</value>
+  </data>
+  <data name="Execute choice" xml:space="preserve">
+    <value>-&gt; You have chosen to execute a save</value>
+  </data>
+  <data name="Execute path" xml:space="preserve">
+    <value>-&gt; Enter path where save to execute is located</value>
   </data>
   <data name="Execute save" xml:space="preserve">
     <value>-&gt; Execute save (3)</value>
   </data>
   <data name="File name" xml:space="preserve">
     <value>File name</value>
+  </data>
+  <data name="Invalid path" xml:space="preserve">
+    <value>/!\ Error, invalid path /!\</value>
+  </data>
+  <data name="Langue choice" xml:space="preserve">
+    <value>-&gt; You have chosen English</value>
   </data>
   <data name="Select files" xml:space="preserve">
     <value>Select files</value>
