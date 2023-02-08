@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Resources;
 
 namespace EasySave
 
@@ -13,6 +14,7 @@ namespace EasySave
         private ConsoleCLI m_cli;
         private List<SaveFiles> m_workingFiles = new List<SaveFiles>();
         private List<TransfertStatesItems> m_transferts = new List<TransfertStatesItems>();
+        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         public Controller()
         {
             while (true)
@@ -20,7 +22,6 @@ namespace EasySave
                 createUI(); //Summon UI to get choice
             }
         }
-
         private void createUI() // clement
         {
             if (m_cli == null)
@@ -70,7 +71,7 @@ namespace EasySave
         {
             if (m_workingFiles.Count >= 5)
             {
-                Console.WriteLine("Can't Have more than 5 working project delete one if you need to add one.");
+                Console.WriteLine(rm.GetString("Max 5 work"));
             }
             else
             {
@@ -108,9 +109,9 @@ namespace EasySave
                 if (file.PathFrom == m_cli.ExecutePath1)
                 {
                     m_transferts.Add(new TransfertStatesItems(file));
-                    Console.WriteLine("Beginning backUp of files...");
+                    Console.WriteLine(rm.GetString("BeginBackup"));
                     m_transferts[m_transferts.Count-1].BackUp();
-                    Console.Write($"Done in {0}", m_transferts[m_transferts.Count-1].ElapsedTransfertTime);
+                    Console.Write(rm.GetString($"BackupTime {0}"), m_transferts[m_transferts.Count-1].ElapsedTransfertTime);
                 }
             }
         }

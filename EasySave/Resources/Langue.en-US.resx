@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BackMenu" xml:space="preserve">
-    <value>-&gt; Back to language selection (0)</value>
+  <data name="BackupTime" xml:space="preserve">
+    <value>------Time left :</value>
+  </data>
+  <data name="BeginBackup" xml:space="preserve">
+    <value>-------- Backup files processing --------</value>
   </data>
   <data name="BlankOrInvalid" xml:space="preserve">
     <value>-&gt; Invalid path or blank, a folder will be created automatically, continue ? (Y/N)</value>
@@ -141,6 +144,9 @@
   <data name="Delete save" xml:space="preserve">
     <value>-&gt; Delete save (2)</value>
   </data>
+  <data name="DirectoryError" xml:space="preserve">
+    <value>/!\ Directory not found /!\</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>/!\ Error, enter desired action again /!\</value>
   </data>
@@ -161,6 +167,9 @@
   </data>
   <data name="Langue choice" xml:space="preserve">
     <value>-&gt; You have chosen English</value>
+  </data>
+  <data name="Max 5 work" xml:space="preserve">
+    <value>You can't have more than 5 working project, you have to delete or move at least 1</value>
   </data>
   <data name="pathFrom" xml:space="preserve">
     <value>-&gt; Enter the path where is located the folder to save</value>

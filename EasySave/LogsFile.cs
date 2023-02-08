@@ -1,15 +1,16 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.IO;
+using System.Resources;
 
 namespace EasySave
 {
 
     class LogsFile
     {
+        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         // Variable definitions
         private string logsFilePath = System.Environment.CurrentDirectory + @"\Logs\";
-
         // A NE PAS ENLEVER
         //private string logsFileName = "Log {0}.csv";
         // private StreamWriter writingStream;
@@ -23,17 +24,14 @@ namespace EasySave
                 Directory.CreateDirectory(logsFilePath);
             }
         }
-
         public bool WriteLogJson(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
         {
             try
             {
                 CreateDirectory();
-
                 // Define the path to take 
                 string formattedDate = DateTime.Now.ToString("dd-MM-yyyy");
                 string filePath = Path.Combine(logsFilePath, string.Format("Log {0}.json", formattedDate));
-
                 // Create a log object with the provided information
                 var log = new
                 {
@@ -44,13 +42,10 @@ namespace EasySave
                     SizeFile = sizeFile,
                     TransferTime = transferTime
                 };
-
                 // Serialize the log object to JSON format
                 string logJson = JsonConvert.SerializeObject(log, Formatting.Indented);
-
                 // Write the JSON string to the file
                 File.AppendAllText(filePath, logJson);
-
                 return true;
             }
             catch (Exception e)
@@ -59,7 +54,6 @@ namespace EasySave
                 return false;
             }
         }
-
         //////////////////////////////////////////////////////////////////////
         //Création d'un fichier .Csv à garder pour les prochaines versions
         //////////////////////////////////////////////////////////////////////

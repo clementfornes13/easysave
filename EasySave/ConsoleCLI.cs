@@ -16,6 +16,7 @@ namespace EasySave
 {
     public class ConsoleCLI
     {
+        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         private string SaveChoix = "";
         private string PathFrom = "";
         private string DeletePath = "";
@@ -23,7 +24,6 @@ namespace EasySave
         private string PathTo = "";
         private string LangueChoix = "";
         private string ContinueBlank = "";
-        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(ConsoleCLI).Assembly);
 
         public string SaveChoix1 { get => SaveChoix; }
         public string PathFrom1 { get => PathFrom; }
@@ -33,6 +33,7 @@ namespace EasySave
         public string LangueChoix1 { get => LangueChoix; }
         public bool ChoixLangue()
         {
+            //Setting up the language French or English of the program
             Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
             Console.WriteLine("-> Choisir la langue désirée : Anglais (0), Français (1) : ");
             Console.WriteLine("-> Choose desired language : English (0), French (1) : \n");
@@ -56,7 +57,7 @@ namespace EasySave
             }
         }
 
-        //Return an INT for the action commanded :
+        //Return an int for the desired action :
         //1 for create working file
         //2 for delete
         //3 for execute
@@ -65,8 +66,6 @@ namespace EasySave
             Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("Choose save option"));
             Console.WriteLine("\n");
-//            Console.WriteLine(rm.GetString("BackMenu"));
-//            Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("Create save"));
             Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("Delete save"));
@@ -75,10 +74,11 @@ namespace EasySave
             Console.WriteLine("\n");
             Console.WriteLine(rm.GetString("ExitProgram"));
             Console.WriteLine("\n");
+            Console.WriteLine("-------------------------------------------------");
             SaveChoix = Console.ReadLine();
             switch (SaveChoix)
             {
-                case "1":
+                case "1"://Create
                     Console.WriteLine(rm.GetString("Create choice"));
                     Console.WriteLine(rm.GetString("pathFrom"));
                     Console.WriteLine("\tC:\\...\\...");
@@ -114,7 +114,7 @@ namespace EasySave
                         default:
                             return 0;
                     }
-                case "2":
+                case "2": //Delete
                     Console.WriteLine(rm.GetString("Delete choice"));
                     Console.WriteLine(rm.GetString("Delete path"));
                     Console.WriteLine("\tC:\\...\\...");
@@ -129,7 +129,7 @@ namespace EasySave
                         default:
                             return 0;
                     }
-                case "3":
+                case "3": //Execute
                     Console.WriteLine(rm.GetString("Execute choice"));
                     Console.WriteLine(rm.GetString("Execute path"));
                     Console.WriteLine("\tC:\\...\\...");
@@ -144,7 +144,7 @@ namespace EasySave
                         default:
                             return 0;
                     }
-                case "4":
+                case "4": //Quit the program
                     System.Environment.Exit(0);
                     return 0;
                 default:
