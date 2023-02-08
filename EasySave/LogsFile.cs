@@ -3,14 +3,6 @@ using System.IO;
 
 namespace EasySave
 {
-    // Class for tests
-    /*class EasySave
-    {
-        static void Main(string[] args)
-        {
-            LogsFile mylog = new LogsFile();
-        }
-    }*/
 
     class LogsFile
     {
@@ -18,17 +10,6 @@ namespace EasySave
         private string logsFilePath = System.Environment.CurrentDirectory + @"\Logs\";
         private string logsFileName = "Log {0}.csv";
         private StreamWriter writingStream;
-
-        public LogsFile()
-        {
-            string name = "name 2";
-            string pathFrom = "from 2";
-            string pathTo = "to 2";
-            string sizeFile = "sizefile 2";
-            string transferTime = "transfertTime 2";
-
-            WriteLog(name, pathFrom, pathTo, sizeFile, transferTime);
-        }
 
         // Create a Logs folder
         private void CreateDirectory()
