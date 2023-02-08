@@ -8,7 +8,7 @@ using System.IO;
 namespace EasySave
 {
 
-   /* class EasySave
+    /*class EasySave
      {
          static void Main(string[] args)
          {
@@ -51,10 +51,7 @@ namespace EasySave
                 DirectoryInfo di = Directory.CreateDirectory(LogsFilePath); //Function that creates the folder
             }
 
-
             string filePath = System.Environment.CurrentDirectory + @"\Logs\Log " + formattedDate + ".csv";
-            Console.WriteLine(filePath);
-            Console.ReadKey();
 
             try
             {
@@ -63,7 +60,7 @@ namespace EasySave
                 {
                     File.Create(filePath).Close();
                     WritingStream = new StreamWriter(filePath, true);
-                    WritingStream.WriteLine("Horodatage; name; Chemin source; Chemin destination; Taille du fichier; Temps de transfert");
+                    WritingStream.WriteLine("Timestamp;Name;Source path;Destination path;File size;Transfer time");
                     WritingStream.Close();
                     return true;
                 }
@@ -99,7 +96,7 @@ namespace EasySave
                     WritingStream = new StreamWriter(filePath, true);
 
                     // Write log entries
-                    WritingStream.WriteLine(DateTime.Now + " ; " + name + " ; " + pathfrom + " ; " + pathto + " ; " + sizefile + " ; " + transfertTime);
+                    WritingStream.WriteLine(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f") + ";" + name + ";" + pathfrom + ";" + pathto + ";" + sizefile + ";" + transfertTime);
 
                     // Close the write stream
                     WritingStream.Close();
