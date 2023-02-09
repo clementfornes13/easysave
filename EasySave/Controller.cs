@@ -22,7 +22,12 @@ namespace EasySave
                 createUI(); //Summon UI to get choice
             }
         }
+<<<<<<< HEAD
+
+        private void createUI()
+=======
         private void createUI() // clement
+>>>>>>> a48608295374b548ca5684545fc532a36528881b
         {
             if (m_cli == null)
             {
@@ -67,7 +72,7 @@ namespace EasySave
             }
         }
 
-        private void addWorkingFiles() //Thomas - Jordan
+        private void addWorkingFiles()
         {
             if (m_workingFiles.Count >= 5)
             {
