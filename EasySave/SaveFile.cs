@@ -1,22 +1,22 @@
 ﻿using System;
 using System.IO;
+using System.Resources;
 
 namespace EasySave
 {
 
     class SaveFiles
     {
+        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         private string[] m_names; //file.co
         private string m_pathFrom, m_pathTo; //C:/dir/dir/dir
         private long totalSizeFile = 0;
-
         public SaveFiles(string pathFrom)
         {
             m_pathFrom = pathFrom;
             //Initialise un repertoire pour la backup si non-spécifié par l'utilisateur.
             //Utilise l'ID du thread comme clef unique du job
-            m_pathTo = System.Environment.CurrentDirectory + @"\backUps\" + System.Threading.Thread.CurrentThread.ManagedThreadId;
-
+            m_pathTo = System.Environment.CurrentDirectory + @"\Backups\" + System.Threading.Thread.CurrentThread.ManagedThreadId;
             init();
             calcSizeFiles();
         }
@@ -24,26 +24,22 @@ namespace EasySave
         {
             m_pathFrom = pathFrom;
             m_pathTo = pathTo;
-
             init();
             calcSizeFiles();
         }
-
         private void init()
         {
             //Need to make a feature for subdirectory
             m_names = System.IO.Directory.GetFiles(m_pathFrom);
             if (m_names.Length == 0)
             {
-                throw new DirectoryNotFoundException("ERROR 404 : Directory Not Found ! " + m_pathFrom);
+                throw new DirectoryNotFoundException(rm.GetString("DirectoryError" + m_pathFrom));
             }
-            
         }
         ~SaveFiles()
         {
             //File.close();
         }
-
         public void calcSizeFiles()
         {
             FileInfo fileData;
@@ -64,7 +60,6 @@ namespace EasySave
             LogsFile myLog = new LogsFile();
             myLog.WriteLogJson(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog,  transferTime);
         }
-
         public string[] Names { get => m_names; }
         public string PathFrom { get => m_pathFrom; set => m_pathFrom = value; }
         public string PathTo { get => m_pathTo; set => m_pathTo = value; }

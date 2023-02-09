@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Resources;
 
 namespace EasySave
 {
     class TransfertStatesItems
     {
+        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         private SaveFiles m_files;
         private bool m_actualStates = false; //Active/Waiting
         private double m_elapsedTransfertTime;
