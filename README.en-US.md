@@ -114,4 +114,4 @@ Add examples
 
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: EasySave/Images/capture.png
+[product-screenshot]: EasySave/Images/capture.en-US.png
