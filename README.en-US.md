@@ -1,4 +1,8 @@
 <a name="readme-top"></a>
+
+[![en-US](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eystone/prosoft/blob/main/README.en-US.md)
+[![fr-FR](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/eystone/prosoft/blob/main/README.md)
+
 <!-- LOGO PROJET -->
 <br />
 <div align="center">
@@ -15,46 +19,46 @@
 </div>
 
 
-<!-- SOMMAIRE -->
+<!-- Table of contents -->
 <details>
-  <summary>Sommaire</summary>
+  <summary>Table of contents</summary>
   <ol>
     <li>
-      <a href="#a-propos">A propos</a>
+      <a href="#About the project">About the project</a>
     </li>
     <li>
-      <a href="#mise-en-place">Mise en place</a>
+      <a href="#Getting started">Getting started</a>
       <ul>
-        <li><a href="#prerequis">Pré-requis</a></li>
+        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#utilisation">Utilisation</a></li>
+    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#ressources">Ressources utilisés</a></li>
+    <li><a href="#resources">Resources</a></li>
   </ol>
 </details>
 
 
-<!-- A propos -->
-## A propos
+<!-- About the project -->
+## About the project
 
-![Capture d'écran du projet][product-screenshot]
+![Project screen][product-screenshot]
 
-EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
-EasySave est utilisable en Français et en Anglais
+EasySave is a console program that allows users to create, delete and execute saved files. 
+The program supports English and French languages.
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 
-<!-- Mise en place -->
-## Mise en place
+<!-- Getting started -->
+## Getting started
 
-### Pré-requis
+### Prerequisites
 
     Windows
-    .NET Framework installé
-    Json.NET Framework installé
+    .NET Framework installed
+    Json.NET Framework installed
 
 * Json.NET
   ```sh
@@ -68,44 +72,44 @@ EasySave est utilisable en Français et en Anglais
    ```sh
    git clone https://github.com/eystone/prosoft.git
    ```
-2. Installer Json.NET Framework
+2. Install Json.NET Framework
    ```sh
    dotnet add package Newtonsoft.Json --version 13.0.2
    ```
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 
-<!-- Exemples -->
-## Utilisation
+<!-- Examples -->
+## Usage
 
-Mettre des exemples par la suite.
+Add examples
 
-<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Possibilité de sauvegarder un travail
-- [x] Ajout des logs
-- [x] Possibilité de supprimer un travail
-- [x] Possibilité d'exécuter un travail
-- [x] Support de plusieurs langues
-    - [x] Français
-    - [x] Anglais
-- [ ] Application WPF
+- [x] Save file option
+- [x] Logs
+- [x] Delete file option
+- [x] Execute file option
+- [x] Multi-language support
+    - [x] French
+    - [x] English
+- [ ] WPF Application
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 
-<!-- Ressources utilisées -->
-## Ressources
+<!-- Resources -->
+## Resources
 
 * [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
 * [Tutoriels Visual Studio | C#](https://learn.microsoft.com/fr-fr/visualstudio/get-started/csharp/?view=vs-2022)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 
 <!-- Lien et images -->

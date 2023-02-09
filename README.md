@@ -100,7 +100,7 @@ Mettre des exemples par la suite.
     - [x] Anglais
 - [ ] Application WPF
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 
 <!-- Ressources utilisées -->
@@ -109,7 +109,7 @@ Mettre des exemples par la suite.
 * [Json.NET Documentation](https://www.newtonsoft.com/json/help/html/Introduction.htm)
 * [Tutoriels Visual Studio | C#](https://learn.microsoft.com/fr-fr/visualstudio/get-started/csharp/?view=vs-2022)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
 
 <!-- Lien et images -->
