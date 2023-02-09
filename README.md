@@ -1,6 +1,5 @@
 <a name="readme-top"></a>
 
-# Changement langues
 [![fr-FR](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/eystone/prosoft/blob/main/README.md)
 [![en-US](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/jonatasemidio/multilanguage-readme-pattern/blob/master/README.pt-br.md)
 
