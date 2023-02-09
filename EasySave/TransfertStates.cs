@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Resources;
+using System.IO;
 
 namespace EasySave
 {
@@ -15,7 +16,7 @@ namespace EasySave
         public TransfertStatesItems(SaveFiles files)
         {
             m_files = files;
-            m_nbFiles = files.Names.Length;
+            m_nbFiles = files.Files.Count;
         }
 
         public void BackUp()
@@ -29,14 +30,13 @@ namespace EasySave
             }
 
             m_actualStates = true;
-            foreach (string name in m_files.Names)
+            foreach (FileInfo file in m_files.Files)
             {
-                string sourceFile = System.IO.Path.Combine(m_files.PathFrom, name);
-                string targetFile = System.IO.Path.Combine(m_files.PathTo, name);
+                string targetFile = System.IO.Path.Combine(m_files.PathTo, file.Name);
 
                 try
                 {
-                    System.IO.File.Copy(sourceFile, targetFile);
+                    file.CopyTo(targetFile);
                 }
                 catch (Exception e) { Console.Error.Write(e.ToString()); }
 

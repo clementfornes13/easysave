@@ -22,12 +22,8 @@ namespace EasySave
                 createUI(); //Summon UI to get choice
             }
         }
-<<<<<<< HEAD
 
         private void createUI()
-=======
-        private void createUI() // clement
->>>>>>> a48608295374b548ca5684545fc532a36528881b
         {
             if (m_cli == null)
             {
@@ -116,7 +112,7 @@ namespace EasySave
                     m_transferts.Add(new TransfertStatesItems(file));
                     Console.WriteLine(rm.GetString("BeginBackup"));
                     m_transferts[m_transferts.Count-1].BackUp();
-                    Console.Write(rm.GetString($"BackupTime {0}"), m_transferts[m_transferts.Count-1].ElapsedTransfertTime);
+                    Console.Write(rm.GetString("BackupTime") + $"{m_transferts[m_transferts.Count - 1].ElapsedTransfertTime}" + "s");
                 }
             }
         }

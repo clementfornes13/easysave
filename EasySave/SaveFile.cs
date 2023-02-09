@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 
@@ -8,7 +9,8 @@ namespace EasySave
     class SaveFiles
     {
         ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
-        private string[] m_names; //file.co
+        private List<FileInfo> m_files = new List<FileInfo>();
+        private List<DirectoryInfo> subDirs = new List<DirectoryInfo>();
         private string m_pathFrom, m_pathTo; //C:/dir/dir/dir
         private long totalSizeFile = 0;
         public SaveFiles(string pathFrom)
@@ -30,11 +32,18 @@ namespace EasySave
         private void init()
         {
             //Need to make a feature for subdirectory
-            m_names = System.IO.Directory.GetFiles(m_pathFrom);
-            if (m_names.Length == 0)
+            string[] names = System.IO.Directory.GetFiles(m_pathFrom);
+            if (names.Length == 0)
             {
                 throw new DirectoryNotFoundException(rm.GetString("DirectoryError" + m_pathFrom));
             }
+            foreach (string filename in names)
+            {
+                m_files.Add(new FileInfo(filename));
+            }
+
+            DirectoryInfo dirFrom = new DirectoryInfo(m_pathFrom);
+            subDirs.CopyTo(dirFrom.GetDirectories());
         }
         ~SaveFiles()
         {
@@ -42,28 +51,35 @@ namespace EasySave
         }
         public void calcSizeFiles()
         {
-            FileInfo fileData;
-            foreach (string name in m_names)
+            foreach (FileInfo file in m_files)
             {
-                fileData = new FileInfo(System.IO.Path.Combine(m_pathFrom, name));
-                totalSizeFile += fileData.Length;
+                totalSizeFile += file.Length;
+            }
+            foreach (DirectoryInfo dir in subDirs)
+            {
+                FileInfo[] subFiles = dir.GetFiles();
+                foreach (FileInfo file in subFiles)
+                {
+                    totalSizeFile += file.Length;
+                }
             }
             Logging();
         }
         public void Logging()
         {
-            
+
             string m_nameLog = System.IO.Path.GetFileName(m_pathFrom);
             string totalSizeFileLog = totalSizeFile.ToString();
             string transferTime = "0";
 
             LogsFile myLog = new LogsFile();
-            myLog.WriteLogJson(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog,  transferTime);
+            myLog.WriteLogJson(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog, transferTime);
         }
-        public string[] Names { get => m_names; }
+        public List<FileInfo> Files { get => m_files; }
+        public List<DirectoryInfo> SubDirs { get => subDirs; }
         public string PathFrom { get => m_pathFrom; set => m_pathFrom = value; }
         public string PathTo { get => m_pathTo; set => m_pathTo = value; }
-        public long TotalSizeFile { get => totalSizeFile;}
+        public long TotalSizeFile { get => totalSizeFile; }
     }
 
 
