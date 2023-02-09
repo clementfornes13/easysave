@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 [![fr-FR](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/eystone/prosoft/blob/main/README.md)
-[![en-US](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/jonatasemidio/multilanguage-readme-pattern/blob/master/README.pt-br.md)
+[![en-US](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eystone/prosoft/blob/main/README.en-US.md)
 
 <!-- LOGO PROJET -->
 <br />
