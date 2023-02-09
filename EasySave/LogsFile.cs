@@ -11,9 +11,9 @@ namespace EasySave
         ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         // Variable definitions
         private string logsFilePath = System.Environment.CurrentDirectory + @"\Logs\";
-        // A NE PAS ENLEVER
-        //private string logsFileName = "Log {0}.csv";
-        // private StreamWriter writingStream;
+
+        private string logsFileName = "Log {0}.csv";
+        private StreamWriter writingStream;
 
         // Create a Logs folder
         private void CreateDirectory()
@@ -54,60 +54,55 @@ namespace EasySave
                 return false;
             }
         }
-        //////////////////////////////////////////////////////////////////////
-        //Création d'un fichier .Csv à garder pour les prochaines versions
-        //////////////////////////////////////////////////////////////////////
-        ///
-        /* private void CreateFile()
-         {
-             CreateDirectory();
 
-             // Define the path to take and the name of the log file
-             string formattedDate = DateTime.Now.ToString("dd-MM-yyyy");
-             string filePath = Path.Combine(logsFilePath, string.Format(logsFileName, formattedDate));
+        private void CreateFile()
+        {
+            CreateDirectory();
 
-             // Check if the file already exists
-             if (!File.Exists(filePath))
-             {
-                 using (writingStream = new StreamWriter(filePath, false))
-                 {
-                     // Write the header in the csv file
-                     writingStream.WriteLine("Time;Name;Source path;Destination path;File size;Transfer time");
-                 }
-             }*/
+            // Define the path to take and the name of the log file
+            string formattedDate = DateTime.Now.ToString("dd-MM-yyyy");
+            string filePath = Path.Combine(logsFilePath, string.Format(logsFileName, formattedDate));
 
-        //////////////////////////////////////////////////////////////////////
-        // Ecriture pour un fichier .Csv à garder pour les prochaines versions
-        //////////////////////////////////////////////////////////////////////
-        ///
-        /* public bool WriteLog(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
-         {
-             try
-             {
-                 CreateFile();
+            // Check if the file already exists
+            if (!File.Exists(filePath))
+            {
+                using (writingStream = new StreamWriter(filePath, false))
+                {
+                    // Write the header in the csv file
+                    writingStream.WriteLine("Time;Name;Source path;Destination path;File size;Transfer time");
+                }
+            }
 
-                 // Define the path to take 
-                 using (writingStream = new StreamWriter(Path.Combine(logsFilePath, string.Format(logsFileName, DateTime.Now.ToString("dd-MM-yyyy"))), true))
-                 {
-                     // Write the various information to the file
-                     writingStream.WriteLine(
-                         "{0};{1};{2};{3};{4};{5}",
-                         DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f"),
-                         name,
-                         pathFrom,
-                         pathTo,
-                         sizeFile,
-                         transferTime
-                     );
-                 }
+        }
+        public bool WriteLog(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
+        {
+            try
+            {
+                CreateFile();
 
-                 return true;
-             }
-             catch (Exception e)
-             {
-                 Console.Error.WriteLine(e);
-                 return false;
-             }
-         }*/
+                // Define the path to take 
+                using (writingStream = new StreamWriter(Path.Combine(logsFilePath, string.Format(logsFileName, DateTime.Now.ToString("dd-MM-yyyy"))), true))
+                {
+                    // Write the various information to the file
+                    writingStream.WriteLine(
+                        "{0};{1};{2};{3};{4};{5}",
+                        DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f"),
+                        name,
+                        pathFrom,
+                        pathTo,
+                        sizeFile,
+                        transferTime
+                    );
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+                return false;
+            }
+        }
+
     }
 }

@@ -22,8 +22,12 @@ namespace EasySave
                 createUI(); //Summon UI to get choice
             }
         }
+<<<<<<< HEAD
 
         private void createUI()
+=======
+        private void createUI() // clement
+>>>>>>> 5721d5bd59345c9a710a7eb7b12e99296ccde225
         {
             if (m_cli == null)
             {
