@@ -19,29 +19,64 @@ namespace EasySave
             m_nbFiles = files.Files.Count;
         }
 
+        //Make a fill copy
         public void BackUp()
         {
+            //Start a chrono ofr mesuring time elaspsed
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); //Starting the timed for the log file
 
-            if (!System.IO.Directory.Exists(m_files.PathTo))
+            //Create main directory
+            if (!Directory.Exists(m_files.PathTo))
             {
-                System.IO.Directory.CreateDirectory(m_files.PathTo);
+                Directory.CreateDirectory(m_files.PathTo);
             }
 
+            //Move Files
             m_actualStates = true;
             foreach (FileInfo file in m_files.Files)
             {
-                string targetFile = System.IO.Path.Combine(m_files.PathTo, file.Name);
+                string targetFile = Path.Combine(m_files.PathTo, file.Name);
 
                 try
                 {
-                    file.CopyTo(targetFile);
+                    if (!File.Exists(targetFile))
+                    {
+                        file.CopyTo(targetFile);
+                    }
                 }
                 catch (Exception e) { Console.Error.Write(e.ToString()); }
 
                 m_elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 m_nbFilesMoved++;
+            }
+
+            //Manage sub dir for copy
+            foreach (DirectoryInfo dir in m_files.SubDirs)
+            {
+                string targetdir = Path.Combine(m_files.PathTo, dir.Name);
+                if (!Directory.Exists(targetdir))
+                {
+                    Directory.CreateDirectory(targetdir);
+                }
+
+                FileInfo[] subFiles = dir.GetFiles();
+                foreach (FileInfo file in subFiles)
+                {
+                    string targetFile = Path.Combine(m_files.PathTo, file.Name);
+
+                    try
+                    {
+                        if (!File.Exists(targetFile))
+                        {
+                            file.CopyTo(targetFile);
+                        }
+                    }
+                    catch (Exception e) { Console.Error.Write(e.ToString()); }
+
+                    m_elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
+                    m_nbFilesMoved++;
+                }
             }
             stopwatch.Stop();
             m_actualStates = false;
@@ -50,7 +85,7 @@ namespace EasySave
 
         public void Loggin()
         {
-            string m_nameLog = System.IO.Path.GetFileName(m_files.PathFrom);
+            string m_nameLog = Path.GetFileName(m_files.PathFrom);
             string totalSizeFileLog = m_files.TotalSizeFile.ToString();
             string m_elapsedTransfertTimeLog = m_elapsedTransfertTime.ToString();
 
@@ -63,7 +98,7 @@ namespace EasySave
 
         public bool ActualStates { get => m_actualStates; set => m_actualStates = value; }
         public double ElapsedTransfertTime { get => m_elapsedTransfertTime; }
-        internal SaveFiles File { get => m_files; }
+        internal SaveFiles workingFile { get => m_files; }
         public int NbFiles { get => m_nbFiles; set => m_nbFiles = value; }
         public int NbFilesMoved { get => m_nbFilesMoved; set => m_nbFilesMoved = value; }
     }
