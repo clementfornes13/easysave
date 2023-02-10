@@ -12,8 +12,18 @@ namespace EasySave
         // Variable definitions
         private string logsFilePath = System.Environment.CurrentDirectory + @"\Logs\";
 
-        private string logsFileName = "Log {0}.csv";
+        private string logsFileName = "Log {0}.xml";
         private StreamWriter writingStream;
+
+        // Singleton
+        /*private static LogsFile obj;
+        private LogsFile(){}
+        public static LogsFile GetInstance()
+        {
+            if (obj == null)
+                obj = new LogsFile();
+            return obj;
+        }*/
 
         // Create a Logs folder
         private void CreateDirectory()
@@ -80,8 +90,8 @@ namespace EasySave
             {
                 using (writingStream = new StreamWriter(filePath, false))
                 {
-                    // Write the header in the csv file
-                    writingStream.WriteLine("Time;Name;Source path;Destination path;File size;Transfer time");
+                    // Write the header in the xml file
+                    writingStream.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                 }
             }
 
@@ -97,13 +107,15 @@ namespace EasySave
                 {
                     // Write the various information to the file
                     writingStream.WriteLine(
-                        "{0};{1};{2};{3};{4};{5}",
-                        DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f"),
-                        name,
-                        pathFrom,
-                        pathTo,
-                        sizeFile,
-                        transferTime
+                        "{0}{1}{2}{3}{4}{5}{6}{7}",
+                        "< LogsFile > \n" ,
+                        "\t< Time >" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f") + "< \\Time >\n",
+                        "\t< Name >" + name + "< \\Name >\n",
+                        "\t< PathFrom >" + pathFrom + "< \\PathFrom >\n",
+                        "\t< PathTo >" + pathTo + "< \\PathTo >\n",
+                        "\t< SizeFile >" + sizeFile + "< \\SizeFile >\n",
+                        "\t< TransfertTime >" + transferTime + "< \\TransfertTime >\n",
+                        "< \\LogsFile > \n"
                     );
                 }
 
