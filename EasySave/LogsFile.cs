@@ -29,23 +29,35 @@ namespace EasySave
             try
             {
                 CreateDirectory();
+
                 // Define the path to take 
                 string formattedDate = DateTime.Now.ToString("dd-MM-yyyy");
                 string filePath = Path.Combine(logsFilePath, string.Format("Log {0}.json", formattedDate));
+
                 // Create a log object with the provided information
                 var log = new
                 {
-                    Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f"),
                     Name = name,
                     SourcePath = pathFrom,
                     DestinationPath = pathTo,
                     SizeFile = sizeFile,
-                    TransferTime = transferTime
+                    TransferTime = transferTime,
+                    Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f")
                 };
+
                 // Serialize the log object to JSON format
                 string logJson = JsonConvert.SerializeObject(log, Formatting.Indented);
+
                 // Write the JSON string to the file
+                if (File.Exists(filePath))
+                {
+                    File.AppendAllText(filePath, ",");
+                    File.AppendAllText(filePath, "\n");
+                    
+                }
+                
                 File.AppendAllText(filePath, logJson);
+                
                 return true;
             }
             catch (Exception e)
