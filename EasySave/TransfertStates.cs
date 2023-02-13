@@ -89,11 +89,11 @@ namespace EasySave
             string totalSizeFileLog = m_files.TotalSizeFile.ToString();
             string m_elapsedTransfertTimeLog = m_elapsedTransfertTime.ToString();
 
-            LogsFile myLog = new LogsFile();
-            //Log Json
-            myLog.WriteLogJson(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
-            // Log CSV
-            myLog.WriteLog(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+            LogsFile JSONmyLogs = LogsFile.GetInstance(true);
+            LogsFile XMLmyLogs = LogsFile.GetInstance(true);
+
+            JSONmyLogs.WriteLog(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+            XMLmyLogs.WriteLog(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
         }
 
         public bool ActualStates { get => m_actualStates; set => m_actualStates = value; }

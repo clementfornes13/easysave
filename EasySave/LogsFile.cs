@@ -17,16 +17,18 @@ namespace EasySave
 
         // Singleton
         private static LogsFile xmlInstance, jsonInstance;
-        private static bool _jsonOrXml;
-        private LogsFile() { }
+        private readonly bool _jsonOrXml;
+        private LogsFile(bool jsonOrXML)
+        {
+            _jsonOrXml = jsonOrXML;
+        }
         public static LogsFile GetInstance(bool jsonOrXml)
         {
-            _jsonOrXml = jsonOrXml;
             if (jsonOrXml)
             {
                 if (jsonInstance == null)
                 {
-                    jsonInstance = new LogsFile();
+                    jsonInstance = new LogsFile(jsonOrXml);
                 }
                 return jsonInstance;
             }
@@ -34,7 +36,7 @@ namespace EasySave
             {
                 if (xmlInstance == null)
                 {
-                    xmlInstance = new LogsFile();
+                    xmlInstance = new LogsFile(jsonOrXml);
                 }
                 return xmlInstance;
             }
@@ -50,7 +52,20 @@ namespace EasySave
                 Directory.CreateDirectory(_logsFilePath);
             }
         }
-        public bool WriteLogJson(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+
+        public void WriteLog(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+        {
+            if (_jsonOrXml)
+            {
+                WriteLogJson(name, fileSource, fileTarget, sizeFile, transferTime);
+            }
+            else
+            {
+                WriteLogXml(name, fileSource, fileTarget, sizeFile, transferTime);
+            }
+        }
+
+        private void WriteLogJson(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
         {
             try
             {
@@ -84,12 +99,10 @@ namespace EasySave
 
                 File.AppendAllText(filePath, logJson);
 
-                return true;
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
-                return false;
             }
         }
 
@@ -112,7 +125,7 @@ namespace EasySave
             }
 
         }
-        public bool WriteLogXml(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+        private void WriteLogXml(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
 
         {
             try
@@ -125,7 +138,7 @@ namespace EasySave
                     // Write the various information to the file
                     _writingStream.WriteLine(
                         "{0}{1}{2}{3}{4}{5}{6}{7}",
-                        "< LogsFile > \n" ,
+                        "< LogsFile > \n",
                         "\t< Name >" + name + "< \\Name >\n",
                         "\t< FileSource >" + fileSource + "< \\FileSource >\n",
                         "\t< FileTarget >" + fileTarget + "< \\FileTarget >\n",
@@ -135,15 +148,11 @@ namespace EasySave
                         "< \\LogsFile > \n"
                     );
                 }
-
-                return true;
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
-                return false;
             }
         }
-
     }
 }
