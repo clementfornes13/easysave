@@ -37,13 +37,14 @@ namespace EasySave
             {
                 throw new DirectoryNotFoundException(rm.GetString("DirectoryError" + m_pathFrom));
             }
+
             foreach (string filename in names)
             {
                 m_files.Add(new FileInfo(filename));
             }
 
             DirectoryInfo dirFrom = new DirectoryInfo(m_pathFrom);
-            subDirs.CopyTo(dirFrom.GetDirectories());
+            subDirs = new List<DirectoryInfo>(dirFrom.GetDirectories());
         }
         ~SaveFiles()
         {

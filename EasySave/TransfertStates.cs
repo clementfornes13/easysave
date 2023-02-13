@@ -61,15 +61,17 @@ namespace EasySave
                 }
 
                 FileInfo[] subFiles = dir.GetFiles();
+                Console.WriteLine($"Found {subFiles.Length} files in the {dir.Name} subdir");
                 foreach (FileInfo file in subFiles)
                 {
-                    string targetFile = Path.Combine(m_files.PathTo, file.Name);
-
+                    string targetFile = Path.Combine(targetdir, file.Name);
+                    Console.WriteLine($"File {file.Name} written");
                     try
                     {
                         if (!File.Exists(targetFile))
                         {
                             file.CopyTo(targetFile);
+                            Console.WriteLine(targetFile);
                         }
                     }
                     catch (Exception e) { Console.Error.Write(e.ToString()); }
@@ -88,7 +90,11 @@ namespace EasySave
             string m_nameLog = Path.GetFileName(m_files.PathFrom);
             string totalSizeFileLog = m_files.TotalSizeFile.ToString();
             string m_elapsedTransfertTimeLog = m_elapsedTransfertTime.ToString();
+            //LogsFile JSONmyLOgs = LogsFile.getInstance(true);
+            //LogsFile XMLmyLOgs = LogsFile.getInstance(false);
 
+            //JSONmyLogs.writelogs();
+            //XMLmyLogs.writelogs();
             LogsFile myLog = new LogsFile();
             //Log Json
             myLog.WriteLogJson(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
