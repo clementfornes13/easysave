@@ -93,6 +93,7 @@ namespace EasySave
             //LogsFile JSONmyLOgs = LogsFile.getInstance(true);
             //LogsFile XMLmyLOgs = LogsFile.getInstance(false);
 
+<<<<<<< HEAD
             //JSONmyLogs.writelogs();
             //XMLmyLogs.writelogs();
             LogsFile myLog = new LogsFile();
@@ -100,6 +101,13 @@ namespace EasySave
             myLog.WriteLogJson(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
             // Log CSV
             myLog.WriteLog(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+=======
+            LogsFile JSONmyLogs = LogsFile.GetInstance(true);
+            LogsFile XMLmyLogs = LogsFile.GetInstance(true);
+
+            JSONmyLogs.WriteLog(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+            XMLmyLogs.WriteLog(m_nameLog, m_files.PathFrom, m_files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+>>>>>>> refs/remotes/origin/main
         }
 
         public bool ActualStates { get => m_actualStates; set => m_actualStates = value; }

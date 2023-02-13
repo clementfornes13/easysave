@@ -8,25 +8,27 @@ namespace EasySave
 
     class LogsFile
     {
-        ResourceManager rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
+        ResourceManager _rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         // Variable definitions
-        private string logsFilePath = System.Environment.CurrentDirectory + @"\Logs\";
+        private string _logsFilePath = System.Environment.CurrentDirectory + @"\Logs\";
 
-        private string logsFileName = "Log {0}.xml";
-        private StreamWriter writingStream;
+        private string _logsFileName = "Log {0}.xml";
+        private StreamWriter _writingStream;
 
         // Singleton
         private static LogsFile xmlInstance, jsonInstance;
-        private static bool m_jsonOrXml;
-        private LogsFile() { }
+        private readonly bool _jsonOrXml;
+        private LogsFile(bool jsonOrXML)
+        {
+            _jsonOrXml = jsonOrXML;
+        }
         public static LogsFile GetInstance(bool jsonOrXml)
         {
-            m_jsonOrXml = jsonOrXml;
             if (jsonOrXml)
             {
                 if (jsonInstance == null)
                 {
-                    jsonInstance = new LogsFile();
+                    jsonInstance = new LogsFile(jsonOrXml);
                 }
                 return jsonInstance;
             }
@@ -34,7 +36,7 @@ namespace EasySave
             {
                 if (xmlInstance == null)
                 {
-                    xmlInstance = new LogsFile();
+                    xmlInstance = new LogsFile(jsonOrXml);
                 }
                 return xmlInstance;
             }
@@ -45,12 +47,25 @@ namespace EasySave
         private void CreateDirectory()
         {
             // Check if the folder already exists
-            if (!Directory.Exists(logsFilePath))
+            if (!Directory.Exists(_logsFilePath))
             {
-                Directory.CreateDirectory(logsFilePath);
+                Directory.CreateDirectory(_logsFilePath);
             }
         }
-        public bool WriteLogJson(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
+
+        public void WriteLog(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+        {
+            if (_jsonOrXml)
+            {
+                WriteLogJson(name, fileSource, fileTarget, sizeFile, transferTime);
+            }
+            else
+            {
+                WriteLogXml(name, fileSource, fileTarget, sizeFile, transferTime);
+            }
+        }
+
+        private void WriteLogJson(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
         {
             try
             {
@@ -58,14 +73,14 @@ namespace EasySave
 
                 // Define the path to take 
                 string formattedDate = DateTime.Now.ToString("dd-MM-yyyy");
-                string filePath = Path.Combine(logsFilePath, string.Format("Log {0}.json", formattedDate));
+                string filePath = Path.Combine(_logsFilePath, string.Format("Log {0}.json", formattedDate));
 
                 // Create a log object with the provided information
                 var log = new
                 {
                     Name = name,
-                    SourcePath = pathFrom,
-                    DestinationPath = pathTo,
+                    SourcePath = fileSource,
+                    FileTarget = fileTarget,
                     SizeFile = sizeFile,
                     TransferTime = transferTime,
                     Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f")
@@ -84,12 +99,10 @@ namespace EasySave
 
                 File.AppendAllText(filePath, logJson);
 
-                return true;
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
-                return false;
             }
         }
 
@@ -99,50 +112,47 @@ namespace EasySave
 
             // Define the path to take and the name of the log file
             string formattedDate = DateTime.Now.ToString("dd-MM-yyyy");
-            string filePath = Path.Combine(logsFilePath, string.Format(logsFileName, formattedDate));
+            string filePath = Path.Combine(_logsFilePath, string.Format(_logsFileName, formattedDate));
 
             // Check if the file already exists
             if (!File.Exists(filePath))
             {
-                using (writingStream = new StreamWriter(filePath, false))
+                using (_writingStream = new StreamWriter(filePath, false))
                 {
                     // Write the header in the xml file
-                    writingStream.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+                    _writingStream.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
                 }
             }
 
         }
-        public bool WriteLogXml(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
+        private void WriteLogXml(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+
         {
             try
             {
                 CreateFile();
 
                 // Define the path to take 
-                using (writingStream = new StreamWriter(Path.Combine(logsFilePath, string.Format(logsFileName, DateTime.Now.ToString("dd-MM-yyyy"))), true))
+                using (_writingStream = new StreamWriter(Path.Combine(_logsFilePath, string.Format(_logsFileName, DateTime.Now.ToString("dd-MM-yyyy"))), true))
                 {
                     // Write the various information to the file
-                    writingStream.WriteLine(
+                    _writingStream.WriteLine(
                         "{0}{1}{2}{3}{4}{5}{6}{7}",
                         "< LogsFile > \n",
-                        "\t< Time >" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f") + "< \\Time >\n",
                         "\t< Name >" + name + "< \\Name >\n",
-                        "\t< PathFrom >" + pathFrom + "< \\PathFrom >\n",
-                        "\t< PathTo >" + pathTo + "< \\PathTo >\n",
+                        "\t< FileSource >" + fileSource + "< \\FileSource >\n",
+                        "\t< FileTarget >" + fileTarget + "< \\FileTarget >\n",
                         "\t< SizeFile >" + sizeFile + "< \\SizeFile >\n",
                         "\t< TransfertTime >" + transferTime + "< \\TransfertTime >\n",
+                        "\t< Time >" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f") + "< \\Time >\n",
                         "< \\LogsFile > \n"
                     );
                 }
-
-                return true;
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
-                return false;
             }
         }
-
     }
 }

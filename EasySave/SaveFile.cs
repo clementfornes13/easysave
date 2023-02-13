@@ -73,12 +73,13 @@ namespace EasySave
             string totalSizeFileLog = totalSizeFile.ToString();
             string transferTime = "0";
 
-            LogsFile myLog = new LogsFile();
-            // Log Json
-            myLog.WriteLogJson(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog,  transferTime);
-            // Log CSV
-            myLog.WriteLog(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog, transferTime);
+            LogsFile JSONmyLogs = LogsFile.GetInstance(true);
+            LogsFile XMLmyLogs = LogsFile.GetInstance(true);
+
+            JSONmyLogs.WriteLog(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog, transferTime);
+            XMLmyLogs.WriteLog(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog, transferTime);
         }
+
         public List<FileInfo> Files { get => m_files; }
         public List<DirectoryInfo> SubDirs { get => subDirs; }
         public string PathFrom { get => m_pathFrom; set => m_pathFrom = value; }
