@@ -16,14 +16,30 @@ namespace EasySave
         private StreamWriter writingStream;
 
         // Singleton
-        /*private static LogsFile obj;
-        private LogsFile(){}
-        public static LogsFile GetInstance()
+        private static LogsFile xmlInstance, jsonInstance;
+        private static bool m_jsonOrXml;
+        private LogsFile() { }
+        public static LogsFile GetInstance(bool jsonOrXml)
         {
-            if (obj == null)
-                obj = new LogsFile();
-            return obj;
-        }*/
+            m_jsonOrXml = jsonOrXml;
+            if (jsonOrXml)
+            {
+                if (jsonInstance == null)
+                {
+                    jsonInstance = new LogsFile();
+                }
+                return jsonInstance;
+            }
+            else
+            {
+                if (xmlInstance == null)
+                {
+                    xmlInstance = new LogsFile();
+                }
+                return xmlInstance;
+            }
+            //if (states logs)
+        }
 
         // Create a Logs folder
         private void CreateDirectory()
@@ -63,11 +79,11 @@ namespace EasySave
                 {
                     File.AppendAllText(filePath, ",");
                     File.AppendAllText(filePath, "\n");
-                    
+
                 }
-                
+
                 File.AppendAllText(filePath, logJson);
-                
+
                 return true;
             }
             catch (Exception e)
@@ -96,7 +112,7 @@ namespace EasySave
             }
 
         }
-        public bool WriteLog(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
+        public bool WriteLogXml(string name, string pathFrom, string pathTo, string sizeFile, string transferTime)
         {
             try
             {
@@ -108,7 +124,7 @@ namespace EasySave
                     // Write the various information to the file
                     writingStream.WriteLine(
                         "{0}{1}{2}{3}{4}{5}{6}{7}",
-                        "< LogsFile > \n" ,
+                        "< LogsFile > \n",
                         "\t< Time >" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f") + "< \\Time >\n",
                         "\t< Name >" + name + "< \\Name >\n",
                         "\t< PathFrom >" + pathFrom + "< \\PathFrom >\n",
