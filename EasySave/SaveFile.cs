@@ -74,7 +74,7 @@ namespace EasySave
             string transferTime = "0";
 
             LogsFile JSONmyLogs = LogsFile.GetInstance(true);
-            LogsFile XMLmyLogs = LogsFile.GetInstance(true);
+            LogsFile XMLmyLogs = LogsFile.GetInstance(false);
 
             JSONmyLogs.WriteLog(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog, transferTime);
             XMLmyLogs.WriteLog(m_nameLog, m_pathFrom, m_pathTo, totalSizeFileLog, transferTime);
