@@ -48,18 +48,37 @@ namespace WpfApp
         }
         public void CreateButtonClick(object sender, RoutedEventArgs e)
         {
+            string typesave = "";
+            if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
+            {
+                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                return;
+            }
+            if (DifferentialCheckBox.IsChecked == true && SequentialCheckBox.IsChecked == true)
+            {
+                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                return;
+            }
+            if (DifferentialCheckBox.IsChecked == true)
+            {
+                typesave = "Différentiel";
+            }
+            else
+            {
+                typesave = "Séquentiel";
+            }
             Jobs job = new Jobs
             {
                 Nom = NameTextBox.Text,
                 Source = TextBlockSource.Text,
                 Destination = TextBlockDestination.Text,
                 Cryptosoft = CryptoSoftCheckBox.IsChecked == true,
+                Type = typesave,
                 Progressbar = 0,
                 Checkbox = false
             };
             JobsProps.Add(job);
             SaveJobsPropsToCsv();
-
         }
         private void GotFocusName(object sender, RoutedEventArgs e)
         {
@@ -79,14 +98,15 @@ namespace WpfApp
         {
             using (var writer = new StreamWriter(CsvFilePath))
             {
-                writer.WriteLine("Nom,Source,Destination,Cryptosoft,Progressbar,Checkbox");
+                writer.WriteLine("Nom,Source,Destination,Cryptosoft,Type,Progressbar,Checkbox");
                 foreach (var job in JobsProps)
                 {
-                    writer.WriteLine(job.Nom + "," 
-                        + job.Source + "," 
-                        + job.Destination + "," 
-                        + job.Cryptosoft + "," 
-                        + job.Progressbar + "," 
+                    writer.WriteLine(job.Nom + ","
+                        + job.Source + ","
+                        + job.Destination + ","
+                        + job.Cryptosoft + ","
+                        + job.Type + ","
+                        + job.Progressbar + ","
                         + job.Checkbox);
                 }
             }

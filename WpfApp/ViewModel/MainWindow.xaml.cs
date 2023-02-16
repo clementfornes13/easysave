@@ -76,8 +76,9 @@ namespace WpfApp
                 job.Source = props[1];
                 job.Destination = props[2];
                 job.Cryptosoft = bool.Parse(props[3]);
-                job.Progressbar = double.Parse(props[4]);
-                job.Checkbox = bool.Parse(props[5]);
+                job.Type= props[4];
+                job.Progressbar = double.Parse(props[5]);
+                job.Checkbox = bool.Parse(props[6]);
                 CreateWindow.JobsProps.Add(job);
             }
             JobsGrid.ItemsSource = CreateWindow.JobsProps;
@@ -105,6 +106,7 @@ namespace WpfApp
         public bool Cryptosoft { get; set; }
         public double Progressbar { get; set; }
         public bool Checkbox { get; set; }
+        public string Type { get; set; }
     }
     public static class GridFromTo
     {
