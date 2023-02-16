@@ -7,6 +7,7 @@ namespace WpfApp
     public partial class SettingsWindow : Window
     {
         private const string CsvFilePath = "extensions.csv";
+
         public SettingsWindow()
         {
             InitializeComponent();
@@ -25,6 +26,15 @@ namespace WpfApp
             {
                 extension = "." + extension;
             }
+            foreach (Extensions item in ExtensionsGrid.Items)
+            {
+                if (item.extension == extension)
+                {
+                    ExtensionLabelError.Content = "Extensions déjà ajoutée";
+                    ExtensionLabelSuccess.Content = null;
+                    return;
+                }
+            }
             ExtensionsGrid.Items.Add(new Extensions { extension = extension });
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
@@ -41,10 +51,7 @@ namespace WpfApp
         }
         private void GotFocusExtension(object sender, RoutedEventArgs e)
         {
-            if (ExtensionBox != null)
-            {
-                ExtensionBox.Text = null;
-            }
+            ExtensionBox.Text = "";
         }
         private void SaveExtensionsToCsv()
         {
@@ -58,7 +65,7 @@ namespace WpfApp
         }
         private void LoadExtensionsFromCsv()
         {
-            try
+            if (File.Exists(CsvFilePath))
             {
                 using (StreamReader reader = new StreamReader(CsvFilePath))
                 {
@@ -69,9 +76,10 @@ namespace WpfApp
                     }
                 }
             }
-            catch (FileNotFoundException)
-            {
-            }
+        }
+        public void SaveMaxTransfertButtonClick(object sender, RoutedEventArgs e)
+        {
+
         }
         public void BackMenuButtonClickSettings(object sender, RoutedEventArgs e)
         {

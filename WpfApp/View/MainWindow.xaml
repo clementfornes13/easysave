@@ -19,7 +19,7 @@
 
         <Grid Grid.Row="0" Grid.Column="0" Cursor="Hand">
             <Button Style="{DynamicResource SecondButton}" Content="Paramètres" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,255,0,0" Click="SettingsButtonClick" Width="108"/>
-            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,10,0,0" Cursor="Arrow"/>
+            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,10,0,0" Cursor="Arrow" Opacity="2"/>
             <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,153,0,0" Click="CreateWindowButtonClick" Width="108"/>
             <Button Style="{DynamicResource FirstButton}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Center" Click="DeleteMainButtonClick" Width="108"/>
             <Button Name="EnglishButton" Width="40" Height="60" Click="EnglishButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Margin="0,0,25,0">
