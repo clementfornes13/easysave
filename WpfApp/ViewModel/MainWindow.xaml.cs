@@ -59,29 +59,6 @@ namespace WpfApp
         {
 
         }
-
-
-        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.CloseApp(this);
-        }
-
-        private void ResizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.ResizeApp(this);
-        }
-
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.FullScreenApp(this);
-        }
         private void LoadJobsPropsFromCsv()
         {
             if (!File.Exists(CreateWindow.CsvFilePath1))
@@ -105,6 +82,19 @@ namespace WpfApp
             }
             JobsGrid.ItemsSource = CreateWindow.JobsProps;
             reader.Close();
+        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.CloseApp(this);
+        }
+
+        private void ResizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.ResizeApp(this);
+        }
+        private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
+        {
+            App.Window_MouseDown(this, e);
         }
     }
     public class Jobs

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.IO;
+using System.Windows.Input;
 
 namespace WpfApp
 {
@@ -86,10 +87,9 @@ namespace WpfApp
         {
             App.ResizeApp(this);
         }
-
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
         {
-            App.FullScreenApp(this);
+            App.Window_MouseDown(this, e);
         }
     }
     public class Extensions

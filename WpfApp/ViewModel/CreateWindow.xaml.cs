@@ -50,7 +50,7 @@ namespace WpfApp
         {
             Jobs job = new Jobs
             {
-                Nom = Name.Text,
+                Nom = NameTextBox.Text,
                 Source = TextBlockSource.Text,
                 Destination = TextBlockDestination.Text,
                 Cryptosoft = CryptoSoftCheckBox.IsChecked == true,
@@ -63,9 +63,9 @@ namespace WpfApp
         }
         private void GotFocusName(object sender, RoutedEventArgs e)
         {
-            if (Name.IsFocused)
+            if (NameTextBox.IsFocused)
             {
-                Name.Text = "";
+                NameTextBox.Text = "";
             }
         }
         public void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -95,15 +95,13 @@ namespace WpfApp
         {
             App.CloseApp(this);
         }
-
         private void ResizeButton_Click(object sender, RoutedEventArgs e)
         {
             App.ResizeApp(this);
         }
-
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
         {
-            App.FullScreenApp(this);
+            App.Window_MouseDown(this, e);
         }
     }
 }
