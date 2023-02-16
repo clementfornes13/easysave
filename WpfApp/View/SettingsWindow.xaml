@@ -1,0 +1,58 @@
+﻿<Window x:Class="WpfApp.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
+        mc:Ignorable="d"
+        Title="Paramètres" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="White" BorderThickness="1.5" BorderBrush="#304FFE">
+    <Grid x:Name="SettingsWindow1">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="1" Cursor="Hand">
+            <Rectangle Fill="Red" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
+            <Rectangle Fill="Yellow" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,55,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
+            <Rectangle Fill="green" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="FullScreenButton_Click" ToolTip="Maximize" Cursor="Hand"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Label Content="Extensions à crypter" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="56,73,0,0" />
+            <TextBox x:Name="ExtensionBox" HorizontalAlignment="Left" VerticalAlignment="Top" Text="" Width="120" GotFocus="GotFocusExtension" Margin="54,104,0,0"/>
+            <Button Style="{DynamicResource FirstButton}" Name ="AddExtensionButton" Content="Ajouter" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddExtensionButtonClick" Margin="70,131,0,0"/>
+            <Label x:Name ="ExtensionLabelSuccess" Foreground="#0BD44A" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="194,100,0,0"/>
+            <Label x:Name ="ExtensionLabelError" Foreground="#D41F06" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="194,100,0,0"/>
+            <DataGrid x:Name="ExtensionsGrid" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" Margin="54,202,472,10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Extension" Binding="{Binding extension}" IsReadOnly="True" Width="Auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Gestion" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="DeleteButtonExtension" Content="Supprimer" Click="DeleteExtensionButtonClick"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Label Content="Taille maximum transfert simultané" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,73,30,0"/>
+            <TextBox x:Name="MaximumSizeTransfert" HorizontalAlignment="Right" Text="" VerticalAlignment="Top" Width="120" Margin="0,104,68,0"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveMaxTransfertSizeButton" Content="Sauvegarder" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,131,70,0"/>
+            <Label Content="Ko/s" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,99,30,0" RenderTransformOrigin="0.474,0.863"  />
+            <Label x:Name="LabelListeTravaux" Content="Paramètres" HorizontalAlignment="Center" Margin="0,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow"/>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="114" Source="/Resources/easysave logo.png" Margin="0,172,0,0" Cursor="Arrow"/>
+            <Button Style="{DynamicResource SecondButton}" Content="Retour" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClickSettings" Margin="10,0,0,10" Grid.Row="1"/>
+        </Grid>
+    </Grid>
+</Window>

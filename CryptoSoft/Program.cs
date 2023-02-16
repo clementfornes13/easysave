@@ -12,8 +12,6 @@ namespace CryptoSoft
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            Console.WriteLine(args.ToString());
-
             //Wrong arguments
             if (args.Length != 2 || File.Exists(args[0]) == false)
             {
