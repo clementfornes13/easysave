@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using EasySaveModel;
 
@@ -9,6 +11,8 @@ namespace WpfApp
     {
         private VisualModel model;
         internal VisualModel Model { get => model; set => model = value; }
+        CreateWindow cw;
+        private Jobs selectedRow;
 
         public MainWindow()
         {
@@ -58,6 +62,14 @@ namespace WpfApp
         private void FrenchButtonClick(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void Delete(object sender, RoutedEventArgs e)
+        {
+            /*
+            selectedRow = (Jobs)JobsGrid.SelectedItem;
+            JobsGrid.Items.Remove(selectedRow);
+            CreateWindow.JobsProps.Remove(selectedRow);
+            cw.SaveJobsPropsToCsv();*/
         }
         private void LoadJobsPropsFromCsv()
         {

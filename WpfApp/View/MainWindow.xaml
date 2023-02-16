@@ -54,9 +54,13 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
                     <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="Selection" Binding="{Binding Checkbox}" Width="auto"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Supprimer" Command="Delete" Click="Delete"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
             </DataGrid>
             <Ellipse Fill="#919191" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
             <Ellipse Fill="#5e5e5e" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
