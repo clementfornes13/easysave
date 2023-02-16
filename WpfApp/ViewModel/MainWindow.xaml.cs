@@ -23,7 +23,7 @@ namespace WpfApp
         }
         private void LaunchMainButtonClick(object sender, RoutedEventArgs e)
         {
-            foreach (Jobs item in JobsGrid.ItemsSource)
+            /*foreach (Jobs item in JobsGrid.ItemsSource)
             {
                 if (((System.Windows.Controls.CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                 {
@@ -32,9 +32,7 @@ namespace WpfApp
                     ctl.addWorkingFiles();
                 }
             }
-            //GridFromTo.ColumnPathFrom1 = "C:\\Users\\smite\\Downloads\\Tool Bo2 by me\\Tool Experimental V1";
-            //GridFromTo.ColumnPathTo1 = "";
-            model.createJob();
+            model.createJob();*/
         }
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
