@@ -35,11 +35,7 @@ namespace EasySaveModel
             string[] names = System.IO.Directory.GetFiles(_pathFrom);
             if (names.Length == 0)
             {
-<<<<<<< HEAD
-                throw new DirectoryNotFoundException("DirectoryError" + _pathFrom);
-=======
                 //throw new DirectoryNotFoundException("DirectoryError" + m_pathFrom);
->>>>>>> 339bcd9068112802da83c5bafcf3ac68399cc707
             }
 
             foreach (string filename in names)
