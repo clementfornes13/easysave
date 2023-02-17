@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/eystone/prosoft/solution">
-    <img src="prosoft/EasySave/Images/easysave logo.svg" alt="Logo" width="150" height="150">
+    <img src="https://github.com/eystone/prosoft/blob/main/EasySave/Images/easysave logo.svg" alt="Logo" width="150" height="150">
   </a>
 
   <h3 align="center">EasySave</h3>
@@ -151,4 +151,4 @@ Mettre des exemples par la suite.
 
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: prosoft/EasySave/Images/capture.png
+[product-screenshot]: https://github.com/eystone/prosoft/blob/main/EasySave/Images/capture.png
