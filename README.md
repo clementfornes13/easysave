@@ -1,13 +1,13 @@
 <a name="readme-top"></a>
 
-[![fr-FR](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/eystone/prosoft/blob/main/README.md)
-[![en-US](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eystone/prosoft/blob/main/README.en-US.md)
+[![fr-FR](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/eystone/prosoft/blob/solution/README.md)
+[![en-US](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eystone/prosoft/blob/solution/README.en-US.md)
 
 <!-- LOGO PROJET -->
 <br />
 <div align="center">
-  <a href="https://github.com/eystone/prosoft">
-    <img src="EasySave/Images/easysave logo.svg" alt="Logo" width="150" height="150">
+  <a href="https://github.com/eystone/prosoft/solution">
+    <img src="prosoft/EasySave/Images/easysave logo.svg" alt="Logo" width="150" height="150">
   </a>
 
   <h3 align="center">EasySave</h3>
@@ -151,4 +151,4 @@ Mettre des exemples par la suite.
 
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: EasySave/Images/capture.png
+[product-screenshot]: prosoft/EasySave/Images/capture.png
