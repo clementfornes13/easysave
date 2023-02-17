@@ -35,6 +35,7 @@
     </li>
     <li><a href="#utilisation">Utilisation</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
+    <lia><a href="#versionhistory">Historique des versions</a></li>
     <li><a href="#ressources">Ressources utilisés</a></li>
   </ol>
 </details>
@@ -65,10 +66,9 @@ EasySave est utilisable en Français et en Anglais
   dotnet add package Newtonsoft.Json --version 13.0.2
   ```
 
-
 ### Installation
 
-1. Clone the repo
+1. Cloner le dépôt
    ```sh
    git clone https://github.com/eystone/prosoft.git
    ```
@@ -93,12 +93,49 @@ Mettre des exemples par la suite.
 
 - [x] Possibilité de sauvegarder un travail
 - [x] Ajout des logs
+- [x] Ajout du suivi des états
 - [x] Possibilité de supprimer un travail
 - [x] Possibilité d'exécuter un travail
 - [x] Support de plusieurs langues
     - [x] Français
     - [x] Anglais
 - [ ] Application WPF
+
+<p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
+
+
+<!-- Historique des versions -->
+## Historique des versions
+
+- Version 1 : 
+	> Application Console Multi-langues
+
+	> Fichier Log, Etat en JSON
+
+	> Maximum de 5 travaux de sauvegarde
+
+	> Type de sauvegarde (Sequentielle)
+
+- Version 1.1 :
+	> Ajout du fichier log en XML
+- Version 2
+	> Passage en Application WPF
+
+	> Travaux de sauvegarde illimités
+	
+    > Utilisation de CryptoSoft
+	
+    > Ajout temps de cryptage dans fichier log
+	
+    > Détection logiciel métier (Pas de lancement de travail)
+- Version 3 :
+	> Possibilité de mettre en pause
+
+	> Ajout type de sauvegarde (Différentielle)
+	
+    > Détection logiciel métier (Arrêt de tout travail en cours)
+	
+    > Gestion fichiers prioritaires 
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 

@@ -61,11 +61,11 @@ namespace WpfApp
             }
             if (DifferentialCheckBox.IsChecked == true)
             {
-                typesave = "Différentiel";
+                typesave = "D";
             }
             else
             {
-                typesave = "Séquentiel";
+                typesave = "S";
             }
             Jobs job = new Jobs
             {
@@ -74,7 +74,7 @@ namespace WpfApp
                 Destination = TextBlockDestination.Text,
                 Cryptosoft = CryptoSoftCheckBox.IsChecked == true,
                 Type = typesave,
-                Progressbar = 0,
+                Progression = 0,
                 Checkbox = false
             };
             JobsProps.Add(job);
@@ -98,16 +98,16 @@ namespace WpfApp
         {
             using (var writer = new StreamWriter(CsvFilePath))
             {
-                writer.WriteLine("Nom,Source,Destination,Cryptosoft,Type,Progressbar,Checkbox");
+                writer.WriteLine("Checkbox,Nom,Source,Destination,Cryptosoft,Type,Progressbar");
                 foreach (var job in JobsProps)
                 {
-                    writer.WriteLine(job.Nom + ","
+                    writer.WriteLine(job.Checkbox + ","
+                        + job.Nom + ","
                         + job.Source + ","
                         + job.Destination + ","
                         + job.Cryptosoft + ","
                         + job.Type + ","
-                        + job.Progressbar + ","
-                        + job.Checkbox);
+                        + job.Progression + ",");
                 }
             }
         }
