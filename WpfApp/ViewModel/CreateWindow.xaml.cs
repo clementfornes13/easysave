@@ -3,15 +3,17 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Forms;
+using EasySaveModel;
 
 namespace WpfApp
 {
     public partial class CreateWindow : Window
     {
         private const string CsvFilePath = "jobsproperties.csv";
-        private static List<Jobs> jobsProps = new List<Jobs>();
-        public static List<Jobs> JobsProps { get => jobsProps; set => jobsProps = value; }
+        private static List<SaveFiles> jobsProps = new List<SaveFiles>();
+        public static List<SaveFiles> JobsProps { get => jobsProps; set => jobsProps = value; }
         public static string CsvFilePath1 => CsvFilePath;
+        private SaveFiles _savefiles;
 
         public CreateWindow()
         {
@@ -25,7 +27,7 @@ namespace WpfApp
                 if (sourceDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     TextBlockSource.Text = sourceDialog.SelectedPath;
-                    Global.PathFrom = sourceDialog.SelectedPath;
+                    GridFromTo.ColumnPathFrom1 = sourceDialog.SelectedPath;
                 }
             }
         }
@@ -37,7 +39,7 @@ namespace WpfApp
                 if (destinationDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     TextBlockDestination.Text = destinationDialog.SelectedPath;
-                    Global.PathTo = destinationDialog.SelectedPath;
+                    GridFromTo.ColumnPathTo1 = destinationDialog.SelectedPath;
                 }
             }
         }
@@ -48,7 +50,7 @@ namespace WpfApp
         }
         public void CreateButtonClick(object sender, RoutedEventArgs e)
         {
-            string typesave = "";
+           /* string typesave = "";
             if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
             {
                 System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
@@ -66,18 +68,9 @@ namespace WpfApp
             else
             {
                 typesave = "S";
-            }
-            Jobs job = new Jobs
-            {
-                Nom = NameTextBox.Text,
-                Source = TextBlockSource.Text,
-                Destination = TextBlockDestination.Text,
-                Cryptosoft = CryptoSoftCheckBox.IsChecked == true,
-                Type = typesave,
-                Progression = 0,
-                Checkbox = false
-            };
-            JobsProps.Add(job);
+            }*/
+            SaveFiles sf = new SaveFiles(TextBlockSource.Text, TextBlockDestination.Text, NameTextBox.Text, CryptoSoftCheckBox.IsChecked == true);
+            JobsProps.Add(sf);
             SaveJobsPropsToCsv();
         }
         private void GotFocusName(object sender, RoutedEventArgs e)
@@ -98,16 +91,13 @@ namespace WpfApp
         {
             using (var writer = new StreamWriter(CsvFilePath))
             {
-                writer.WriteLine("Checkbox,Nom,Source,Destination,Cryptosoft,Type,Progressbar");
-                foreach (var job in JobsProps)
+                writer.WriteLine("Nom,Source,Destination,Cryptosoft");
+                foreach (var sf in JobsProps)
                 {
-                    writer.WriteLine(job.Checkbox + ","
-                        + job.Nom + ","
-                        + job.Source + ","
-                        + job.Destination + ","
-                        + job.Cryptosoft + ","
-                        + job.Type + ","
-                        + job.Progression + ",");
+                    writer.WriteLine(_savefiles.Nom + ","
+                        + _savefiles.PathFrom + ","
+                        + _savefiles.PathTo + ","
+                        + _savefiles.Cryptosoft + ",");
                 }
             }
         }

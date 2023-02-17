@@ -38,16 +38,16 @@
             <Button Style="{DynamicResource FirstButton}" Content="Lancer" HorizontalAlignment="Left" Margin="213,388,0,0" VerticalAlignment="Top"  Click="LaunchMainButtonClick"/>
             <Button Style="{DynamicResource FirstButton}" Content="Pause" HorizontalAlignment="Left" Margin="302,388,0,0" VerticalAlignment="Top"  Click="PauseButtonClick"/>
             <Button Style="{DynamicResource FirstButton}" Content="Stop" HorizontalAlignment="Left" Margin="386,0,0,19" VerticalAlignment="Bottom"  Click="StopButtonClick"/>
-
-
+            <CheckBox x:Name="SequentialCheckBox" Foreground="#303030" Background="Transparent" Content="Complète" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="500,415,0,0"/>
+            <CheckBox x:Name ="DifferentialCheckBox" Foreground="#303030" Background="Transparent" Content="Différentielle" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="500,388,0,0"/>
+            <Label Content="Type de sauvegarde" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" Margin="483,357,0,0"/>
             <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="JobsGrid" Width="645" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Cursor="Arrow" CanUserReorderColumns="False" Margin="0,60,0,0">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="" Binding="{Binding Checkbox}" Width="auto"/>
+                    <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="" Width="auto"/>
                     <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" IsReadOnly="True" Width="75" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathFromColumn" Header="Source" Binding="{Binding Source}" IsReadOnly="True" Width="173" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathToColumn" Header="Destination" Binding="{Binding Destination}" IsReadOnly="True" Width="173" Foreground="#303030"/>
                     <DataGridTextColumn Header="Cryptosoft" Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="65" Foreground="#303030"/>
-                    <DataGridTextColumn Header=" Type " Binding="{Binding Type}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
                     <DataGridTemplateColumn Header=" Progression ">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -74,7 +74,7 @@
                         <Setter Property="TextBlock.TextAlignment" Value="Center" />
                         <Setter Property="Background" Value="Transparent" />
                     </Style>
-                    
+
                     <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
                         <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="BorderBrush" Value="#303030"/>

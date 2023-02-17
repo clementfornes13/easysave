@@ -14,11 +14,7 @@ namespace WpfApp
         {
 
         }
-        public void addWorkingFiles()
-        {
-            m_workingFiles.Add(new SaveFiles(GridFromTo.ColumnPathFrom1, GridFromTo.ColumnPathTo1));
-        }
-
+       
         public void delWorkingFiles()
         {
             foreach (SaveFiles file in m_workingFiles)

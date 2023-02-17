@@ -44,14 +44,6 @@ namespace WpfApp
             }
         }
     }
-    public static class Global
-    {
-        private static string pathFrom;
-        private static string pathTo;
-
-        public static string PathFrom { get => pathFrom; set => pathFrom = value; }
-        public static string PathTo { get => pathTo; set => pathTo = value; }
-    }
     public class MainWindow1
     {
         public static MainWindow mw = new MainWindow();

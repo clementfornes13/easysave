@@ -5,14 +5,15 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using EasySaveModel;
+using CheckBox = System.Windows.Controls.CheckBox;
 
 namespace WpfApp
 {
     public partial class MainWindow : Window
     {
+        private SaveFiles _savefiles;
         private VisualModel model;
         internal VisualModel Model { get => model; set => model = value; }
-        private Jobs selectedRow;
 
         public MainWindow()
         {
@@ -27,14 +28,13 @@ namespace WpfApp
         }
         private void LaunchMainButtonClick(object sender, RoutedEventArgs e)
         {
-            foreach (Jobs item in JobsGrid.ItemsSource)
+            foreach (SaveFiles item in JobsGrid.ItemsSource)
             {
-                if (((System.Windows.Controls.CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
+                if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                 {
-                    GridFromTo.ColumnPathTo1 = ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text;
-                    GridFromTo.ColumnPathFrom1 = ((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text;
+                    GridFromTo.ColumnPathTo1 = ((TextBlock)PathToColumn.GetCellContent(item)).Text;
+                    GridFromTo.ColumnPathFrom1 = ((TextBlock)PathFromColumn.GetCellContent(item)).Text;
                     VisualModel model = new VisualModel();
-                    model.addWorkingFiles();
                     model.createJob();
                 }
             }
@@ -72,7 +72,7 @@ namespace WpfApp
         private void Delete(object sender, RoutedEventArgs e)
         {
             CreateWindow.JobsProps.Clear();
-            CreateWindow.JobsProps = (System.Collections.Generic.List<Jobs>)JobsGrid.ItemsSource;
+            CreateWindow.JobsProps = (System.Collections.Generic.List<SaveFiles>)JobsGrid.ItemsSource;
             CreateWindow cw = new CreateWindow();
             cw.SaveJobsPropsToCsv();
             JobsGrid.Items.Refresh();
@@ -89,15 +89,9 @@ namespace WpfApp
             while (!reader.EndOfStream)
             {
                 string[] props = reader.ReadLine().Split(',');
-                Jobs job = new Jobs();
-                job.Checkbox = bool.Parse(props[0]);
-                job.Nom = props[1];
-                job.Source = props[2];
-                job.Destination = props[3];
-                job.Cryptosoft = bool.Parse(props[4]);
-                job.Type = props[5];
-                job.Progression = double.Parse(props[6]);
-                CreateWindow.JobsProps.Add(job);
+                SaveFiles saveFiles = new SaveFiles(props[1], props[2], props[0], bool.Parse(props[3])) ;
+                CreateWindow.JobsProps.Add(saveFiles);
+
             }
             JobsGrid.ItemsSource = CreateWindow.JobsProps;
             reader.Close();
@@ -118,13 +112,7 @@ namespace WpfApp
     }
     public class Jobs
     {
-        public bool Checkbox { get; set; }
-        public string Nom { get; set; }
-        public string Source { get; set; }
-        public string Destination { get; set; }
-        public bool Cryptosoft { get; set; }
-        public double Progression { get; set; }
-        public string Type { get; set; }
+        public double Progression { get; set; } //A ajouter (transfertstate)
     }
     public static class GridFromTo
     {

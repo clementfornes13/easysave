@@ -10,7 +10,6 @@ namespace EasySaveModel
         private bool _actualStates = false; //Active/Waiting
         private double _elapsedTransfertTime;
         private int _nbFiles, _nbFilesMoved;
-
         public TransfertStatesItems(SaveFiles files)
         {
             _files = files;
