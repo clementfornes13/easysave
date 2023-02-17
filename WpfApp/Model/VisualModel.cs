@@ -12,12 +12,8 @@ namespace WpfApp
         ResourceManager rm = new ResourceManager("WpfApp.Resources.Langue", typeof(MainWindow).Assembly);
         public VisualModel()
         {
-            while (true)
-            {
 
-            }
         }
-
         public void addWorkingFiles()
         {
             m_workingFiles.Add(new SaveFiles(GridFromTo.ColumnPathFrom1, GridFromTo.ColumnPathTo1));
@@ -27,7 +23,7 @@ namespace WpfApp
         {
             foreach (SaveFiles file in m_workingFiles)
             {
-                if (file.PathFrom == Global.PathFrom)
+                if (file.PathFrom == GridFromTo.ColumnPathFrom1)
                 {
                     m_workingFiles.Remove(file);
                 }
@@ -38,7 +34,7 @@ namespace WpfApp
         {
             foreach (SaveFiles file in m_workingFiles)
             {
-                if (file.PathFrom == Global.PathFrom)
+                if (file.PathFrom == GridFromTo.ColumnPathFrom1)
                 {
                     m_transferts.Add(new TransfertStatesItems(file));
                     m_transferts[m_transferts.Count - 1].BackUp();

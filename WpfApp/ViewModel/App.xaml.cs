@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.Remoting.Channels;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace WpfApp
 {
@@ -34,15 +36,11 @@ namespace WpfApp
         {
             window.WindowState = WindowState.Minimized;
         }
-        public static void FullScreenApp(Window window)
+        public static void Window_MouseDown(Window window, MouseButtonEventArgs e)
         {
-            if (window.WindowState == WindowState.Maximized)
+            if (e.LeftButton == MouseButtonState.Pressed)
             {
-                window.WindowState = WindowState.Normal;
-            }
-            else
-            {
-                window.WindowState = WindowState.Maximized;
+                window.DragMove();
             }
         }
     }

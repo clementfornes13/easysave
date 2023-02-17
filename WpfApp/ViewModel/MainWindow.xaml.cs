@@ -1,5 +1,8 @@
 ﻿using System.IO;
+using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using EasySaveModel;
 
@@ -9,6 +12,7 @@ namespace WpfApp
     {
         private VisualModel model;
         internal VisualModel Model { get => model; set => model = value; }
+        private Jobs selectedRow;
 
         public MainWindow()
         {
@@ -29,12 +33,11 @@ namespace WpfApp
                 {
                     GridFromTo.ColumnPathTo1 = ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text;
                     GridFromTo.ColumnPathFrom1 = ((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text;
-                    ctl.addWorkingFiles();
+                    VisualModel model = new VisualModel();
+                    model.addWorkingFiles();
+                    model.createJob();
                 }
             }
-            //GridFromTo.ColumnPathFrom1 = "C:\\Users\\smite\\Downloads\\Tool Bo2 by me\\Tool Experimental V1";
-            //GridFromTo.ColumnPathTo1 = "";
-            model.createJob();
         }
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
@@ -61,28 +64,18 @@ namespace WpfApp
         {
 
         }
-
-
-        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void LogicielMetier()
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.CloseApp(this);
+            // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
         }
 
-        private void ResizeButton_Click(object sender, RoutedEventArgs e)
+        private void Delete(object sender, RoutedEventArgs e)
         {
-            App.ResizeApp(this);
-        }
-
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.FullScreenApp(this);
+            CreateWindow.JobsProps.Clear();
+            CreateWindow.JobsProps = (System.Collections.Generic.List<Jobs>)JobsGrid.ItemsSource;
+            CreateWindow cw = new CreateWindow();
+            cw.SaveJobsPropsToCsv();
+            JobsGrid.Items.Refresh();
         }
         private void LoadJobsPropsFromCsv()
         {
@@ -97,26 +90,41 @@ namespace WpfApp
             {
                 string[] props = reader.ReadLine().Split(',');
                 Jobs job = new Jobs();
-                job.Nom = props[0];
-                job.Source = props[1];
-                job.Destination = props[2];
-                job.Cryptosoft = bool.Parse(props[3]);
-                job.Progressbar = double.Parse(props[4]);
-                job.Checkbox = bool.Parse(props[5]);
+                job.Checkbox = bool.Parse(props[0]);
+                job.Nom = props[1];
+                job.Source = props[2];
+                job.Destination = props[3];
+                job.Cryptosoft = bool.Parse(props[4]);
+                job.Type = props[5];
+                job.Progression = double.Parse(props[6]);
                 CreateWindow.JobsProps.Add(job);
             }
             JobsGrid.ItemsSource = CreateWindow.JobsProps;
             reader.Close();
         }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.CloseApp(this);
+        }
+
+        private void ResizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.ResizeApp(this);
+        }
+        private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
+        {
+            App.Window_MouseDown(this, e);
+        }
     }
     public class Jobs
     {
+        public bool Checkbox { get; set; }
         public string Nom { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
         public bool Cryptosoft { get; set; }
-        public double Progressbar { get; set; }
-        public bool Checkbox { get; set; }
+        public double Progression { get; set; }
+        public string Type { get; set; }
     }
     public static class GridFromTo
     {

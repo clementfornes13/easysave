@@ -5,28 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="WpfApp.MainWindow"
         mc:Ignorable="d"
-        Title="EasySave" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Background="White" MouseDown="Window_MouseDown" BorderThickness="1.5" BorderBrush="#304FFE">
+        Title="EasySave" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" MouseDown="Window_MouseDownClick" BorderThickness="1.5" BorderBrush="#5e5e5e">
 
-
-    <Grid x:Name="MainWindow1">
+    <Grid x:Name="GridMainWindow">
         <Grid.RowDefinitions>
-            <RowDefinition Height="450"/>
+            <RowDefinition Height="450*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="650"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="650*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="1" Cursor="Hand">
-            <Label x:Name="LabelLogicielMetier" Foreground="Red" FontWeight="Bold" Content="Logiciel métier détecté, travail mis en pause" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Rectangle Fill="Red" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
-            <Rectangle Fill="Yellow" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,55,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
-            <Rectangle Fill="green" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="FullScreenButton_Click" ToolTip="Maximize" Cursor="Hand"/>
-        </Grid>
 
         <Grid Grid.Row="0" Grid.Column="0" Cursor="Hand">
             <Button Style="{DynamicResource SecondButton}" Content="Paramètres" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,255,0,0" Click="SettingsButtonClick" Width="108"/>
-            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,10,0,0" Cursor="Arrow"/>
+            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,10,0,0" Cursor="Arrow" Opacity="2"/>
             <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,153,0,0" Click="CreateWindowButtonClick" Width="108"/>
             <Button Style="{DynamicResource FirstButton}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Center" Click="DeleteMainButtonClick" Width="108"/>
             <Button Name="EnglishButton" Width="40" Height="60" Click="EnglishButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Margin="0,0,25,0">
@@ -35,33 +28,63 @@
             <Button Name="FrenchButton" Width="40" Height="60" Click="FrenchButtonClick" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Margin="25,0,0,0">
                 <Image Source="../Resources/french logo.png" Width="40" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
             </Button>
+
         </Grid>
 
 
         <Grid Grid.Row="0" Grid.Column="1" Cursor="Hand">
-            <Label x:Name="LabelListeTravaux" Content="Liste des travaux de sauvegarde" HorizontalAlignment="Left" Margin="187,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow"/>
+            <Label x:Name="LabelListeTravaux" Foreground="#303030" Content="Liste des travaux de sauvegarde" HorizontalAlignment="Left" Margin="187,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow"/>
+            <Label x:Name="LabelLogicielMetier" Foreground="Red" FontWeight="Bold" Content="Logiciel métier détecté, travail mis en pause" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="72" Width="257"  VerticalContentAlignment="Center" Margin="10,0,0,0" FontSize="9"/>
+            <Button Style="{DynamicResource FirstButton}" Content="Lancer" HorizontalAlignment="Left" Margin="213,388,0,0" VerticalAlignment="Top"  Click="LaunchMainButtonClick"/>
+            <Button Style="{DynamicResource FirstButton}" Content="Pause" HorizontalAlignment="Left" Margin="302,388,0,0" VerticalAlignment="Top"  Click="PauseButtonClick"/>
+            <Button Style="{DynamicResource FirstButton}" Content="Stop" HorizontalAlignment="Left" Margin="386,0,0,19" VerticalAlignment="Bottom"  Click="StopButtonClick"/>
 
-            <Button Style="{DynamicResource FirstButton}" Content="Lancer" HorizontalAlignment="Left" Margin="175,388,0,0" VerticalAlignment="Top"  Click="LaunchMainButtonClick"/>
-            <Button Style="{DynamicResource FirstButton}" Content="Pause" HorizontalAlignment="Left" Margin="282,0,0,22" VerticalAlignment="Bottom"  Click="PauseButtonClick"/>
-            <Button Style="{DynamicResource FirstButton}" Content="Stop" HorizontalAlignment="Left" Margin="387,0,0,22" VerticalAlignment="Bottom"  Click="StopButtonClick"/>
 
-
-            <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="JobsGrid" Margin="10,45,6,67" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" ItemsSource="{Binding Jobs}" Cursor="Arrow">
+            <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="JobsGrid" Width="645" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Cursor="Arrow" CanUserReorderColumns="False" Margin="0,60,0,0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" IsReadOnly="True" Width="auto"/>
-                    <DataGridTextColumn x:Name="PathFromColumn" Header="Source" Binding="{Binding Source}" IsReadOnly="True" Width="auto"/>
-                    <DataGridTextColumn x:Name="PathToColumn" Header="Destination" Binding="{Binding Destination}" IsReadOnly="True" Width="auto"/>
-                    <DataGridTextColumn Header="Cryptosoft" Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="auto"/>
-                    <DataGridTemplateColumn Header="Progression">
+                    <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="" Binding="{Binding Checkbox}" Width="auto"/>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" IsReadOnly="True" Width="75" Foreground="#303030"/>
+                    <DataGridTextColumn x:Name="PathFromColumn" Header="Source" Binding="{Binding Source}" IsReadOnly="True" Width="173" Foreground="#303030"/>
+                    <DataGridTextColumn x:Name="PathToColumn" Header="Destination" Binding="{Binding Destination}" IsReadOnly="True" Width="173" Foreground="#303030"/>
+                    <DataGridTextColumn Header="Cryptosoft" Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="65" Foreground="#303030"/>
+                    <DataGridTextColumn Header=" Type " Binding="{Binding Type}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
+                    <DataGridTemplateColumn Header=" Progression ">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Value="{Binding Progressbar}" Width="auto"/>
+                                <ProgressBar Value="{Binding Progression}" Width="auto"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="Selection" Binding="{Binding Checkbox}" Width="auto"/>
                 </DataGrid.Columns>
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Supprimer" Command="Delete" Click="Delete"/>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="#303030"/>
+                        <Setter Property="BorderThickness" Value="0 0 1 1"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                    </Style>
+                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+                    
+                    <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#303030"/>
+                        <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    </Style>
+                </DataGrid.Resources>
             </DataGrid>
+            <Ellipse Fill="#919191" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
+            <Ellipse Fill="#5e5e5e" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
+
         </Grid>
     </Grid>
 </Window>

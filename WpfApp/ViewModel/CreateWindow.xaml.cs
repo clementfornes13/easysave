@@ -48,24 +48,43 @@ namespace WpfApp
         }
         public void CreateButtonClick(object sender, RoutedEventArgs e)
         {
+            string typesave = "";
+            if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
+            {
+                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                return;
+            }
+            if (DifferentialCheckBox.IsChecked == true && SequentialCheckBox.IsChecked == true)
+            {
+                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                return;
+            }
+            if (DifferentialCheckBox.IsChecked == true)
+            {
+                typesave = "D";
+            }
+            else
+            {
+                typesave = "S";
+            }
             Jobs job = new Jobs
             {
-                Nom = Name.Text,
+                Nom = NameTextBox.Text,
                 Source = TextBlockSource.Text,
                 Destination = TextBlockDestination.Text,
                 Cryptosoft = CryptoSoftCheckBox.IsChecked == true,
-                Progressbar = 0,
+                Type = typesave,
+                Progression = 0,
                 Checkbox = false
             };
             JobsProps.Add(job);
             SaveJobsPropsToCsv();
-
         }
         private void GotFocusName(object sender, RoutedEventArgs e)
         {
-            if (Name.IsFocused)
+            if (NameTextBox.IsFocused)
             {
-                Name.Text = "";
+                NameTextBox.Text = "";
             }
         }
         public void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -79,15 +98,16 @@ namespace WpfApp
         {
             using (var writer = new StreamWriter(CsvFilePath))
             {
-                writer.WriteLine("Nom,Source,Destination,Cryptosoft,Progressbar,Checkbox");
+                writer.WriteLine("Checkbox,Nom,Source,Destination,Cryptosoft,Type,Progressbar");
                 foreach (var job in JobsProps)
                 {
-                    writer.WriteLine(job.Nom + "," 
-                        + job.Source + "," 
-                        + job.Destination + "," 
-                        + job.Cryptosoft + "," 
-                        + job.Progressbar + "," 
-                        + job.Checkbox);
+                    writer.WriteLine(job.Checkbox + ","
+                        + job.Nom + ","
+                        + job.Source + ","
+                        + job.Destination + ","
+                        + job.Cryptosoft + ","
+                        + job.Type + ","
+                        + job.Progression + ",");
                 }
             }
         }
@@ -95,15 +115,13 @@ namespace WpfApp
         {
             App.CloseApp(this);
         }
-
         private void ResizeButton_Click(object sender, RoutedEventArgs e)
         {
             App.ResizeApp(this);
         }
-
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
+        private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
         {
-            App.FullScreenApp(this);
+            App.Window_MouseDown(this, e);
         }
     }
 }
