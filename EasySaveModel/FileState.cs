@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Resources;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace EasySave
+namespace EasySaveModel
 {
     class FileState
     {
-        ResourceManager _rm = new ResourceManager("EasySave.Resources.Langue", typeof(EasySave).Assembly);
         // Variable definitions
         private string _stateFilePath = System.Environment.CurrentDirectory + @"\State\";
 
