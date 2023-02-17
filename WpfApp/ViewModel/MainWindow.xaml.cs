@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using EasySaveModel;
 
@@ -9,6 +11,8 @@ namespace WpfApp
     {
         private VisualModel model;
         internal VisualModel Model { get => model; set => model = value; }
+        CreateWindow cw;
+        private Jobs selectedRow;
 
         public MainWindow()
         {
@@ -59,28 +63,13 @@ namespace WpfApp
         {
 
         }
-
-
-        public void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Delete(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
-        }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.CloseApp(this);
-        }
-
-        private void ResizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.ResizeApp(this);
-        }
-
-        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.FullScreenApp(this);
+            /*
+            selectedRow = (Jobs)JobsGrid.SelectedItem;
+            JobsGrid.Items.Remove(selectedRow);
+            CreateWindow.JobsProps.Remove(selectedRow);
+            cw.SaveJobsPropsToCsv();*/
         }
         private void LoadJobsPropsFromCsv()
         {
@@ -99,12 +88,26 @@ namespace WpfApp
                 job.Source = props[1];
                 job.Destination = props[2];
                 job.Cryptosoft = bool.Parse(props[3]);
-                job.Progressbar = double.Parse(props[4]);
-                job.Checkbox = bool.Parse(props[5]);
+                job.Type= props[4];
+                job.Progressbar = double.Parse(props[5]);
+                job.Checkbox = bool.Parse(props[6]);
                 CreateWindow.JobsProps.Add(job);
             }
             JobsGrid.ItemsSource = CreateWindow.JobsProps;
             reader.Close();
+        }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.CloseApp(this);
+        }
+
+        private void ResizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.ResizeApp(this);
+        }
+        private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
+        {
+            App.Window_MouseDown(this, e);
         }
     }
     public class Jobs
@@ -115,6 +118,7 @@ namespace WpfApp
         public bool Cryptosoft { get; set; }
         public double Progressbar { get; set; }
         public bool Checkbox { get; set; }
+        public string Type { get; set; }
     }
     public static class GridFromTo
     {

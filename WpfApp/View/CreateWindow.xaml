@@ -5,47 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="Création d'un travail de sauvegarde" Height="450" Width="800" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" ResizeMode="NoResize" Background="White" MouseDown="Window_MouseDown">
-    <Grid x:Name="CreateWindow1">
+        Title="Création d'un travail de sauvegarde" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" MouseDown="Window_MouseDownClick"  BorderThickness="1.5" BorderBrush="#5e5e5e">
+    <Grid x:Name="GridCreateWindow">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="220"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="220*"/>
 
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="600"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="600*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="2" Cursor="Hand">
-            <Rectangle Fill="Red" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
-            <Rectangle Fill="Yellow" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,55,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
-            <Rectangle Fill="green" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="FullScreenButton_Click" ToolTip="Maximize" Cursor="Hand"/>
+            <Ellipse Fill="#5e5e5e" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
+            <Ellipse Fill="#919191" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
-            <TextBox x:Name="Name" HorizontalAlignment="Left" Margin="89,67,0,0" TextWrapping="Wrap" Text="Rentrer un nom de travail de sauvegarde" VerticalAlignment="Top" Width="500" GotFocus="GotFocusName" TextAlignment="Center"/>
-            <Label Content="Création d'un travail de sauvegarde" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
-            <TextBlock HorizontalAlignment="Left" Margin="89,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="14" Width="314" TextAlignment="Left">
-                <Run x:Name="TextBlockSource" Language="fr-fr" Text="Source"/>
-            </TextBlock>
-            <Label Content="Nom" HorizontalAlignment="Left" Margin="28,63,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+            <TextBox x:Name="NameTextBox" Background="#919191" Foreground="#303030" HorizontalAlignment="Left" Margin="89,67,0,0" TextWrapping="Wrap" Text="Rentrer un nom de travail de sauvegarde" VerticalAlignment="Top" Width="500" GotFocus="GotFocusName" TextAlignment="Center"/>
+            <Label Content="Création d'un travail de sauvegarde" Foreground="#303030" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+            <TextBlock x:Name="TextBlockSource" HorizontalAlignment="Left" Foreground="#303030" Margin="89,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="14" Width="344" TextAlignment="Left"/>
+            <Label Content="Nom" Foreground="#303030" HorizontalAlignment="Left" Margin="28,63,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
             <Button Style="{DynamicResource FirstButton}" Content="Choisir source" HorizontalAlignment="Right" VerticalAlignment="Top"  Click="ChooseFromButtonClick" Width="149" Margin="0,100,11,0"/>
             <Button Style="{DynamicResource FirstButton}" Content="Choisir destination" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ChooseToButtonClick" Margin="0,150,10,0"/>
-            <Label Content="Source" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Destination" HorizontalAlignment="Left" Margin="9,157,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
-            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="14" Width="314" Margin="89,162,0,0" TextAlignment="Left">
-                <Run x:Name="TextBlockDestination" Language="fr-fr" Text="Destination"/>
-            </TextBlock>
+            <Label Content="Source" Foreground="#303030" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Destination" Foreground="#303030" HorizontalAlignment="Left" Margin="9,157,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+            <TextBlock x:Name="TextBlockDestination" HorizontalAlignment="Left" Foreground="#303030" TextWrapping="Wrap" VerticalAlignment="Top" Height="14" Width="344" Margin="89,162,0,0" TextAlignment="Left"/>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0">
             <Button Style="{DynamicResource SecondButton}" Content="Retour" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClick" Margin="10,0,0,10"/>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1">
-            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Click="CreateButtonClick" />
-            <CheckBox x:Name ="CryptoSoftCheckBox" Content="CryptoSoft" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,62,0,0"/>
+            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center"  VerticalAlignment="Top" FontWeight="Bold" Click="CreateButtonClick" Margin="0,142,0,0" />
+            <CheckBox x:Name ="CryptoSoftCheckBox" Foreground="#303030" Background="Transparent" Content="CryptoSoft" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="265,31,0,0"/>
+            <CheckBox x:Name ="DifferentialCheckBox" Foreground="#303030" Background="Transparent" Content="Différentielle" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,82,0,0"/>
+            <CheckBox x:Name="SequentialCheckBox" Foreground="#303030" Background="Transparent" Content="Séquentielle" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="255,109,0,0"/>
+            <Label Content="Type de sauvegarde" Foreground="#303030" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" Margin="0,51,0,0"/>
+            <Label Content="Cryptage de fichiers" Foreground="#303030" HorizontalAlignment="Left" Margin="242,0,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </Window>
