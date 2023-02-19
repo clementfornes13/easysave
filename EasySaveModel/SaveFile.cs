@@ -8,15 +8,17 @@ namespace EasySaveModel
     public class SaveFiles
     {
         private string _nom; 
-        private bool _cryptosoft; 
-        private List<FileInfo> _files = new List<FileInfo>();
-        private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
+        private bool _cryptosoft;
         private string _pathFrom, _pathTo; //C:/dir/dir/dir
+
+        private readonly List<FileInfo> _files = new List<FileInfo>();
+        private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
         private long _totalSizeFile = 0;
 
         public SaveFiles(string pathFrom, string pathTo, string nom, bool cryptosoft)
         {
             _nom = nom;
+            _cryptosoft = cryptosoft;
             _pathFrom = pathFrom;
             if (pathTo == null || pathTo == "" || pathTo == "Destination")
             {

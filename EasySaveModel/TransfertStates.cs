@@ -44,7 +44,7 @@ namespace EasySaveModel
                 string targetFile = Path.Combine(_files.PathTo, file.Name);
 
                 try
-                {
+                {      
                     if (!File.Exists(targetFile))
                     {
                         file.CopyTo(targetFile);

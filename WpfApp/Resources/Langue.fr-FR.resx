@@ -177,4 +177,85 @@
   <data name="pathTo" xml:space="preserve">
     <value>-&gt; Rentrez le chemin de sauvegarde de votre travail</value>
   </data>
+  <data name="WPF_Add" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="WPF_Back" xml:space="preserve">
+    <value>Retour</value>
+  </data>
+  <data name="WPF_BusinessApp" xml:space="preserve">
+    <value>Logiciel métier</value>
+  </data>
+  <data name="WPF_BusinessAppDetect" xml:space="preserve">
+    <value>Logiciel métier détecté, travail mis en pause</value>
+  </data>
+  <data name="WPF_ChooseFrom" xml:space="preserve">
+    <value>Choisir source</value>
+  </data>
+  <data name="WPF_ChooseTo" xml:space="preserve">
+    <value>Choisir destination</value>
+  </data>
+  <data name="WPF_Create" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="WPF_CreateSave" xml:space="preserve">
+    <value>Création d'un travail de sauvegarde</value>
+  </data>
+  <data name="WPF_Delete" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="WPF_Differential" xml:space="preserve">
+    <value>Différentielle</value>
+  </data>
+  <data name="WPF_EncryptExtension" xml:space="preserve">
+    <value>Extensions à crypter</value>
+  </data>
+  <data name="WPF_EnterNameSave" xml:space="preserve">
+    <value>Rentrer un nom de travail de sauvegarde</value>
+  </data>
+  <data name="WPF_FileEncrypt" xml:space="preserve">
+    <value>Cryptage de fichiers</value>
+  </data>
+  <data name="WPF_From" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="WPF_Full" xml:space="preserve">
+    <value>Complète</value>
+  </data>
+  <data name="WPF_Manage" xml:space="preserve">
+    <value>Gestion</value>
+  </data>
+  <data name="WPF_MaxSize" xml:space="preserve">
+    <value>Taille maximum transfert simultané</value>
+  </data>
+  <data name="WPF_Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="WPF_Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="WPF_Progression" xml:space="preserve">
+    <value>Progression</value>
+  </data>
+  <data name="WPF_Save" xml:space="preserve">
+    <value>Sauvegarder</value>
+  </data>
+  <data name="WPF_SaveList" xml:space="preserve">
+    <value>Liste des travaux de sauvegarde</value>
+  </data>
+  <data name="WPF_SaveType" xml:space="preserve">
+    <value>Type de sauvegarde</value>
+  </data>
+  <data name="WPF_Settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="WPF_Start" xml:space="preserve">
+    <value>Lancer</value>
+  </data>
+  <data name="WPF_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="WPF_To" xml:space="preserve">
+    <value>Destination</value>
+  </data>
 </root>
