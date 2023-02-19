@@ -94,6 +94,81 @@ namespace EasySaveModel
             //Rendre mutex
         }
 
+        //Make a fill copy
+        public void BackUpDiff()
+        {
+            //Make state file
+            //Start a chrono ofr mesuring time elaspsed
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start(); //Starting the timed for the log file
+
+
+            //Move Files
+            _actualStates = true;
+            foreach (FileInfo file in _files.Files)
+            {
+                
+                    string targetFile = Path.Combine(_files.PathTo, file.Name);
+                     
+
+                try
+                    {
+                        if (!File.Exists(targetFile))
+                        {
+                            file.CopyTo(targetFile);
+                        }
+                        else
+                        {
+                            var lastwrite = File.GetLastAccessTimeUtc(targetFile);
+                            if(lastwrite != file.LastAccessTimeUtc)
+                            {
+                                file.CopyTo(targetFile,true);
+                            }
+                        }
+                    }
+                    catch (Exception e) { Console.Error.Write(e.ToString()); }
+
+                _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
+                _nbFilesMoved++;
+
+            }
+
+            //Manage sub dir for copy
+            foreach (DirectoryInfo dir in _files.SubDirs)
+            {
+                string targetdir = Path.Combine(_files.PathTo, dir.Name);
+                if (!Directory.Exists(targetdir))
+                {
+                    Directory.CreateDirectory(targetdir);
+                }
+
+                FileInfo[] subFiles = dir.GetFiles();
+                Console.WriteLine($"Found {subFiles.Length} files in the {dir.Name} subdir");
+                foreach (FileInfo file in subFiles)
+                {
+                    string targetFile = Path.Combine(targetdir, file.Name);
+                    Console.WriteLine($"File {file.Name} written");
+                    try
+                    {
+                        if (!File.Exists(targetFile))
+                        {
+                            file.CopyTo(targetFile);
+                        }
+                    }
+                    catch (Exception e) { Console.Error.Write(e.ToString()); }
+
+                    _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
+                    _nbFilesMoved++;
+
+                }
+            }
+            stopwatch.Stop();
+            _actualStates = false;
+            //prendre Mutex
+            Loggin();
+            //Rendre mutex
+        }
+
         public void Loggin()
         {
             string m_nameLog = Path.GetFileName(_files.PathFrom);
