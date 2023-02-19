@@ -47,6 +47,21 @@ namespace WpfApp
             if (DifferentialCheckBox.IsChecked == true)
             {
                 //Mettre la méthode differentielle
+                foreach (SaveFiles item in JobsGrid.ItemsSource)
+                {
+                    if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
+                    {
+                        _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                        foreach (SaveFiles file in _jobsProps)
+                        {
+                            if (file.PathFrom == _savefiles.PathFrom)
+                            {
+                                _transferts.Add(new TransfertStatesItems(file));
+                                _transferts[_transferts.Count - 1].BackUpDiff();
+                            }
+                        }
+                    }
+                }
             }
             else
             {
