@@ -45,18 +45,6 @@ namespace WpfApp
             }
         }
     }
-    public class AppSettings
-    {
-        public string ExtensionEncrypt { get; set; }
-        public string BusinessAppLocation { get; set; }
-        public string MaxFileSizeTransfer { get; set; }
-        public void SaveSettings()
-        {
-            using (StreamWriter writer = new StreamWriter(SettingsWindow.SettingsFilePath1))
-                writer.WriteLine($"ExtensionEncrypt,{ExtensionEncrypt}");
-
-        }
-    }
 
     public class MainWindow1
     {

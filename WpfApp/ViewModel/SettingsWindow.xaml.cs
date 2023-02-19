@@ -11,15 +11,16 @@ namespace WpfApp
 {
     public partial class SettingsWindow : Window
     {
-        private const string SettingsFilePath = "settings.csv";
-        private List<string> _extensions = new List<string>();
-        private AppSettings appSettings;
+        private const string EncryptExtension = "extensionencrypt.csv";
+        private string _BusinessAppName;
 
+        public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
 
         public SettingsWindow()
         {
             InitializeComponent();
             LoadExtensionsFromCsv();
+            SaveBusinessApp.Text = BusinessAppName;
         }
         public void AddExtensionButtonClick(object sender, RoutedEventArgs e)
         {
@@ -63,48 +64,40 @@ namespace WpfApp
         }
         private void SaveExtensionsToCsv()
         {
-            using (StreamWriter writer = new StreamWriter(SettingsFilePath))
+            using (StreamWriter writer = new StreamWriter(EncryptExtension))
             {
                 foreach (Extensions item in ExtensionsGrid.Items) 
                 {
-                    _extensions.Add(item.extension);
+                    writer.WriteLine(item.extension);
                 }
-                appSettings = new AppSettings();
-                appSettings.ExtensionEncrypt = string.Join(",", _extensions);
-                writer.WriteLine(appSettings.ExtensionEncrypt);
             }
-            appSettings.SaveSettings();
         }
-
         private void LoadExtensionsFromCsv()
         {
-            if (File.Exists(SettingsFilePath))
+            if (File.Exists(EncryptExtension))
             {
-                using (StreamReader reader = new StreamReader(SettingsFilePath))
+                using (StreamReader reader = new StreamReader(EncryptExtension))
                 {
                     string ligne;
-                    if ((ligne=reader.ReadLine()) != null)
+                    while ((ligne = reader.ReadLine()) != null)
                     {
-                        appSettings = new AppSettings();
-                        appSettings.ExtensionEncrypt = ligne.Split(',')[0];
-                        string[] extensions = ligne.Split(',');
-                        foreach (string extension in extensions)
-                        {
-                            ExtensionsGrid.Items.Add(new Extensions { extension = extension });
-                        }
+                        ExtensionsGrid.Items.Add(new Extensions { extension = ligne });
                     }
                 }
-                ExtensionsGrid.Items.RemoveAt(0);
-                appSettings.ExtensionEncrypt = null;
             }
         }
         public void SaveMaxTransfertButtonClick(object sender, RoutedEventArgs e)
         {
 
         }
+        public void SaveBusinessAppButtonClick(object sender, RoutedEventArgs e)
+        {
+            BusinessAppName = SaveBusinessApp.Text;
+        }
         public void BackMenuButtonClickSettings(object sender, RoutedEventArgs e)
         {
             MainWindow1.Show();
+            MainWindow1.mw.BusinessAppWindow1= BusinessAppName;
             Close();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -120,10 +113,6 @@ namespace WpfApp
         {
             App.Window_MouseDown(this, e);
         }
-
-        public static string SettingsFilePath1 => SettingsFilePath;
-
-        public List<string> Extensions { get => _extensions; set => _extensions = value; }
     }
 
     public class Extensions

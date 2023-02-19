@@ -18,6 +18,7 @@ namespace WpfApp
         private bool isPaused = false;
         private bool isStopped = false;
         private bool BusinessAppRunning = false;
+        public string BusinessAppWindow1;
 
         public MainWindow()
         {
@@ -84,6 +85,7 @@ namespace WpfApp
         }
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
+            SettingsWindow1.mw.BusinessAppName = BusinessAppWindow1;
             SettingsWindow1.Show();
             Close();
         }
@@ -109,10 +111,11 @@ namespace WpfApp
         }
         private void LogicielMetier()
         {
+            
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
-                Process[] processes = Process.GetProcessesByName("Notepad");
+                Process[] processes = Process.GetProcessesByName(BusinessAppWindow1);
                 if (processes.Length > 0) 
                 {
                     BusinessAppRunning = true;
