@@ -7,11 +7,32 @@ namespace EasySaveModel
 {
     public class SaveFiles
     {
-        private List<FileInfo> _files = new List<FileInfo>();
-        private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
+        private string _nom; 
+        private bool _cryptosoft;
         private string _pathFrom, _pathTo; //C:/dir/dir/dir
+
+        private readonly List<FileInfo> _files = new List<FileInfo>();
+        private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
         private long _totalSizeFile = 0;
 
+        public SaveFiles(string pathFrom, string pathTo, string nom, bool cryptosoft)
+        {
+            _nom = nom;
+            _cryptosoft = cryptosoft;
+            _pathFrom = pathFrom;
+            if (pathTo == null || pathTo == "" || pathTo == "Destination")
+            {
+                _pathTo = System.Environment.CurrentDirectory
+                    + @"\Backups\"
+                    + System.Threading.Thread.CurrentThread.ManagedThreadId;
+            }
+            else
+            {
+                _pathTo = pathTo;
+            }
+            init();
+            calcSizeFiles();
+        }
         public SaveFiles(string pathFrom, string pathTo)
         {
             _pathFrom = pathFrom;
@@ -28,7 +49,6 @@ namespace EasySaveModel
             init();
             calcSizeFiles();
         }
-
         private void init()
         {
             //Need to make a feature for subdirectory
@@ -84,5 +104,7 @@ namespace EasySaveModel
         public string PathFrom { get => _pathFrom; set => _pathFrom = value; }
         public string PathTo { get => _pathTo; set => _pathTo = value; }
         public long TotalSizeFile { get => _totalSizeFile; }
+        public string Nom { get => _nom; set => _nom = value; }
+        public bool Cryptosoft { get => _cryptosoft; set => _cryptosoft = value; }
     }
 }

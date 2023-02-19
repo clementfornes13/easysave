@@ -1,24 +1,31 @@
-﻿using System.IO;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using EasySaveModel;
+using System.Diagnostics;
+using System.Threading;
+using CheckBox = System.Windows.Controls.CheckBox;
 
 namespace WpfApp
 {
     public partial class MainWindow : Window
     {
-        private VisualModel model;
-        internal VisualModel Model { get => model; set => model = value; }
-        private Jobs selectedRow;
+        private static List<SaveFiles> _jobsProps = new List<SaveFiles>();
+        private List<TransfertStatesItems> _transferts = new List<TransfertStatesItems>();
+        private SaveFiles _savefiles;
+        private bool isPaused = false;
+        private bool isStopped = false;
+        private bool BusinessAppRunning = false;
 
         public MainWindow()
         {
             InitializeComponent();
-            JobsGrid.ItemsSource = CreateWindow.JobsProps;
+            JobsGrid.ItemsSource = JobsProps;
             LoadJobsPropsFromCsv();
+            Thread BusinessAppThread = new Thread(LogicielMetier);
+            BusinessAppThread.Start();
         }
         private void CreateWindowButtonClick(object sender, RoutedEventArgs e) //Bouton creer
         {
@@ -27,15 +34,36 @@ namespace WpfApp
         }
         private void LaunchMainButtonClick(object sender, RoutedEventArgs e)
         {
-            foreach (Jobs item in JobsGrid.ItemsSource)
+            if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
             {
-                if (((System.Windows.Controls.CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
+                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                return;
+            }
+            if (DifferentialCheckBox.IsChecked == true && SequentialCheckBox.IsChecked == true)
+            {
+                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                return;
+            }
+            if (DifferentialCheckBox.IsChecked == true)
+            {
+                //Mettre la méthode differentielle
+            }
+            else
+            {
+                foreach (SaveFiles item in JobsGrid.ItemsSource)
                 {
-                    GridFromTo.ColumnPathTo1 = ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text;
-                    GridFromTo.ColumnPathFrom1 = ((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text;
-                    VisualModel model = new VisualModel();
-                    model.addWorkingFiles();
-                    model.createJob();
+                    if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
+                    {
+                        _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                        foreach (SaveFiles file in _jobsProps)
+                        {
+                            if (file.PathFrom == _savefiles.PathFrom)
+                            {
+                                _transferts.Add(new TransfertStatesItems(file));
+                                _transferts[_transferts.Count - 1].BackUp();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -46,11 +74,11 @@ namespace WpfApp
         }
         private void PauseButtonClick(object sender, RoutedEventArgs e)
         {
-
+            isPaused = !isPaused;
         }
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
-
+            isStopped = true;
         }
         private void DeleteMainButtonClick(object sender, RoutedEventArgs e)
         {
@@ -67,12 +95,32 @@ namespace WpfApp
         private void LogicielMetier()
         {
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
+            while (true)
+            {
+                Process[] processes = Process.GetProcessesByName("Notepad");
+                if (processes.Length > 0) 
+                {
+                    BusinessAppRunning = true;
+                    Dispatcher.Invoke(() => {
+                        BusinessSoftwareLabel.Content = "Logiciel métier détecté, travail mis en pause";
+                    });
+                }
+                else 
+                {
+                    BusinessAppRunning = false;
+                    Dispatcher.Invoke(() => {
+                        BusinessSoftwareLabel.Content = " ";
+                    });
+                }
+                //Ajouter la methode pause a ça
+                Thread.Sleep(2000);
+            }
         }
 
         private void Delete(object sender, RoutedEventArgs e)
         {
-            CreateWindow.JobsProps.Clear();
-            CreateWindow.JobsProps = (System.Collections.Generic.List<Jobs>)JobsGrid.ItemsSource;
+            JobsProps.Clear();
+            JobsProps = (List<SaveFiles>)JobsGrid.ItemsSource;
             CreateWindow cw = new CreateWindow();
             cw.SaveJobsPropsToCsv();
             JobsGrid.Items.Refresh();
@@ -83,23 +131,16 @@ namespace WpfApp
             {
                 return;
             }
-            CreateWindow.JobsProps.Clear();
+            JobsProps.Clear();
             StreamReader reader = new StreamReader(CreateWindow.CsvFilePath1);
             reader.ReadLine();
             while (!reader.EndOfStream)
             {
                 string[] props = reader.ReadLine().Split(',');
-                Jobs job = new Jobs();
-                job.Checkbox = bool.Parse(props[0]);
-                job.Nom = props[1];
-                job.Source = props[2];
-                job.Destination = props[3];
-                job.Cryptosoft = bool.Parse(props[4]);
-                job.Type = props[5];
-                job.Progression = double.Parse(props[6]);
-                CreateWindow.JobsProps.Add(job);
+                SaveFiles saveFiles = new SaveFiles(props[0], props[1], props[2], bool.Parse(props[3]));
+                JobsProps.Add(saveFiles);
             }
-            JobsGrid.ItemsSource = CreateWindow.JobsProps;
+            JobsGrid.ItemsSource = JobsProps;
             reader.Close();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -115,23 +156,9 @@ namespace WpfApp
         {
             App.Window_MouseDown(this, e);
         }
-    }
-    public class Jobs
-    {
-        public bool Checkbox { get; set; }
-        public string Nom { get; set; }
-        public string Source { get; set; }
-        public string Destination { get; set; }
-        public bool Cryptosoft { get; set; }
-        public double Progression { get; set; }
-        public string Type { get; set; }
-    }
-    public static class GridFromTo
-    {
-        private static string ColumnPathFrom;
-        private static string ColumnPathTo;
-
-        public static string ColumnPathFrom1 { get => ColumnPathFrom; set => ColumnPathFrom = value; }
-        public static string ColumnPathTo1 { get => ColumnPathTo; set => ColumnPathTo = value; }
+        public bool IsPaused { get => isPaused; set => isPaused = value; }
+        public bool IsStopped { get => isStopped; set => isStopped = value; }
+        public static List<SaveFiles> JobsProps { get => _jobsProps; set => _jobsProps = value; }
+        public string WPFCreationButtonText { get; set; }
     }
 }

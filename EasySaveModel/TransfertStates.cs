@@ -10,7 +10,6 @@ namespace EasySaveModel
         private bool _actualStates = false; //Active/Waiting
         private double _elapsedTransfertTime;
         private int _nbFiles, _nbFilesMoved;
-
         public TransfertStatesItems(SaveFiles files)
         {
             _files = files;
@@ -45,7 +44,7 @@ namespace EasySaveModel
                 string targetFile = Path.Combine(_files.PathTo, file.Name);
 
                 try
-                {
+                {      
                     if (!File.Exists(targetFile))
                     {
                         file.CopyTo(targetFile);

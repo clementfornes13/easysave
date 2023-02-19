@@ -39,11 +39,8 @@
             <Button Style="{DynamicResource SecondButton}" Content="Retour" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClick" Margin="10,0,0,10"/>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1">
-            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center"  VerticalAlignment="Top" FontWeight="Bold" Click="CreateButtonClick" Margin="0,142,0,0" />
+            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Click="CreateButtonClick" />
             <CheckBox x:Name ="CryptoSoftCheckBox" Foreground="#303030" Background="Transparent" Content="CryptoSoft" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="265,31,0,0"/>
-            <CheckBox x:Name ="DifferentialCheckBox" Foreground="#303030" Background="Transparent" Content="Différentielle" HorizontalAlignment="Center"  VerticalAlignment="Top" Margin="0,82,0,0"/>
-            <CheckBox x:Name="SequentialCheckBox" Foreground="#303030" Background="Transparent" Content="Séquentielle" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="255,109,0,0"/>
-            <Label Content="Type de sauvegarde" Foreground="#303030" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" Margin="0,51,0,0"/>
             <Label Content="Cryptage de fichiers" Foreground="#303030" HorizontalAlignment="Left" Margin="242,0,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
         </Grid>
     </Grid>

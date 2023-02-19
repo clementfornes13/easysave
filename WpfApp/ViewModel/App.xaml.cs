@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
+﻿
+using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.Remoting.Channels;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-
 namespace WpfApp
 {
     /// <summary>
@@ -12,6 +12,7 @@ namespace WpfApp
     /// </summary>
     public partial class App : System.Windows.Application
     {
+
         protected override void OnStartup(StartupEventArgs e)
         {
             Process thisProc = Process.GetCurrentProcess();
@@ -23,7 +24,7 @@ namespace WpfApp
                 notifyIcon.BalloonTipText = "EasySave est déjà lancé sur votre ordinateur";
                 notifyIcon.Visible = true;
                 notifyIcon.ShowBalloonTip(0);
-                System.Windows.Application.Current.Shutdown();
+                Current.Shutdown();
                 return;
             }
             base.OnStartup(e);
@@ -44,17 +45,24 @@ namespace WpfApp
             }
         }
     }
-    public static class Global
+    public class AppSettings
     {
-        private static string pathFrom;
-        private static string pathTo;
+        public string ExtensionEncrypt { get; set; }
+        public string BusinessAppLocation { get; set; }
+        public string MaxFileSizeTransfer { get; set; }
+        public void SaveSettings()
+        {
+            using (StreamWriter writer = new StreamWriter(SettingsWindow.SettingsFilePath1))
+                writer.WriteLine($"ExtensionEncrypt,{ExtensionEncrypt}");
 
-        public static string PathFrom { get => pathFrom; set => pathFrom = value; }
-        public static string PathTo { get => pathTo; set => pathTo = value; }
+        }
     }
+
     public class MainWindow1
     {
         public static MainWindow mw = new MainWindow();
+
+
         public static void Show()
         {
             mw = new MainWindow();
