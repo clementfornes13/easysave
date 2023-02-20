@@ -7,8 +7,10 @@ namespace EasySaveModel
 {
     public class SaveFiles
     {
+        //Fichier du dossier sources
         private List<FileInfo> _files = new List<FileInfo>();
         private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
+        //
         private string _pathFrom, _pathTo; //C:/dir/dir/dir
         private long _totalSizeFile = 0;
 
