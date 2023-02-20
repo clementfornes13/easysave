@@ -1,11 +1,7 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Input;
-using System.Windows.Documents;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using EasySaveModel;
+
 namespace WpfApp
 {
     public partial class SettingsWindow : Window

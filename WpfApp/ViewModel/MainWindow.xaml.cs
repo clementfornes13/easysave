@@ -6,7 +6,6 @@ using EasySaveModel;
 using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
-using System.Globalization;
 using System.Windows.Controls;
 
 namespace WpfApp

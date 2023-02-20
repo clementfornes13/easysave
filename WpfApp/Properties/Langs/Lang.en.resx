@@ -153,6 +153,9 @@
   <data name="WPF_EnterNameSave" xml:space="preserve">
     <value>Enter a name for your save</value>
   </data>
+  <data name="WPF_ErrorCreate" xml:space="preserve">
+    <value>Please, verify your source and destination path</value>
+  </data>
   <data name="WPF_FileEncrypt" xml:space="preserve">
     <value>Files encryption</value>
   </data>

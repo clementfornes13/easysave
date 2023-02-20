@@ -169,6 +169,15 @@ namespace WpfApp.Properties.Langs {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Veuillez vérifier votre dossier de source et de destination.
+        /// </summary>
+        public static string WPF_ErrorCreate {
+            get {
+                return ResourceManager.GetString("WPF_ErrorCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Cryptage de fichiers.
         /// </summary>
         public static string WPF_FileEncrypt {

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Forms;
 using EasySaveModel;
+using System.Threading;
 
 namespace WpfApp
 {
@@ -12,10 +13,12 @@ namespace WpfApp
         private const string CsvFilePath = "jobsproperties.csv";
         public static string CsvFilePath1 => CsvFilePath;
         private SaveFiles _savefiles;
-
+        public string ErrorLabelCopy;
         public CreateWindow()
         {
             InitializeComponent();
+            ErrorLabelCopy = ErrorLabel.ContentStringFormat;
+            
         }
         public void ChooseFromButtonClick(object sender, RoutedEventArgs e)
         {
@@ -47,9 +50,18 @@ namespace WpfApp
         }
         public void CreateButtonClick(object sender, RoutedEventArgs e)
         {
-            _savefiles = new SaveFiles(TextBlockSource.Text, TextBlockDestination.Text, NameTextBox.Text, CryptoSoftCheckBox.IsChecked == true);
-            MainWindow.JobsProps.Add(_savefiles);
-            SaveJobsPropsToCsv();
+            if (TextBlockDestination.Text == "" || TextBlockSource.Text =="")
+            {
+                ErrorLabel.Content = ErrorLabelCopy;
+            }
+            else 
+            {
+                ErrorLabel.Content = "";
+                _savefiles = new SaveFiles(TextBlockSource.Text, TextBlockDestination.Text, NameTextBox.Text, CryptoSoftCheckBox.IsChecked == true);
+                MainWindow.JobsProps.Add(_savefiles);
+                SaveJobsPropsToCsv();
+            }
+
         }
         private void GotFocusName(object sender, RoutedEventArgs e)
         {
