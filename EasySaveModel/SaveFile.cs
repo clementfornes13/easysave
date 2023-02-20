@@ -7,8 +7,15 @@ namespace EasySaveModel
 {
     public class SaveFiles
     {
+<<<<<<< HEAD
+        //Fichier du dossier sources
+        private List<FileInfo> _files = new List<FileInfo>();
+        private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
+        //
+=======
         private string _nom; 
         private bool _cryptosoft;
+>>>>>>> 861dc986bd35c8786e4d58edbd024a5e2162eaed
         private string _pathFrom, _pathTo; //C:/dir/dir/dir
 
         private readonly List<FileInfo> _files = new List<FileInfo>();
