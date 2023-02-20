@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -7,7 +6,9 @@ using EasySaveModel;
 using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
-
+using System.Globalization;
+using System.Windows.Controls;
+using CryptoSoft;
 namespace WpfApp
 {
     public partial class MainWindow : Window
@@ -70,22 +71,38 @@ namespace WpfApp
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                     {
-                        _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
-                        foreach (SaveFiles file in _jobsProps)
-                        {
-                            if (file.PathFrom == _savefiles.PathFrom)
+                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text=="False")
+                        { 
+                            _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                            foreach (SaveFiles file in _jobsProps)
                             {
-                                _transferts.Add(new TransfertStatesItems(file));
-                                _transferts[_transferts.Count - 1].BackUp();
+                                if (file.PathFrom == _savefiles.PathFrom)
+                                {
+                                    _transferts.Add(new TransfertStatesItems(file));
+                                    _transferts[_transferts.Count - 1].BackUp();
+                                }
                             }
                         }
+                        /*else
+                        {
+                            _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                            foreach(SaveFiles file in _jobsProps)
+                            {
+                                if (file.PathFrom==_savefiles.PathFrom)
+                                {
+                                    Cryptage cryptage = new Cryptage();
+                                    SettingsWindow settingsWindow = new SettingsWindow();
+                                    cryptage.test(_savefiles.PathFrom);
+                                }
+                            }
+                        }*/
+
                     }
                 }
             }
         }
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            SettingsWindow1.mw.BusinessAppName = BusinessAppWindow1;
             SettingsWindow1.Show();
             Close();
         }
@@ -96,10 +113,6 @@ namespace WpfApp
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
             isStopped = true;
-        }
-        private void DeleteMainButtonClick(object sender, RoutedEventArgs e)
-        {
-
         }
         private void EnglishButtonClick(object sender, RoutedEventArgs e)
         {

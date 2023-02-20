@@ -1,6 +1,7 @@
 ﻿
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Forms;
@@ -12,7 +13,6 @@ namespace WpfApp
     /// </summary>
     public partial class App : System.Windows.Application
     {
-
         protected override void OnStartup(StartupEventArgs e)
         {
             Process thisProc = Process.GetCurrentProcess();

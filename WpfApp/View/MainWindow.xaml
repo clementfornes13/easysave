@@ -1,12 +1,12 @@
 ﻿<Window
+        x:Class="WpfApp.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" MouseDown="Window_MouseDownClick" BorderThickness="1.5" BorderBrush="#5e5e5e"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        x:Class="WpfApp.MainWindow"
-        mc:Ignorable="d"
-        Title="EasySave" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" MouseDown="Window_MouseDownClick" BorderThickness="1.5" BorderBrush="#5e5e5e">
-
+        xmlns:language="clr-namespace:WpfApp">
     <Grid x:Name="GridMainWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="450*"/>
@@ -18,10 +18,9 @@
 
 
         <Grid Grid.Row="0" Grid.Column="0" Cursor="Hand">
-            <Button Style="{DynamicResource SecondButton}" Content="Paramètres" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,255,0,0" Click="SettingsButtonClick" Width="108"/>
-            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,10,0,0" Cursor="Arrow" Opacity="2"/>
-            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,153,0,0" Click="CreateWindowButtonClick" Width="108"/>
-            <Button Style="{DynamicResource FirstButton}" Content="Supprimer" HorizontalAlignment="Center" VerticalAlignment="Center" Click="DeleteMainButtonClick" Width="108"/>
+            <Button x:Name="SettingsButton" Style="{DynamicResource SecondButton}" Content="Paramètres" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,229,0,0" Click="SettingsButtonClick" Width="108"/>
+            <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,32,0,0" Cursor="Arrow" Opacity="2"/>
+            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,184,0,0" Click="CreateWindowButtonClick" Width="108"/>
             <Button Name="EnglishButton" Width="40" Height="60" Click="EnglishButtonClick" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="Transparent" BorderThickness="0" Margin="0,0,25,0">
                 <Image Source="../Resources/english logo.png" Width="40" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
             </Button>
@@ -48,7 +47,7 @@
                     <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathFromColumn" Header="Source" Binding="{Binding PathFrom}" IsReadOnly="True" Width="*" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathToColumn" Header="Destination" Binding="{Binding PathTo}" IsReadOnly="True" Width="*" Foreground="#303030"/>
-                    <DataGridTextColumn Header=" Cryptosoft " Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
+                    <DataGridTextColumn x:Name="CryptosoftColumn" Header=" Cryptosoft " Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
                     <DataGridTemplateColumn Header=" Progression ">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

@@ -177,6 +177,9 @@
   <data name="pathTo" xml:space="preserve">
     <value>-&gt; Enter the path where you want to save your folder</value>
   </data>
+  <data name="SettingsButton" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="WPF_Add" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -245,9 +248,6 @@
   </data>
   <data name="WPF_SaveType" xml:space="preserve">
     <value>Save type</value>
-  </data>
-  <data name="WPF_Settings" xml:space="preserve">
-    <value>Settings</value>
   </data>
   <data name="WPF_Start" xml:space="preserve">
     <value>Start</value>
