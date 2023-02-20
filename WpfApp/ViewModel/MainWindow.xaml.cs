@@ -8,7 +8,7 @@ using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Globalization;
 using System.Windows.Controls;
-using CryptoSoft;
+
 namespace WpfApp
 {
     public partial class MainWindow : Window
@@ -116,11 +116,16 @@ namespace WpfApp
         }
         private void EnglishButtonClick(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.languageCode = "en-US";
+            Properties.Settings.Default.Save();
+            MessageBox.Show("Redémarrer l'application pour que les changements prennent effet");
 
         }
         private void FrenchButtonClick(object sender, RoutedEventArgs e)
         {
-
+            Properties.Settings.Default.languageCode = "fr-FR";
+            Properties.Settings.Default.Save();
+            MessageBox.Show("Reload application for changes to take effect");
         }
         private void LogicielMetier()
         {

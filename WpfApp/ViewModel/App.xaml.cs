@@ -3,9 +3,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+
 namespace WpfApp
 {
     /// <summary>
@@ -15,6 +17,8 @@ namespace WpfApp
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            var langCode = WpfApp.Properties.Settings.Default.languageCode;
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(langCode);
             Process thisProc = Process.GetCurrentProcess();
             if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
             {

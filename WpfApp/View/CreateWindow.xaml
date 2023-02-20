@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
-        Title="Création d'un travail de sauvegarde" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" MouseDown="Window_MouseDownClick"  BorderThickness="1.5" BorderBrush="#5e5e5e">
+        xmlns:language="clr-namespace:WpfApp.Properties.Langs"
+        Title="{x:Static language:Lang.WPF_CreateSave}" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" MouseDown="Window_MouseDownClick"  BorderThickness="1.5" BorderBrush="#5e5e5e">
     <Grid x:Name="GridCreateWindow">
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>
@@ -24,23 +26,23 @@
             <Ellipse Fill="#919191" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
-            <TextBox x:Name="NameTextBox" Background="#919191" Foreground="#303030" HorizontalAlignment="Left" Margin="89,67,0,0" TextWrapping="Wrap" Text="Rentrer un nom de travail de sauvegarde" VerticalAlignment="Top" Width="500" GotFocus="GotFocusName" TextAlignment="Center"/>
-            <Label Content="Création d'un travail de sauvegarde" Foreground="#303030" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+            <TextBox x:Name="NameTextBox" Background="#919191" Foreground="#303030" HorizontalAlignment="Left" Margin="89,67,0,0" TextWrapping="Wrap" Text="{x:Static language:Lang.WPF_EnterNameSave}" VerticalAlignment="Top" Width="500" GotFocus="GotFocusName" TextAlignment="Center"/>
+            <Label Content="{x:Static language:Lang.WPF_CreateSave}" Foreground="#303030" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
             <TextBlock x:Name="TextBlockSource" HorizontalAlignment="Left" Foreground="#303030" Margin="89,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="14" Width="344" TextAlignment="Left"/>
             <Label Content="Nom" Foreground="#303030" HorizontalAlignment="Left" Margin="28,63,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
-            <Button Style="{DynamicResource FirstButton}" Content="Choisir source" HorizontalAlignment="Right" VerticalAlignment="Top"  Click="ChooseFromButtonClick" Width="149" Margin="0,100,11,0"/>
-            <Button Style="{DynamicResource FirstButton}" Content="Choisir destination" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ChooseToButtonClick" Margin="0,150,10,0"/>
-            <Label Content="Source" Foreground="#303030" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Destination" Foreground="#303030" HorizontalAlignment="Left" Margin="9,157,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+            <Button Style="{DynamicResource FirstButton}" Content="{x:Static language:Lang.WPF_ChooseFrom}" HorizontalAlignment="Right" VerticalAlignment="Top"  Click="ChooseFromButtonClick" Width="149" Margin="0,100,11,0"/>
+            <Button Style="{DynamicResource FirstButton}" Content="{x:Static language:Lang.WPF_ChooseTo}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ChooseToButtonClick" Margin="0,150,10,0"/>
+            <Label Content="{x:Static language:Lang.WPF_From}" Foreground="#303030" HorizontalAlignment="Left" Margin="22,107,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+            <Label Content="{x:Static language:Lang.WPF_To}" Foreground="#303030" HorizontalAlignment="Left" Margin="9,157,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
             <TextBlock x:Name="TextBlockDestination" HorizontalAlignment="Left" Foreground="#303030" TextWrapping="Wrap" VerticalAlignment="Top" Height="14" Width="344" Margin="89,162,0,0" TextAlignment="Left"/>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="0">
-            <Button Style="{DynamicResource SecondButton}" Content="Retour" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClick" Margin="10,0,0,10"/>
+            <Button Style="{DynamicResource SecondButton}" Content="{x:Static language:Lang.WPF_Back}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClick" Margin="10,0,0,10"/>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1">
-            <Button Style="{DynamicResource FirstButton}" Content="Créer" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Click="CreateButtonClick" />
+            <Button Style="{DynamicResource FirstButton}" Content="{x:Static language:Lang.WPF_Create}" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Click="CreateButtonClick" />
             <CheckBox x:Name ="CryptoSoftCheckBox" Foreground="#303030" Background="Transparent" Content="CryptoSoft" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="265,31,0,0"/>
-            <Label Content="Cryptage de fichiers" Foreground="#303030" HorizontalAlignment="Left" Margin="242,0,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+            <Label Content="{x:Static language:Lang.WPF_FileEncrypt}" Foreground="#303030" HorizontalAlignment="Left" Margin="242,0,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
         </Grid>
     </Grid>
 </Window>

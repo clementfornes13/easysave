@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp"
         mc:Ignorable="d"
+        xmlns:language="clr-namespace:WpfApp.Properties.Langs"
         Title="Paramètres" Height="450" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#c6c6c6" BorderThickness="1.5" BorderBrush="#5e5e5e" MouseDown="Window_MouseDownClick">
     <Grid x:Name="GridSettingsWindow">
         <Grid.RowDefinitions>
@@ -16,16 +18,16 @@
 
 
         <Grid Grid.Row="0" Grid.Column="1">
-            <Label Content="Extensions à crypter" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="81,72,0,0" />
-            <Label Content="Taille maximum transfert simultané" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,72,120,0"/>
+            <Label Content="{x:Static language:Lang.WPF_EncryptExtension}" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="81,72,0,0" />
+            <Label Content="{x:Static language:Lang.WPF_MaxSize}" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,72,120,0"/>
             <Label Content="Ko/s" HorizontalAlignment="Right" Foreground="#303030" VerticalAlignment="Top" Margin="0,100,119,0" RenderTransformOrigin="0.474,0.863"  />
-            <Label Content="Logiciel métier" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,233,174,0"/>
+            <Label Content="{x:Static language:Lang.WPF_BusinessApp}" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,233,174,0"/>
             <Label x:Name ="ExtensionLabelSuccess" Foreground="#0BD44A" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="194,100,0,0"/>
             <Label x:Name ="ExtensionLabelError" Foreground="#D41F06" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="194,100,0,0"/>
-            <Label x:Name="LabelListeTravaux" Content="Paramètres" Foreground="#303030" HorizontalAlignment="Left" Margin="194,0,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name ="AddExtensionButton" Content="Ajouter" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddExtensionButtonClick" Margin="94,126,0,0"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name="SaveMaxTransfertSizeButton" Content="Sauvegarder" HorizontalAlignment="Right" VerticalAlignment="Top" Click="SaveMaxTransfertButtonClick" Margin="0,127,159,0"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name="SaveBusinessAppButton" Content="Sauvegarder" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="SaveBusinessAppButtonClick" Margin="0,0,159,120"/>
+            <Label x:Name="LabelListeTravaux" Content="{x:Static language:Lang.WPF_Settings}" Foreground="#303030" HorizontalAlignment="Left" Margin="194,0,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name ="AddExtensionButton" Content="{x:Static language:Lang.WPF_Add}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddExtensionButtonClick" Margin="94,126,0,0"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveMaxTransfertSizeButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="SaveMaxTransfertButtonClick" Margin="0,127,159,0"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveBusinessAppButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="SaveBusinessAppButtonClick" Margin="0,0,159,120"/>
             <TextBox x:Name="ExtensionBox" Background="#919191" Foreground="#303030" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension" Margin="78,103,0,0"/>
             <TextBox x:Name="MaximumSizeTransfert" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,103,157,0"/>
             <TextBox x:Name="SaveBusinessApp" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,264,157,0"/>
@@ -40,10 +42,10 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Gestion" Width="*">
+                    <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Manage}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="DeleteButtonExtension" Content="Supprimer" Click="DeleteExtensionButtonClick" Background="Transparent" Foreground="#303030" BorderThickness="0"/>
+                                <Button Name="DeleteButtonExtension" Content="{x:Static language:Lang.WPF_Delete}" Click="DeleteExtensionButtonClick" Background="Transparent" Foreground="#303030" BorderThickness="0"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -74,7 +76,7 @@
 
         <Grid Grid.Row="0" Grid.Column="0">
             <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="114" Source="/Resources/easysave logo.png" Margin="0,172,0,0" Cursor="Arrow"/>
-            <Button Style="{DynamicResource SecondButton}" Content="Retour" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClickSettings" Margin="10,0,0,10" Grid.Row="1"/>
+            <Button Style="{DynamicResource SecondButton}" Content="{x:Static language:Lang.WPF_Back}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClickSettings" Margin="10,0,0,10" Grid.Row="1"/>
         </Grid>
     </Grid>
 </Window>
