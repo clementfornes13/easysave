@@ -34,13 +34,13 @@
 
         <Grid Grid.Row="0" Grid.Column="1" Cursor="Hand">
             <Label x:Name="SaveListLabel" Foreground="#303030" Content="Liste des travaux de sauvegarde" HorizontalAlignment="Left" Margin="187,3,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow"/>
-            <Label x:Name="BusinessSoftwareLabel" Foreground="Red" FontWeight="Bold" Content="Logiciel métier détecté, travail mis en pause" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="72" Width="257"  VerticalContentAlignment="Center" Margin="10,0,0,0" FontSize="9"/>
+            <Label x:Name="BusinessSoftwareLabel" Foreground="Red" FontWeight="Bold" Content="Logiciel métier détecté, travail mis en pause" HorizontalAlignment="Right" VerticalAlignment="Bottom"  VerticalContentAlignment="Center" FontSize="9" Margin="0,0,209,64"/>
             <Button Style="{DynamicResource FirstButton}" Content="Lancer" HorizontalAlignment="Left" Margin="213,388,0,0" VerticalAlignment="Top"  Click="LaunchMainButtonClick"/>
             <Button Style="{DynamicResource FirstButton}" Content="Pause" HorizontalAlignment="Left" Margin="302,388,0,0" VerticalAlignment="Top"  Click="PauseButtonClick"/>
             <Button Style="{DynamicResource FirstButton}" Content="Stop" HorizontalAlignment="Left" Margin="386,0,0,19" VerticalAlignment="Bottom"  Click="StopButtonClick"/>
-            <CheckBox x:Name="SequentialCheckBox" Foreground="#303030" Background="Transparent" Content="Complète" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="500,415,0,0"/>
-            <CheckBox x:Name ="DifferentialCheckBox" Foreground="#303030" Background="Transparent" Content="Différentielle" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="500,388,0,0"/>
-            <Label Content="Type de sauvegarde" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" Margin="483,357,0,0"/>
+            <CheckBox x:Name="SequentialCheckBox" Foreground="#303030" Background="Transparent" Content="Complète" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Margin="60,0,0,11"/>
+            <CheckBox x:Name ="DifferentialCheckBox" Foreground="#303030" Background="Transparent" Content="Différentielle" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Margin="60,0,0,31"/>
+            <Label Content="Type de sauvegarde" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12" FontWeight="Bold" Margin="43,0,0,51" />
 
             <DataGrid Style="{DynamicResource DataGridStyle}" ItemsSource="{Binding JobsProps}" x:Name="JobsGrid" Width="645" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"  VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Cursor="Arrow" CanUserReorderColumns="False" Margin="0,60,0,0">
                 <DataGrid.Columns>
