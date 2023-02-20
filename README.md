@@ -100,7 +100,8 @@ Mettre des exemples par la suite.
 - [x] Support de plusieurs langues
     - [x] Français
     - [x] Anglais
-- [ ] Application WPF
+- [x] Application WPF
+- [ ] Interface déportée
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
