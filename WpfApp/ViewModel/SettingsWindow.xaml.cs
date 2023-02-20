@@ -1,17 +1,26 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Input;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using EasySaveModel;
 
 namespace WpfApp
 {
     public partial class SettingsWindow : Window
     {
-        private const string CsvFilePath = "extensions.csv";
+        private const string EncryptExtension = "extensionencrypt.csv";
+        private string _BusinessAppName;
+
+        public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
 
         public SettingsWindow()
         {
             InitializeComponent();
             LoadExtensionsFromCsv();
+            SaveBusinessApp.Text = BusinessAppName;
         }
         public void AddExtensionButtonClick(object sender, RoutedEventArgs e)
         {
@@ -55,7 +64,7 @@ namespace WpfApp
         }
         private void SaveExtensionsToCsv()
         {
-            using (StreamWriter writer = new StreamWriter(CsvFilePath))
+            using (StreamWriter writer = new StreamWriter(EncryptExtension))
             {
                 foreach (Extensions item in ExtensionsGrid.Items) 
                 {
@@ -65,9 +74,9 @@ namespace WpfApp
         }
         private void LoadExtensionsFromCsv()
         {
-            if (File.Exists(CsvFilePath))
+            if (File.Exists(EncryptExtension))
             {
-                using (StreamReader reader = new StreamReader(CsvFilePath))
+                using (StreamReader reader = new StreamReader(EncryptExtension))
                 {
                     string ligne;
                     while ((ligne = reader.ReadLine()) != null)
@@ -81,9 +90,14 @@ namespace WpfApp
         {
 
         }
+        public void SaveBusinessAppButtonClick(object sender, RoutedEventArgs e)
+        {
+            BusinessAppName = SaveBusinessApp.Text;
+        }
         public void BackMenuButtonClickSettings(object sender, RoutedEventArgs e)
         {
             MainWindow1.Show();
+            MainWindow1.mw.BusinessAppWindow1= BusinessAppName;
             Close();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -100,6 +114,7 @@ namespace WpfApp
             App.Window_MouseDown(this, e);
         }
     }
+
     public class Extensions
     {
         public string extension { get; set; }
