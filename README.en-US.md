@@ -152,3 +152,4 @@ Add examples
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: https://github.com/eystone/prosoft/blob/main/EasySave/Images/capture.en-US.PNG
+[product-screenshot2]: https://i.imgur.com/8QC76bn.png
