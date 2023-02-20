@@ -153,6 +153,14 @@ namespace EasySaveModel
                         {
                             file.CopyTo(targetFile);
                         }
+                        else
+                        {
+                            var lastwrite = File.GetLastAccessTimeUtc(targetFile);
+                            if (lastwrite != file.LastAccessTimeUtc)
+                            {
+                                file.CopyTo(targetFile, true);
+                            }
+                        }
                     }
                     catch (Exception e) { Console.Error.Write(e.ToString()); }
 
