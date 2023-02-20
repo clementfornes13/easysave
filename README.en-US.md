@@ -45,6 +45,7 @@
 ## About the project
 
 ![Project screen][product-screenshot]
+![Project screen2][product-screenshot2]
 
 EasySave is an application that has a visual interface as well as a console that allows users to create, delete and execute saved files. 
 The program supports English and French languages.
