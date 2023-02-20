@@ -46,7 +46,7 @@
 
 ![Capture d'écran du projet][product-screenshot]
 
-EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
+EasySave est une application qui possède une interface visuelle ainsi que console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
 EasySave est utilisable en Français et en Anglais
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
