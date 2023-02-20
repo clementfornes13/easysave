@@ -46,7 +46,7 @@
 
 ![Project screen][product-screenshot]
 
-EasySave is a console program that allows users to create, delete and execute saved files. 
+EasySave is an application that has a visual interface as well as a console that allows users to create, delete and execute saved files. 
 The program supports English and French languages.
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
