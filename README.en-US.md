@@ -100,7 +100,8 @@ Add examples
 - [x] Multi-language support
     - [x] French
     - [x] English
-- [ ] WPF Application
+- [x] WPF Application
+- [ ] Remote interface
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
