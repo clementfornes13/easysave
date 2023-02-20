@@ -45,6 +45,7 @@
 ## A propos
 
 ![Capture d'écran du projet][product-screenshot]
+![Capture d'écran du projet2][product-screenshot2]
 
 EasySave est une application qui possède une interface visuelle ainsi que console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
 EasySave est utilisable en Français et en Anglais
@@ -152,3 +153,4 @@ Mettre des exemples par la suite.
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: https://github.com/eystone/prosoft/blob/main/EasySave/Images/capture.png
+[product-screenshot2]: https://i.imgur.com/mt0a6J7.png
