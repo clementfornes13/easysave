@@ -17,10 +17,10 @@ namespace EasySaveModel
         public TransfertJob(SaveFiles files)
         {
             _files = files;
-            _nbFiles = files.Files.Count;
+            _nbFiles = (uint)files.Files.Count;
             foreach (DirectoryInfo dir in _files.SubDirs)
             {
-                _nbFiles += dir.GetFiles().Length;
+                _nbFiles += (uint)dir.GetFiles().Length;
             }
         }
 

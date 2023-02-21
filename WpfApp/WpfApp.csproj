@@ -57,9 +57,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
-=======
-    <Compile Include="Model\VisualModel.cs" />
     <Compile Include="Properties\Langs\Lang.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,7 +67,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Lang.en.resx</DependentUpon>
     </Compile>
->>>>>>> 8f45c979abd320f940680ccc3a0c564f2034fbed
     <Compile Include="ViewModel\App.xaml.cs" />
     <Compile Include="ViewModel\CreateWindow.xaml.cs" />
     <Compile Include="ViewModel\MainWindow.xaml.cs" />

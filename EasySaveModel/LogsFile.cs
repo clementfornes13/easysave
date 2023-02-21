@@ -5,7 +5,6 @@ using System.Threading;
 
 namespace EasySaveModel
 {
-
     public class LogsFile
     {
         // Variable definitions

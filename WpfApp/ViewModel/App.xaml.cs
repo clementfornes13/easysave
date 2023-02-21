@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
-<<<<<<< HEAD
-=======
 using System.Threading;
->>>>>>> 8f45c979abd320f940680ccc3a0c564f2034fbed
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;

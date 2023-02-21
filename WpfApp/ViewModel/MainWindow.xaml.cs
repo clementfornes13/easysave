@@ -69,21 +69,16 @@ namespace WpfApp
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                     {
-                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text=="False")
-                        { 
+                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
+                        {
                             _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
                             foreach (SaveFiles file in _jobsProps)
                             {
-<<<<<<< HEAD
-                                _transferts.Add(new TransfertJob(file));
-                                _transferts[_transferts.Count - 1].ThreadBackUp();
-=======
                                 if (file.PathFrom == _savefiles.PathFrom)
                                 {
-                                    _transferts.Add(new TransfertStatesItems(file));
-                                    _transferts[_transferts.Count - 1].BackUp();
+                                    _transferts.Add(new TransfertJob(file));
+                                    _transferts[_transferts.Count - 1].ThreadBackUp();
                                 }
->>>>>>> 8f45c979abd320f940680ccc3a0c564f2034fbed
                             }
                         }
                         /*else
@@ -99,7 +94,6 @@ namespace WpfApp
                                 }
                             }
                         }*/
-
                     }
                 }
             }
@@ -136,17 +130,19 @@ namespace WpfApp
             while (true)
             {
                 Process[] processes = Process.GetProcessesByName(BusinessAppWindow1);
-                if (processes.Length > 0) 
+                if (processes.Length > 0)
                 {
                     BusinessAppRunning = true;
-                    Dispatcher.Invoke(() => {
+                    Dispatcher.Invoke(() =>
+                    {
                         BusinessSoftwareLabel.Content = "Logiciel métier détecté, travail mis en pause";
                     });
                 }
-                else 
+                else
                 {
                     BusinessAppRunning = false;
-                    Dispatcher.Invoke(() => {
+                    Dispatcher.Invoke(() =>
+                    {
                         BusinessSoftwareLabel.Content = " ";
                     });
                 }
@@ -173,7 +169,7 @@ namespace WpfApp
             reader.ReadLine();
             while (!reader.EndOfStream)
             {
-                string[] props = reader.ReadLine().Split(';');
+                string[] props = reader.ReadLine().Split(',');
                 SaveFiles saveFiles = new SaveFiles(props[0], props[1], props[2], bool.Parse(props[3]));
                 JobsProps.Add(saveFiles);
             }
