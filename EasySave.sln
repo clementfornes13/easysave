@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSoft", "CryptoSoft\CryptoSoft.csproj", "{4CCFCF64-B662-43FC-89BA-3B9D8BA061BC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{6FCA01A5-EA8F-412A-9BF3-6D5D7B374FDF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{58DC7FDC-F88A-436E-B784-D298D26726D4} = {58DC7FDC-F88A-436E-B784-D298D26726D4}
@@ -14,7 +12,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasySaveModel", "EasySaveMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csproj", "{2FE37F1C-3830-4167-A16E-D4CA1CC03473}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Remote console", "..\..\..\..\OneDrive - Association Cesi Viacesi mail\Bureau\Progression_Fabrication\p7\Remote console.csproj", "{E6054248-811E-419E-88A5-C0971332C953}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Remote console", "RemoteConsole\Remote console.csproj", "{3C361E00-EE46-4943-81A7-1256BBAAC94A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoSoft", "CryptoSoft\CryptoSoft\CryptoSoft.csproj", "{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4CCFCF64-B662-43FC-89BA-3B9D8BA061BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CCFCF64-B662-43FC-89BA-3B9D8BA061BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CCFCF64-B662-43FC-89BA-3B9D8BA061BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CCFCF64-B662-43FC-89BA-3B9D8BA061BC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FCA01A5-EA8F-412A-9BF3-6D5D7B374FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FCA01A5-EA8F-412A-9BF3-6D5D7B374FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FCA01A5-EA8F-412A-9BF3-6D5D7B374FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,10 +34,14 @@ Global
 		{2FE37F1C-3830-4167-A16E-D4CA1CC03473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FE37F1C-3830-4167-A16E-D4CA1CC03473}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FE37F1C-3830-4167-A16E-D4CA1CC03473}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6054248-811E-419E-88A5-C0971332C953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6054248-811E-419E-88A5-C0971332C953}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6054248-811E-419E-88A5-C0971332C953}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6054248-811E-419E-88A5-C0971332C953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
