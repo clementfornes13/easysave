@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Remote console", "RemoteConsole\Remote console.csproj", "{3C361E00-EE46-4943-81A7-1256BBAAC94A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoSoft", "CryptoSoft\CryptoSoft\CryptoSoft.csproj", "{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSoft", "CryptoSoft\CryptoSoft.csproj", "{B23A7FE1-0A52-476E-857E-C05E71E8256F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +38,10 @@ Global
 		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C361E00-EE46-4943-81A7-1256BBAAC94A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D7081B4-C85D-4D8C-80F0-B284FDE0DDEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B23A7FE1-0A52-476E-857E-C05E71E8256F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B23A7FE1-0A52-476E-857E-C05E71E8256F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B23A7FE1-0A52-476E-857E-C05E71E8256F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B23A7FE1-0A52-476E-857E-C05E71E8256F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
