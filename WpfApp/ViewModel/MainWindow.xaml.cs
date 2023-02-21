@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -7,6 +6,7 @@ using EasySaveModel;
 using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
+using System.Windows.Controls;
 
 namespace WpfApp
 {
@@ -19,7 +19,6 @@ namespace WpfApp
         private bool isStopped = false;
         private bool BusinessAppRunning = false;
         public string BusinessAppWindow1;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -70,22 +69,43 @@ namespace WpfApp
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                     {
-                        _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
-                        foreach (SaveFiles file in _jobsProps)
-                        {
-                            if (file.PathFrom == _savefiles.PathFrom)
+                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text=="False")
+                        { 
+                            _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                            foreach (SaveFiles file in _jobsProps)
                             {
+<<<<<<< HEAD
                                 _transferts.Add(new TransfertJob(file));
                                 _transferts[_transferts.Count - 1].ThreadBackUp();
+=======
+                                if (file.PathFrom == _savefiles.PathFrom)
+                                {
+                                    _transferts.Add(new TransfertStatesItems(file));
+                                    _transferts[_transferts.Count - 1].BackUp();
+                                }
+>>>>>>> 8f45c979abd320f940680ccc3a0c564f2034fbed
                             }
                         }
+                        /*else
+                        {
+                            _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                            foreach(SaveFiles file in _jobsProps)
+                            {
+                                if (file.PathFrom==_savefiles.PathFrom)
+                                {
+                                    Cryptage cryptage = new Cryptage();
+                                    SettingsWindow settingsWindow = new SettingsWindow();
+                                    cryptage.test(_savefiles.PathFrom);
+                                }
+                            }
+                        }*/
+
                     }
                 }
             }
         }
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            SettingsWindow1.mw.BusinessAppName = BusinessAppWindow1;
             SettingsWindow1.Show();
             Close();
         }
@@ -97,17 +117,18 @@ namespace WpfApp
         {
             isStopped = true;
         }
-        private void DeleteMainButtonClick(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void EnglishButtonClick(object sender, RoutedEventArgs e)
         {
+            Properties.Settings.Default.languageCode = "en-US";
+            Properties.Settings.Default.Save();
+            MessageBox.Show("Redémarrer l'application pour que les changements prennent effet");
 
         }
         private void FrenchButtonClick(object sender, RoutedEventArgs e)
         {
-
+            Properties.Settings.Default.languageCode = "fr-FR";
+            Properties.Settings.Default.Save();
+            MessageBox.Show("Reload application for changes to take effect");
         }
         private void LogicielMetier()
         {
@@ -133,7 +154,6 @@ namespace WpfApp
                 Thread.Sleep(2000);
             }
         }
-
         private void Delete(object sender, RoutedEventArgs e)
         {
             JobsProps.Clear();

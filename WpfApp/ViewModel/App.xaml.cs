@@ -1,9 +1,13 @@
-﻿
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Drawing;
+<<<<<<< HEAD
+=======
+using System.Threading;
+>>>>>>> 8f45c979abd320f940680ccc3a0c564f2034fbed
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+
 namespace WpfApp
 {
     /// <summary>
@@ -11,9 +15,10 @@ namespace WpfApp
     /// </summary>
     public partial class App : System.Windows.Application
     {
-
         protected override void OnStartup(StartupEventArgs e)
         {
+            var langCode = WpfApp.Properties.Settings.Default.languageCode;
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(langCode);
             Process thisProc = Process.GetCurrentProcess();
             if (Process.GetProcessesByName(thisProc.ProcessName).Length > 1)
             {
@@ -27,6 +32,7 @@ namespace WpfApp
                 return;
             }
             base.OnStartup(e);
+
         }
         public static void CloseApp(Window window)
         {

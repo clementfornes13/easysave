@@ -45,8 +45,9 @@
 ## A propos
 
 ![Capture d'écran du projet][product-screenshot]
+![Capture d'écran du projet2][product-screenshot2]
 
-EasySave est un programme console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
+EasySave est une application qui possède une interface visuelle ainsi que console qui permet aux utilisateurs de créer, supprimer et exécuter des travaux de sauvegarde. 
 EasySave est utilisable en Français et en Anglais
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
@@ -99,7 +100,8 @@ Mettre des exemples par la suite.
 - [x] Support de plusieurs langues
     - [x] Français
     - [x] Anglais
-- [ ] Application WPF
+- [x] Application WPF
+- [ ] Interface déportée
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -110,32 +112,37 @@ Mettre des exemples par la suite.
 - Version 1 : 
 	> Application Console Multi-langues
 
+	> Maximum de 5 travaux de sauvegarde
+	
 	> Fichier Log, Etat en JSON
 
-	> Maximum de 5 travaux de sauvegarde
-
-	> Type de sauvegarde (Sequentielle)
+	> Type de fonctionnement (Sequentielle)
 
 - Version 1.1 :
-	> Ajout du fichier log en XML
-- Version 2
+	> Ajout du fichier Log en XML
+- Version 2 :
 	> Passage en Application WPF
 
 	> Travaux de sauvegarde illimités
 	
-    > Utilisation de CryptoSoft
+	> Ajout temps de cryptage dans fichier log
 	
-    > Ajout temps de cryptage dans fichier log
+	> Détection logiciel métier (Pas de lancement de travail)
 	
-    > Détection logiciel métier (Pas de lancement de travail)
+    	> Utilisation de CryptoSoft
+	
 - Version 3 :
 	> Possibilité de mettre en pause
 
-	> Ajout type de sauvegarde (Différentielle)
+	> Ajout type de fonctionnement (Parallèle)
 	
-    > Détection logiciel métier (Arrêt de tout travail en cours)
+    	> Détection logiciel métier (Arrêt de tout travail en cours)
 	
-    > Gestion fichiers prioritaires 
+    	> Gestion fichiers prioritaires avant les autres
+	
+	> Choix taille maximum de fichier pour sauvegarde en simultané
+	
+	> Interface déportée
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -152,3 +159,4 @@ Mettre des exemples par la suite.
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: https://github.com/eystone/prosoft/blob/main/EasySave/Images/capture.png
+[product-screenshot2]: https://i.imgur.com/mt0a6J7.png

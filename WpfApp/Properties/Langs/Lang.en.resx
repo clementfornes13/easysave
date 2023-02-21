@@ -117,66 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BackupTime" xml:space="preserve">
-    <value>------Time Elapsed:</value>
-  </data>
-  <data name="BeginBackup" xml:space="preserve">
-    <value>-------- Backup files processing --------</value>
-  </data>
-  <data name="BlankOrInvalid" xml:space="preserve">
-    <value>-&gt; Invalid path or blank, a folder will be created automatically, continue ? (Y/N)</value>
-  </data>
-  <data name="Choose save option" xml:space="preserve">
-    <value>----- Select what you want to do -----</value>
-  </data>
-  <data name="Create choice" xml:space="preserve">
-    <value>-&gt; You have chosen to create a save</value>
-  </data>
-  <data name="Create save" xml:space="preserve">
-    <value>-&gt; Create save (1)</value>
-  </data>
-  <data name="Delete choice" xml:space="preserve">
-    <value>-&gt; You have chosen to delete a save</value>
-  </data>
-  <data name="Delete path" xml:space="preserve">
-    <value>-&gt; Enter the path where the save to delete is located</value>
-  </data>
-  <data name="Delete save" xml:space="preserve">
-    <value>-&gt; Delete save (2)</value>
-  </data>
-  <data name="DirectoryError" xml:space="preserve">
-    <value>/!\ Directory not found /!\</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>/!\ Error, enter desired action again /!\</value>
-  </data>
-  <data name="Execute choice" xml:space="preserve">
-    <value>-&gt; You have chosen to execute a save</value>
-  </data>
-  <data name="Execute path" xml:space="preserve">
-    <value>-&gt; Enter path where save to execute is located</value>
-  </data>
-  <data name="Execute save" xml:space="preserve">
-    <value>-&gt; Execute save (3)</value>
-  </data>
-  <data name="ExitProgram" xml:space="preserve">
-    <value>- &gt; Exit EasySave (4)</value>
-  </data>
-  <data name="Invalid path" xml:space="preserve">
-    <value>/!\ Error, invalid path /!\</value>
-  </data>
-  <data name="Langue choice" xml:space="preserve">
-    <value>-&gt; You have chosen English</value>
-  </data>
-  <data name="Max 5 work" xml:space="preserve">
-    <value>You can't have more than 5 working project, you have to delete or move at least 1</value>
-  </data>
-  <data name="pathFrom" xml:space="preserve">
-    <value>-&gt; Enter the path where is located the folder to save</value>
-  </data>
-  <data name="pathTo" xml:space="preserve">
-    <value>-&gt; Enter the path where you want to save your folder</value>
-  </data>
   <data name="WPF_Add" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -212,6 +152,9 @@
   </data>
   <data name="WPF_EnterNameSave" xml:space="preserve">
     <value>Enter a name for your save</value>
+  </data>
+  <data name="WPF_ErrorCreate" xml:space="preserve">
+    <value>Please, verify your source and destination path</value>
   </data>
   <data name="WPF_FileEncrypt" xml:space="preserve">
     <value>Files encryption</value>

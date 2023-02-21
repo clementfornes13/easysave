@@ -117,66 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BackupTime" xml:space="preserve">
-    <value>------ Temps passé :</value>
-  </data>
-  <data name="BeginBackup" xml:space="preserve">
-    <value>-------- Sauvegarde du travail en cours --------</value>
-  </data>
-  <data name="BlankOrInvalid" xml:space="preserve">
-    <value>-&gt; Chemin invalide ou vide, un dossier sera crée automatiquement, continuer ? (Y/N)</value>
-  </data>
-  <data name="Choose save option" xml:space="preserve">
-    <value>----- Choisissez ce que vous voulez effectuer -----</value>
-  </data>
-  <data name="Create choice" xml:space="preserve">
-    <value>-&gt; Vous avez choisi de creer un travail de sauvegarde</value>
-  </data>
-  <data name="Create save" xml:space="preserve">
-    <value>-&gt; Creer un travail de sauvegarde (1)</value>
-  </data>
-  <data name="Delete choice" xml:space="preserve">
-    <value>-&gt; Vous avez choisi de supprimer un travail de sauvegarde</value>
-  </data>
-  <data name="Delete path" xml:space="preserve">
-    <value>-&gt; Rentrez le chemin d'accès du travail que vous souhaitez supprimer</value>
-  </data>
-  <data name="Delete save" xml:space="preserve">
-    <value>-&gt; Supprimer un travail de sauvegarde (2)</value>
-  </data>
-  <data name="DirectoryError" xml:space="preserve">
-    <value>/!\ Répertoire non trouvé /!\</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>/!\ Erreur, rentrez à nouveau l'action désirée /!\</value>
-  </data>
-  <data name="Execute choice" xml:space="preserve">
-    <value>-&gt; Vous avez choisi d'executer un travail de sauvegarde</value>
-  </data>
-  <data name="Execute path" xml:space="preserve">
-    <value>-&gt; Rentrez le chemin d'accès du travail à exécuter</value>
-  </data>
-  <data name="Execute save" xml:space="preserve">
-    <value>-&gt; Executer un travail de sauvegarde (3)</value>
-  </data>
-  <data name="ExitProgram" xml:space="preserve">
-    <value>-&gt; Quitter EasySave (4)</value>
-  </data>
-  <data name="Invalid path" xml:space="preserve">
-    <value>/!\ Erreur, chemin d'accès invalide /!\</value>
-  </data>
-  <data name="Langue choice" xml:space="preserve">
-    <value>-&gt; Vous avez choisi le Français</value>
-  </data>
-  <data name="Max 5 work" xml:space="preserve">
-    <value>Vous ne pouvez pas avoir plus de 5 travaux de sauvegarde, supprimez ou deplacez le dossier d'au moins 1</value>
-  </data>
-  <data name="pathFrom" xml:space="preserve">
-    <value>-&gt; Rentrez le chemin d'accès de votre travail</value>
-  </data>
-  <data name="pathTo" xml:space="preserve">
-    <value>-&gt; Rentrez le chemin de sauvegarde de votre travail</value>
-  </data>
   <data name="WPF_Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>

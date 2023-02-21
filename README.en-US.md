@@ -45,8 +45,9 @@
 ## About the project
 
 ![Project screen][product-screenshot]
+![Project screen2][product-screenshot2]
 
-EasySave is a console program that allows users to create, delete and execute saved files. 
+EasySave is an application that has a visual interface as well as a console that allows users to create, delete and execute saved files. 
 The program supports English and French languages.
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
@@ -99,7 +100,8 @@ Add examples
 - [x] Multi-language support
     - [x] French
     - [x] English
-- [ ] WPF Application
+- [x] WPF Application
+- [ ] Remote interface
 
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
@@ -108,34 +110,39 @@ Add examples
 ## Version history
 
 - Version 1 : 
-	> Multi-Language Console App
+	> Multi-language Console App
 
-	> Log, State Files in JSON Format
+	> Maximum of 5 backup jobs
 
-	> Limited Saves (5)
+	> Log file, state file in JSON Format
 
-	> Sequential save type
+	> Type of operation (Sequential)
 
-- Version 1.1 : 
-	> Adding log file in XML Format
-- Version 2 
-	> WPF Application
+- Version 1.1 :
+	> Addition of the Log file in XML Format
+- Version 2 :
+	> Switch to WPF App
 
-	> Unlimited Saves
-	
-    > Adding CryptoSoft use
-	
-    > Adding encryption time in log file
-	
-    > Work application detection (Can't launch save)
+	> Unlimited backup jobs
+
+	> Added encryption time in log file
+
+	> Business software detection (No job launch)
+
+    	> Using CryptoSoft
+
 - Version 3 :
-	> Adding pause option
+	> Ability to pause
 
-	> Differential or Sequential save type
-	
-    > Work application detection (Stop all in progress saves)
-	
-    > Prioritary files management
+	> Added type of operation (Parallel)
+
+    	> Business software detection (Stop all work in progress)
+
+    	> Management of priority files before others
+
+	> Choice of maximum file size for simultaneous backup
+
+	> Remote interface
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
@@ -152,3 +159,4 @@ Add examples
 <!-- Lien et images -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: https://github.com/eystone/prosoft/blob/main/EasySave/Images/capture.en-US.PNG
+[product-screenshot2]: https://i.imgur.com/8QC76bn.png

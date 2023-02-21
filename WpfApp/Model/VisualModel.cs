@@ -18,13 +18,7 @@ namespace WpfApp
        
         public void delWorkingFiles()
         {
-            foreach (SaveFiles file in m_workingFiles)
-            {
-                if (file.PathFrom == _savefiles.PathFrom)
-                {
-                    m_workingFiles.Remove(file);
-                }
-            }
+
         }
 
         public void createJob()
