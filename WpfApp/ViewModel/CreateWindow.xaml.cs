@@ -69,12 +69,12 @@ namespace WpfApp
         {
             using (var writer = new StreamWriter(CsvFilePath))
             {
-                writer.WriteLine("Source,Destination,Nom,Cryptosoft");
+                writer.WriteLine("Source,Destination,Name,Cryptosoft");
                 foreach (var _savefiles in MainWindow.JobsProps)
                 {
                     writer.WriteLine(_savefiles.PathFrom + ","
                         + _savefiles.PathTo + ","
-                        + _savefiles.Nom + ","
+                        + _savefiles.Name + ","
                         + _savefiles.Cryptosoft + ",");
                 }
             }

@@ -49,7 +49,7 @@
     <Compile Include="LogsFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveFile.cs" />
-    <Compile Include="TransfertStates.cs" />
+    <Compile Include="TransfertJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

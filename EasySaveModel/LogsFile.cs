@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.IO;
-using System.Resources;
+using System.Threading;
 
 namespace EasySaveModel
 {
@@ -15,8 +15,10 @@ namespace EasySaveModel
         private StreamWriter _writingStream;
 
         // Singleton
-        private static LogsFile xmlInstance, jsonInstance;
+        private static LogsFile _xmlInstance, _jsonInstance;
+        private static Mutex _xmlMutex, _jsonMutex;
         private readonly bool _jsonOrXml;
+
         private LogsFile(bool jsonOrXML)
         {
             _jsonOrXml = jsonOrXML;
@@ -25,21 +27,40 @@ namespace EasySaveModel
         {
             if (jsonOrXml)
             {
-                if (jsonInstance == null)
+                if (_jsonInstance == null)
                 {
-                    jsonInstance = new LogsFile(jsonOrXml);
+                    _jsonInstance = new LogsFile(jsonOrXml);
                 }
-                return jsonInstance;
+                return _jsonInstance;
             }
             else
             {
-                if (xmlInstance == null)
+                if (_xmlInstance == null)
                 {
-                    xmlInstance = new LogsFile(jsonOrXml);
+                    _xmlInstance = new LogsFile(jsonOrXml);
                 }
-                return xmlInstance;
+                return _xmlInstance;
             }
-            //if (states logs)
+        }
+
+        public static Mutex GetMutex(bool jsonOrXml)
+        {
+            if (jsonOrXml)
+            {
+                if (_jsonMutex == null)
+                {
+                    _jsonMutex = new Mutex();
+                }
+                return _jsonMutex;
+            }
+            else
+            {
+                if (_xmlMutex == null)
+                {
+                    _xmlMutex = new Mutex();
+                }
+                return _xmlMutex;
+            }
         }
 
         // Create a Logs folder

@@ -13,7 +13,7 @@ namespace WpfApp
     public partial class MainWindow : Window
     {
         private static List<SaveFiles> _jobsProps = new List<SaveFiles>();
-        private List<TransfertStatesItems> _transferts = new List<TransfertStatesItems>();
+        private List<TransfertJob> _transferts = new List<TransfertJob>();
         private SaveFiles _savefiles;
         private bool isPaused = false;
         private bool isStopped = false;
@@ -57,8 +57,8 @@ namespace WpfApp
                         {
                             if (file.PathFrom == _savefiles.PathFrom)
                             {
-                                _transferts.Add(new TransfertStatesItems(file));
-                                _transferts[_transferts.Count - 1].BackUpDiff();
+                                _transferts.Add(new TransfertJob(file));
+                                _transferts[_transferts.Count - 1].ThreadBackUpDiff();
                             }
                         }
                     }
@@ -75,8 +75,8 @@ namespace WpfApp
                         {
                             if (file.PathFrom == _savefiles.PathFrom)
                             {
-                                _transferts.Add(new TransfertStatesItems(file));
-                                _transferts[_transferts.Count - 1].BackUp();
+                                _transferts.Add(new TransfertJob(file));
+                                _transferts[_transferts.Count - 1].ThreadBackUp();
                             }
                         }
                     }
@@ -111,7 +111,6 @@ namespace WpfApp
         }
         private void LogicielMetier()
         {
-            
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
@@ -154,7 +153,7 @@ namespace WpfApp
             reader.ReadLine();
             while (!reader.EndOfStream)
             {
-                string[] props = reader.ReadLine().Split(',');
+                string[] props = reader.ReadLine().Split(';');
                 SaveFiles saveFiles = new SaveFiles(props[0], props[1], props[2], bool.Parse(props[3]));
                 JobsProps.Add(saveFiles);
             }

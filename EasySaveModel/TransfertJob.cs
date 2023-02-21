@@ -1,30 +1,67 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace EasySaveModel
 {
-    public class TransfertStatesItems
+    public class TransfertJob
     {
-        private SaveFiles _files;
-        private bool _actualStates = false; //Active/Waiting
-        private double _elapsedTransfertTime;
-        private int _nbFiles, _nbFilesMoved;
-        public TransfertStatesItems(SaveFiles files)
+        private static SaveFiles _files;
+        private static bool _actualStates = false; //Active/Waiting
+        private static double _elapsedTransfertTime;
+        private static uint _nbFiles, _nbFilesMoved;
+
+        private Thread _mainThread = null;
+
+        public TransfertJob(SaveFiles files)
         {
             _files = files;
             _nbFiles = files.Files.Count;
+            foreach (DirectoryInfo dir in _files.SubDirs)
+            {
+                _nbFiles += dir.GetFiles().Length;
+            }
         }
 
-        //Threading backup
-        //new mutex
-        //if complete
-        //if sequentiel
-        //New the
+        ~TransfertJob()
+        {
+            if (_mainThread != null && _mainThread.IsAlive)
+            {
+                _mainThread.Join();
+            }
+        }
 
-        
+        public void ThreadBackUp()
+        {
+            if (_mainThread != null)
+            {
+                throw new Exception($"Back up Thread of {_files.Name} already alive");
+            }
+            else
+            {
+                _mainThread = new Thread(BackUp);
+                Debug.WriteLine("Launch backup");
+                _mainThread.Start();
+            }
+        }
+
+        public void ThreadBackUpDiff()
+        {
+            if (_mainThread != null)
+            {
+                throw new Exception($"Back up Thread of {_files.Name} already alive");
+            }
+            else
+            {
+                _mainThread = new Thread(BackUpDiff);
+                Debug.WriteLine("Launch backupdiff");
+                _mainThread.Start();
+            }
+        }
+
         //Make a fill copy
-        public void BackUp()
+        public static void BackUp()
         {
             //Make state file
             //Start a chrono ofr mesuring time elaspsed
@@ -44,7 +81,7 @@ namespace EasySaveModel
                 string targetFile = Path.Combine(_files.PathTo, file.Name);
 
                 try
-                {      
+                {
                     if (!File.Exists(targetFile))
                     {
                         file.CopyTo(targetFile);
@@ -54,7 +91,7 @@ namespace EasySaveModel
 
                 _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 _nbFilesMoved++;
-
+                Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
             }
 
             //Manage sub dir for copy
@@ -68,33 +105,31 @@ namespace EasySaveModel
 
                 FileInfo[] subFiles = dir.GetFiles();
                 Console.WriteLine($"Found {subFiles.Length} files in the {dir.Name} subdir");
-                foreach (FileInfo file in subFiles)
+                foreach (FileInfo subfile in subFiles)
                 {
-                    string targetFile = Path.Combine(targetdir, file.Name);
-                    Console.WriteLine($"File {file.Name} written");
+                    string targetFile = Path.Combine(targetdir, subfile.Name);
+                    Console.WriteLine($"File {subfile.Name} written");
                     try
                     {
                         if (!File.Exists(targetFile))
                         {
-                            file.CopyTo(targetFile);
+                            subfile.CopyTo(targetFile);
                         }
                     }
                     catch (Exception e) { Console.Error.Write(e.ToString()); }
 
                     _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                     _nbFilesMoved++;
-
+                    Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
                 }
             }
             stopwatch.Stop();
             _actualStates = false;
-            //prendre Mutex
             Loggin();
-            //Rendre mutex
         }
 
         //Make a fill copy
-        public void BackUpDiff()
+        public static void BackUpDiff()
         {
             //Make state file
             //Start a chrono ofr mesuring time elaspsed
@@ -106,30 +141,30 @@ namespace EasySaveModel
             _actualStates = true;
             foreach (FileInfo file in _files.Files)
             {
-                
-                    string targetFile = Path.Combine(_files.PathTo, file.Name);
-                     
+
+                string targetFile = Path.Combine(_files.PathTo, file.Name);
+
 
                 try
+                {
+                    if (!File.Exists(targetFile))
                     {
-                        if (!File.Exists(targetFile))
+                        file.CopyTo(targetFile);
+                    }
+                    else
+                    {
+                        var lastwrite = File.GetLastAccessTimeUtc(targetFile);
+                        if (lastwrite != file.LastAccessTimeUtc)
                         {
-                            file.CopyTo(targetFile);
-                        }
-                        else
-                        {
-                            var lastwrite = File.GetLastAccessTimeUtc(targetFile);
-                            if(lastwrite != file.LastAccessTimeUtc)
-                            {
-                                file.CopyTo(targetFile,true);
-                            }
+                            file.CopyTo(targetFile, true);
                         }
                     }
-                    catch (Exception e) { Console.Error.Write(e.ToString()); }
+                }
+                catch (Exception e) { Debug.WriteLine(e.ToString()); }
 
                 _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 _nbFilesMoved++;
-
+                Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
             }
 
             //Manage sub dir for copy
@@ -162,37 +197,47 @@ namespace EasySaveModel
                             }
                         }
                     }
-                    catch (Exception e) { Console.Error.Write(e.ToString()); }
+                    catch (Exception e) { Debug.WriteLine(e.ToString()); }
 
                     _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                     _nbFilesMoved++;
-
+                    Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
                 }
             }
             stopwatch.Stop();
             _actualStates = false;
-            //prendre Mutex
             Loggin();
-            //Rendre mutex
         }
 
-        public void Loggin()
+        public static void Loggin()
         {
-            string m_nameLog = Path.GetFileName(_files.PathFrom);
-            string totalSizeFileLog = _files.TotalSizeFile.ToString();
-            string m_elapsedTransfertTimeLog = _elapsedTransfertTime.ToString();
-            
-            LogsFile JSONmyLogs = LogsFile.GetInstance(true);
-            LogsFile XMLmyLogs = LogsFile.GetInstance(true);
+            string nameLog = Path.GetFileName(_files.PathFrom);
+            string totalSizeFileStr = _files.TotalSizeFile.ToString();
+            string elapsedTransfertTimeStr = _elapsedTransfertTime.ToString();
 
-            JSONmyLogs.WriteLog(m_nameLog, _files.PathFrom, _files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
-            XMLmyLogs.WriteLog(m_nameLog, _files.PathFrom, _files.PathTo, totalSizeFileLog, m_elapsedTransfertTimeLog);
+            LogsFile JSONmyLogs = LogsFile.GetInstance(true);
+            LogsFile XMLmyLogs = LogsFile.GetInstance(false);
+            Mutex JSONMutex = LogsFile.GetMutex(true);
+            Mutex XMLMutex = LogsFile.GetMutex(false);
+
+            JSONMutex.WaitOne();
+            JSONmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr);
+            JSONMutex.ReleaseMutex();
+
+            XMLMutex.WaitOne();
+            XMLmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr);
+            XMLMutex.ReleaseMutex();
+        }
+
+        public uint CalcProgress()
+        {
+            return (_nbFiles / _nbFilesMoved) * 100;
         }
 
         public bool ActualStates { get => _actualStates; set => _actualStates = value; }
         public double ElapsedTransfertTime { get => _elapsedTransfertTime; }
         internal SaveFiles workingFile { get => _files; }
-        public int NbFiles { get => _nbFiles; set => _nbFiles = value; }
-        public int NbFilesMoved { get => _nbFilesMoved; set => _nbFilesMoved = value; }
+        public uint NbFiles { get => _nbFiles; }
+        public uint NbFilesMoved { get => _nbFilesMoved; set => _nbFilesMoved = value; }
     }
 }
