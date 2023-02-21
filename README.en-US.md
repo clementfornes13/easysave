@@ -110,34 +110,39 @@ Add examples
 ## Version history
 
 - Version 1 : 
-	> Multi-Language Console App
+	> Multi-language Console App
 
-	> Log, State Files in JSON Format
-
-	> Limited Saves (5)
-
-	> Sequential save type
-
-- Version 1.1 : 
-	> Adding log file in XML Format
-- Version 2 
-	> WPF Application
-
-	> Unlimited Saves
+	> Maximum of 5 backup jobs
 	
-    > Adding CryptoSoft use
+	> Log file, state file in JSON Format
+
+	> Type of operation (Sequential)
+
+- Version 1.1 :
+	> Addition of the Log file in XML Format
+- Version 2 :
+	> Switch to WPF App
+
+	> Unlimited backup jobs
 	
-    > Adding encryption time in log file
+	> Added encryption time in log file
 	
-    > Work application detection (Can't launch save)
+	> Business software detection (No job launch)
+	
+    	> Using CryptoSoft
+	
 - Version 3 :
-	> Adding pause option
+	> Ability to pause
 
-	> Differential or Sequential save type
+	> Added type of operation (Parallel)
 	
-    > Work application detection (Stop all in progress saves)
+    	> Business software detection (Stop all work in progress)
+    	
+    	> Management of priority files before others
 	
-    > Prioritary files management
+	> Choice of maximum file size for simultaneous backup
+	
+	> Remote interface
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
 
