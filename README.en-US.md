@@ -113,7 +113,7 @@ Add examples
 	> Multi-language Console App
 
 	> Maximum of 5 backup jobs
-	
+
 	> Log file, state file in JSON Format
 
 	> Type of operation (Sequential)
@@ -124,24 +124,24 @@ Add examples
 	> Switch to WPF App
 
 	> Unlimited backup jobs
-	
+
 	> Added encryption time in log file
-	
+
 	> Business software detection (No job launch)
-	
+
     	> Using CryptoSoft
-	
+
 - Version 3 :
 	> Ability to pause
 
 	> Added type of operation (Parallel)
-	
+
     	> Business software detection (Stop all work in progress)
-    	
+
     	> Management of priority files before others
-	
+
 	> Choice of maximum file size for simultaneous backup
-	
+
 	> Remote interface
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
