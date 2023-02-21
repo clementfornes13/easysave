@@ -151,7 +151,7 @@ namespace WpfApp
                 Thread.Sleep(2000);
             }
         }
-
+        //Just to synchronize my repo
         private void Delete(object sender, RoutedEventArgs e)
         {
             JobsProps.Clear();
