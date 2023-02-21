@@ -19,7 +19,6 @@ namespace WpfApp
         private bool isStopped = false;
         private bool BusinessAppRunning = false;
         public string BusinessAppWindow1;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -151,7 +150,6 @@ namespace WpfApp
                 Thread.Sleep(2000);
             }
         }
-        //Just to synchronize my repo
         private void Delete(object sender, RoutedEventArgs e)
         {
             JobsProps.Clear();

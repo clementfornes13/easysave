@@ -1,0 +1,22 @@
+﻿<Window x:Class="RemoteConsole.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RemoteConsole"
+        mc:Ignorable="d"
+        Title="Remote console" Height="362" Width="527" >
+    <Grid x:Name="pbstatus" Margin="0,0,10,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="383*"/>
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ProgressBar x:Name="ProgressBarJobStatus" HorizontalAlignment="Left" Height="51" Margin="65,64,0,0" VerticalAlignment="Top" Width="379"/>
+        <Label x:Name="lb_etat_prog_server" Content="" HorizontalAlignment="Left" Margin="305,0,0,0" VerticalAlignment="Center" Height="58" Width="108" FontSize="24"/>
+        <Label HorizontalAlignment="Left" Margin="203,264,0,0" VerticalAlignment="Top"/>
+        <Label Content="Save job progress" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="3.024,1.668" FontSize="18" FontFamily="Arial Rounded MT Bold" FontWeight="Bold"/>
+
+    </Grid>
+</Window>
