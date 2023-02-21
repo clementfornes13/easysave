@@ -29,6 +29,7 @@ namespace WpfApp
                 return;
             }
             base.OnStartup(e);
+
         }
         public static void CloseApp(Window window)
         {

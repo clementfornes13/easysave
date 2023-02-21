@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33214.272
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSoft", "CryptoSoft\CryptoSoft.csproj", "{4CCFCF64-B662-43FC-89BA-3B9D8BA061BC}"
 EndProject
@@ -13,6 +13,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasySaveModel", "EasySaveModel\EasySaveModel.csproj", "{58DC7FDC-F88A-436E-B784-D298D26726D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csproj", "{2FE37F1C-3830-4167-A16E-D4CA1CC03473}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Remote console", "..\..\..\..\OneDrive - Association Cesi Viacesi mail\Bureau\Progression_Fabrication\p7\Remote console.csproj", "{E6054248-811E-419E-88A5-C0971332C953}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{2FE37F1C-3830-4167-A16E-D4CA1CC03473}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FE37F1C-3830-4167-A16E-D4CA1CC03473}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FE37F1C-3830-4167-A16E-D4CA1CC03473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6054248-811E-419E-88A5-C0971332C953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6054248-811E-419E-88A5-C0971332C953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6054248-811E-419E-88A5-C0971332C953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6054248-811E-419E-88A5-C0971332C953}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
