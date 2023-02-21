@@ -13,7 +13,7 @@ namespace WpfApp
     public partial class MainWindow : Window
     {
         private static List<SaveFiles> _jobsProps = new List<SaveFiles>();
-        private List<TransfertStatesItems> _transferts = new List<TransfertStatesItems>();
+        private List<TransfertJob> _transferts = new List<TransfertJob>();
         private SaveFiles _savefiles;
         private bool isPaused = false;
         private bool isStopped = false;
@@ -56,8 +56,8 @@ namespace WpfApp
                         {
                             if (file.PathFrom == _savefiles.PathFrom)
                             {
-                                _transferts.Add(new TransfertStatesItems(file));
-                                _transferts[_transferts.Count - 1].BackUpDiff();
+                                _transferts.Add(new TransfertJob(file));
+                                _transferts[_transferts.Count - 1].ThreadBackUpDiff();
                             }
                         }
                     }
@@ -69,15 +69,15 @@ namespace WpfApp
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                     {
-                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text=="False")
-                        { 
+                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
+                        {
                             _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
                             foreach (SaveFiles file in _jobsProps)
                             {
                                 if (file.PathFrom == _savefiles.PathFrom)
                                 {
-                                    _transferts.Add(new TransfertStatesItems(file));
-                                    _transferts[_transferts.Count - 1].BackUp();
+                                    _transferts.Add(new TransfertJob(file));
+                                    _transferts[_transferts.Count - 1].ThreadBackUp();
                                 }
                             }
                         }
@@ -94,7 +94,6 @@ namespace WpfApp
                                 }
                             }
                         }*/
-
                     }
                 }
             }
@@ -126,22 +125,23 @@ namespace WpfApp
         }
         private void LogicielMetier()
         {
-            
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
                 Process[] processes = Process.GetProcessesByName(BusinessAppWindow1);
-                if (processes.Length > 0) 
+                if (processes.Length > 0)
                 {
                     BusinessAppRunning = true;
-                    Dispatcher.Invoke(() => {
+                    Dispatcher.Invoke(() =>
+                    {
                         BusinessSoftwareLabel.Content = "Logiciel métier détecté, travail mis en pause";
                     });
                 }
-                else 
+                else
                 {
                     BusinessAppRunning = false;
-                    Dispatcher.Invoke(() => {
+                    Dispatcher.Invoke(() =>
+                    {
                         BusinessSoftwareLabel.Content = " ";
                     });
                 }

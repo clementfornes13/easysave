@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CryptoSoft;
 using System.IO;
+
 namespace CryptoSoft
 {
     class Program

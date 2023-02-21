@@ -7,9 +7,9 @@ namespace ConsoleApp
 {
     class Controller
     {
-        private ConsoleCLI m_cli;
-        private List<SaveFiles> m_workingFiles = new List<SaveFiles>();
-        private List<TransfertStatesItems> m_transferts = new List<TransfertStatesItems>();
+        private ConsoleCLI _cli;
+        private List<SaveFiles> _workingFiles = new List<SaveFiles>();
+        private static List<TransfertJob> _transferts = new List<TransfertJob>();
         ResourceManager rm = new ResourceManager("ConsoleApp.Resources.Langue", typeof(ConsoleApp).Assembly);
         public Controller()
         {
@@ -21,13 +21,13 @@ namespace ConsoleApp
 
         private void createUI()
         {
-            if (m_cli == null)
+            if (_cli == null)
             {
-                m_cli = new ConsoleCLI();
+                _cli = new ConsoleCLI();
 
-                if (m_cli.ChoixLangue())
+                if (_cli.ChoixLangue())
                 {
-                    switch (m_cli.ChoixSave())
+                    switch (_cli.ChoixSave())
                     {
                         case 1:
                             addWorkingFiles();
@@ -46,7 +46,7 @@ namespace ConsoleApp
             }
             else
             {
-                switch (m_cli.ChoixSave())
+                switch (_cli.ChoixSave())
                 {
                     case 1:
                         addWorkingFiles();
@@ -66,35 +66,35 @@ namespace ConsoleApp
 
         private void addWorkingFiles()
         {
-            m_workingFiles.Add(new SaveFiles(m_cli.PathFrom1, m_cli.PathTo1));
+            _workingFiles.Add(new SaveFiles(_cli.PathFrom1, _cli.PathTo1));
         }
 
         private void delWorkingFiles()
         {
-            foreach (SaveFiles file in m_workingFiles)
+            foreach (SaveFiles file in _workingFiles)
             {
-                if (file.PathFrom == m_cli.DeletePath1)
+                if (file.PathFrom == _cli.DeletePath1)
                 {
-                    m_workingFiles.Remove(file);
+                    _workingFiles.Remove(file);
                 }
             }
         }
 
         private void createJob()
         {
-            foreach (SaveFiles file in m_workingFiles)
+            foreach (SaveFiles file in _workingFiles)
             {
                 Console.WriteLine(file.ToString());
             }
 
-            foreach (SaveFiles file in m_workingFiles)
+            foreach (SaveFiles file in _workingFiles)
             {
-                if (file.PathFrom == m_cli.ExecutePath1)
+                if (file.PathFrom == _cli.ExecutePath1)
                 {
-                    m_transferts.Add(new TransfertStatesItems(file));
+                    _transferts.Add(new TransfertJob(file));
                     Console.WriteLine(rm.GetString("BeginBackup"));
-                    m_transferts[m_transferts.Count - 1].BackUp();
-                    Console.Write(rm.GetString("BackupTime") + $"{m_transferts[m_transferts.Count - 1].ElapsedTransfertTime}" + "s");
+                    _transferts[_transferts.Count - 1].ThreadBackUp();
+                    Console.Write(rm.GetString("BackupTime") + $"{_transferts[_transferts.Count - 1].ElapsedTransfertTime}" + "s");
                 }
             }
         }
