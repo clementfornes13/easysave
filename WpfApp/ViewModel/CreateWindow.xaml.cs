@@ -59,7 +59,6 @@ namespace WpfApp
                 MainWindow.JobsProps.Add(_savefiles);
                 SaveJobsPropsToCsv();
             }
-
         }
         private void GotFocusName(object sender, RoutedEventArgs e)
         {

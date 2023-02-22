@@ -1,6 +1,13 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Input;
+using System.Windows.Documents;
+using EasySaveModel;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows.Forms;
+using Microsoft.Win32;
+using System.Runtime.CompilerServices;
 
 namespace WpfApp
 {
@@ -8,14 +15,14 @@ namespace WpfApp
     {
         private const string EncryptExtension = "extensionencrypt.csv";
         private string _BusinessAppName;
-
+        private List<string> extensionsList = new List<string>();
+        private string CryptoSoftPath;
         public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
 
         public SettingsWindow()
         {
             InitializeComponent();
             LoadExtensionsFromCsv();
-            SaveBusinessApp.Text = BusinessAppName;
         }
         public void AddExtensionButtonClick(object sender, RoutedEventArgs e)
         {
@@ -32,16 +39,18 @@ namespace WpfApp
             }
             foreach (Extensions item in ExtensionsGrid.Items)
             {
-                if (item.extension == extension)
+                if (item.Extension == extension)
                 {
                     ExtensionLabelError.Content = "Extensions déjà ajoutée";
                     ExtensionLabelSuccess.Content = null;
                     return;
                 }
             }
-            ExtensionsGrid.Items.Add(new Extensions { extension = extension });
+            ExtensionsGrid.Items.Add(new Extensions { Extension = extension });
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
+            extensionsList.Add(extension);
+            Debug.WriteLine(extensionsList);
             SaveExtensionsToCsv();
         }
         public void DeleteExtensionButtonClick(object sender, RoutedEventArgs e )
@@ -51,6 +60,7 @@ namespace WpfApp
             {
                 ExtensionsGrid.Items.Remove(selectedExtension);
                 SaveExtensionsToCsv();
+                extensionsList.Remove(selectedExtension.Extension);
             }
         }
         private void GotFocusExtension(object sender, RoutedEventArgs e)
@@ -63,7 +73,8 @@ namespace WpfApp
             {
                 foreach (Extensions item in ExtensionsGrid.Items) 
                 {
-                    writer.WriteLine(item.extension);
+                    
+                    writer.WriteLine(item.Extension);
                 }
             }
         }
@@ -76,7 +87,7 @@ namespace WpfApp
                     string ligne;
                     while ((ligne = reader.ReadLine()) != null)
                     {
-                        ExtensionsGrid.Items.Add(new Extensions { extension = ligne });
+                        ExtensionsGrid.Items.Add(new Extensions { Extension = ligne });
                     }
                 }
             }
@@ -89,10 +100,13 @@ namespace WpfApp
         {
             BusinessAppName = SaveBusinessApp.Text;
         }
+        public void SaveCryptoSoftClick(object sender, RoutedEventArgs e)
+        {
+            CryptoSoftPath=CryptoSoftTextbox.Text;
+        }
         public void BackMenuButtonClickSettings(object sender, RoutedEventArgs e)
         {
             MainWindow1.Show();
-            MainWindow1.mw.BusinessAppWindow1= BusinessAppName;
             Close();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -108,10 +122,21 @@ namespace WpfApp
         {
             App.Window_MouseDown(this, e);
         }
+        private void ChooseCryptosoftPathClick(object sender, RoutedEventArgs e)
+        {
+            using (System.Windows.Forms.OpenFileDialog cryptosoftdialog = new System.Windows.Forms.OpenFileDialog())
+            {
+                cryptosoftdialog.Filter = "Executables (*.exe)|*.exe";
+                if (cryptosoftdialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    CryptoSoftTextbox.Text = cryptosoftdialog.FileName;
+                }
+            }
+        }
     }
 
     public class Extensions
     {
-        public string extension { get; set; }
+        public string Extension { get; set; }
     }
 }
