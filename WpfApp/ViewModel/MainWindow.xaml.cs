@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Controls;
+using System.Threading.Tasks;
+using System;
 
 namespace WpfApp
 {
@@ -37,14 +39,32 @@ namespace WpfApp
         }
         private void LaunchMainButtonClick(object sender, RoutedEventArgs e)
         {
+            Func<bool> refreshProgressBar = () =>
+            {
+                uint tmpProgress = 0;
+                while (_transferts[_transferts.Count - 1].ActualStates)
+                {
+                    if (tmpProgress == 0 || tmpProgress != _transferts[_transferts.Count - 1].CalcProgress())
+                    {
+                        tmpProgress = _transferts[_transferts.Count - 1].CalcProgress();
+                        //refreshUI(tmpProgress)
+                    }
+                    else
+                    {
+                        Thread.Sleep(100);
+                    }
+                }
+                return true;
+            };
+
             if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
             {
-                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
                 return;
             }
             if (DifferentialCheckBox.IsChecked == true && SequentialCheckBox.IsChecked == true)
             {
-                System.Windows.MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
+                MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
                 return;
             }
             if (DifferentialCheckBox.IsChecked == true)
@@ -54,13 +74,16 @@ namespace WpfApp
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                     {
-                        _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                        _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text, 
+                                                   ((TextBlock)PathToColumn.GetCellContent(item)).Text);
                         foreach (SaveFiles file in _jobsProps)
                         {
                             if (file.PathFrom == _savefiles.PathFrom)
                             {
                                 _transferts.Add(new TransfertJob(file));
                                 _transferts[_transferts.Count - 1].ThreadBackUpDiff();
+
+                                Task t = Task.Run(refreshProgressBar);
                             }
                         }
                     }
@@ -74,13 +97,16 @@ namespace WpfApp
                     {
                         if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
                         {
-                            _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
+                            _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text, 
+                                                       ((TextBlock)PathToColumn.GetCellContent(item)).Text);
                             foreach (SaveFiles file in _jobsProps)
                             {
                                 if (file.PathFrom == _savefiles.PathFrom)
                                 {
                                     _transferts.Add(new TransfertJob(file));
                                     _transferts[_transferts.Count - 1].ThreadBackUp();
+
+                                    Task t = Task.Run(refreshProgressBar);
                                 }
                             }
                         }

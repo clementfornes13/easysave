@@ -11,6 +11,7 @@ namespace EasySaveModel
         private static bool _actualStates = false; //Active/Waiting
         private static double _elapsedTransfertTime;
         private static uint _nbFiles, _nbFilesMoved;
+        private static Mutex countMutex = new Mutex();
 
         private Thread _mainThread = null;
 
@@ -89,9 +90,11 @@ namespace EasySaveModel
                 }
                 catch (Exception e) { Console.Error.Write(e.ToString()); }
 
+                countMutex.WaitOne();
                 _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 _nbFilesMoved++;
                 Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
+                countMutex.ReleaseMutex();
             }
 
             //Manage sub dir for copy
@@ -118,9 +121,11 @@ namespace EasySaveModel
                     }
                     catch (Exception e) { Console.Error.Write(e.ToString()); }
 
+                    countMutex.WaitOne();
                     _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                     _nbFilesMoved++;
                     Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
+                    countMutex.ReleaseMutex();
                 }
             }
             stopwatch.Stop();
@@ -162,9 +167,11 @@ namespace EasySaveModel
                 }
                 catch (Exception e) { Debug.WriteLine(e.ToString()); }
 
+                countMutex.WaitOne();
                 _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 _nbFilesMoved++;
                 Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
+                countMutex.ReleaseMutex();
             }
 
             //Manage sub dir for copy
@@ -199,9 +206,11 @@ namespace EasySaveModel
                     }
                     catch (Exception e) { Debug.WriteLine(e.ToString()); }
 
+                    countMutex.WaitOne();
                     _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                     _nbFilesMoved++;
                     Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles}");
+                    countMutex.ReleaseMutex();
                 }
             }
             stopwatch.Stop();
@@ -231,7 +240,7 @@ namespace EasySaveModel
 
         public uint CalcProgress()
         {
-            return (_nbFiles / _nbFilesMoved) * 100;
+            return (_nbFilesMoved / _nbFiles) * 100;
         }
 
         public bool ActualStates { get => _actualStates; set => _actualStates = value; }
