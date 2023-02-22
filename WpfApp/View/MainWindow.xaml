@@ -46,14 +46,14 @@
             <DataGrid Style="{DynamicResource DataGridStyle}" ItemsSource="{Binding JobsProps}" x:Name="JobsGrid" Width="645" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"  VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Cursor="Arrow" CanUserReorderColumns="False" Margin="0,60,0,0">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="" Width="auto"/>
-                    <DataGridTextColumn Header="{x:Static language:Lang.WPF_Name}" Binding="{Binding Nom}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
+                    <DataGridTextColumn Header="{x:Static language:Lang.WPF_Name}" Binding="{Binding Name}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathFromColumn" Header="{x:Static language:Lang.WPF_From}" Binding="{Binding PathFrom}" IsReadOnly="True" Width="*" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathToColumn" Header="{x:Static language:Lang.WPF_To}" Binding="{Binding PathTo}" IsReadOnly="True" Width="*" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="CryptosoftColumn" Header=" Cryptosoft " Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
                     <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Progression}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Value="{Binding Progression}" Width="auto" Background="Transparent"/>
+                                <ProgressBar Value="{Binding Progress}" Width="auto" Background="Transparent"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
