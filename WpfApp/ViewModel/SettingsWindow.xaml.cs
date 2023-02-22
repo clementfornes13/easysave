@@ -15,7 +15,6 @@ namespace WpfApp
         {
             InitializeComponent();
             LoadExtensionsFromCsv();
-            SaveBusinessApp.Text = BusinessAppName;
         }
         public void AddExtensionButtonClick(object sender, RoutedEventArgs e)
         {
@@ -32,14 +31,14 @@ namespace WpfApp
             }
             foreach (Extensions item in ExtensionsGrid.Items)
             {
-                if (item.extension == extension)
+                if (item.Extension == extension)
                 {
                     ExtensionLabelError.Content = "Extensions déjà ajoutée";
                     ExtensionLabelSuccess.Content = null;
                     return;
                 }
             }
-            ExtensionsGrid.Items.Add(new Extensions { extension = extension });
+            ExtensionsGrid.Items.Add(new Extensions { Extension = extension });
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
             SaveExtensionsToCsv();
@@ -63,7 +62,7 @@ namespace WpfApp
             {
                 foreach (Extensions item in ExtensionsGrid.Items) 
                 {
-                    writer.WriteLine(item.extension);
+                    writer.WriteLine(item.Extension);
                 }
             }
         }
@@ -76,7 +75,7 @@ namespace WpfApp
                     string ligne;
                     while ((ligne = reader.ReadLine()) != null)
                     {
-                        ExtensionsGrid.Items.Add(new Extensions { extension = ligne });
+                        ExtensionsGrid.Items.Add(new Extensions { Extension = ligne });
                     }
                 }
             }
@@ -92,7 +91,6 @@ namespace WpfApp
         public void BackMenuButtonClickSettings(object sender, RoutedEventArgs e)
         {
             MainWindow1.Show();
-            MainWindow1.mw.BusinessAppWindow1= BusinessAppName;
             Close();
         }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -112,6 +110,6 @@ namespace WpfApp
 
     public class Extensions
     {
-        public string extension { get; set; }
+        public string Extension { get; set; }
     }
 }

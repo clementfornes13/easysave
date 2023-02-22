@@ -53,7 +53,7 @@
                     <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Progression}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Value="{Binding Progress}" Width="auto" Background="Transparent"/>
+                                <ProgressBar x:Name="ProgressBarColumn" Value="{Binding progress}" Width="auto" Minimum="0" Maximum="100" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

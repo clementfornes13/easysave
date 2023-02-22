@@ -18,13 +18,16 @@ namespace WpfApp
         private bool isPaused = false;
         private bool isStopped = false;
         private bool BusinessAppRunning = false;
-        public string BusinessAppWindow1;
+        private string _BusinessAppWindow;
+        private SettingsWindow settingsWindow;
         public MainWindow()
         {
             InitializeComponent();
             JobsGrid.ItemsSource = JobsProps;
+            settingsWindow = new SettingsWindow();
+            _BusinessAppWindow = settingsWindow.BusinessAppName;
             LoadJobsPropsFromCsv();
-            Thread BusinessAppThread = new Thread(LogicielMetier);
+            Thread BusinessAppThread = new Thread(BusinessApp);
             BusinessAppThread.Start();
         }
         private void CreateWindowButtonClick(object sender, RoutedEventArgs e) //Bouton creer
@@ -106,10 +109,12 @@ namespace WpfApp
         private void PauseButtonClick(object sender, RoutedEventArgs e)
         {
             isPaused = !isPaused;
+
         }
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
             isStopped = true;
+
         }
         private void EnglishButtonClick(object sender, RoutedEventArgs e)
         {
@@ -123,12 +128,12 @@ namespace WpfApp
             Properties.Settings.Default.Save();
             MessageBox.Show("Reload application for changes to take effect");
         }
-        private void LogicielMetier()
+        private void BusinessApp()
         {
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
-                Process[] processes = Process.GetProcessesByName(BusinessAppWindow1);
+                Process[] processes = Process.GetProcessesByName(_BusinessAppWindow);
                 if (processes.Length > 0)
                 {
                     BusinessAppRunning = true;
@@ -192,5 +197,6 @@ namespace WpfApp
         public bool IsStopped { get => isStopped; set => isStopped = value; }
         public static List<SaveFiles> JobsProps { get => _jobsProps; set => _jobsProps = value; }
         public string WPFCreationButtonText { get; set; }
+        public string BusinessAppWindow { get => _BusinessAppWindow; set => _BusinessAppWindow = value; }
     }
 }

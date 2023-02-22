@@ -66,11 +66,11 @@ namespace WpfApp
     }
     public class SettingsWindow1
     {
-        public static SettingsWindow mw = new SettingsWindow();
+        public static SettingsWindow sw = new SettingsWindow();
         public static void Show()
         {
-            mw = new SettingsWindow();
-            mw.Show();
+            sw = new SettingsWindow();
+            sw.Show();
         }
     }
     public class CreateWindow1
@@ -118,6 +118,7 @@ namespace WpfApp
                     {
                         break;
                     }
+                    
                 }
 
                 System.Windows.MessageBox.Show("Text received : {0}", data);
