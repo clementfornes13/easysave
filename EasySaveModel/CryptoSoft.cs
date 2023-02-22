@@ -1,20 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+
 
 namespace EasySaveModel
 {
     public class CryptoSoft
     {
-<<<<<<< HEAD
-        Process processCryptoSoft = new Process();
-        processCryptoSoft.StartInfo.FileName = "..\CryptoSoft\CryptoSoft\bin\Debug\net6.0\";
-        processCryptoSoft.Start();
-=======
+        public void StartProcess(List<string> extensionCrypt, SaveFiles files)
+        {
+            // On test chaque Fichier
+            foreach (FileInfo file in files.Files)
+            {
+                //On test chaque Type paramétré
+                foreach (string strExtensionCrypt in extensionCrypt)
+                {
+                    if (file.Extension == strExtensionCrypt)
+                    {
+                        Process processCryptoSoft = new Process();
+                        processCryptoSoft.StartInfo.FileName = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
+                        processCryptoSoft.StartInfo.Arguments = file.FullName;
+                        processCryptoSoft.Start();
+                    }
+                }
+            }
 
->>>>>>> 4f605c137671ea71902dfe5abab513536b76e2eb
+            //Manage sub dir for copy
+            foreach (DirectoryInfo dir in files.SubDirs)
+            {
+                FileInfo[] subFiles = dir.GetFiles();
+                // On test chaque Fichier
+                foreach (FileInfo file in subFiles)
+                {
+                    //On test chaque Type paramétré 
+                    foreach (string strExtensionCrypt in extensionCrypt)
+                    {
+                        if (file.Extension == strExtensionCrypt)
+                        {
+                            Process processCryptoSoft = new Process();
+                            processCryptoSoft.StartInfo.FileName = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
+                            processCryptoSoft.StartInfo.Arguments = file.FullName;
+                            processCryptoSoft.Start();
+                        }
+                    }
+                }
+            }
+        }
     }
 }
