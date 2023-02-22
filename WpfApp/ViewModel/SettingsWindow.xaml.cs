@@ -1,6 +1,9 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Input;
+using System.Windows.Documents;
+using EasySaveModel;
+using System.Collections.Generic;
 
 namespace WpfApp
 {
@@ -8,7 +11,7 @@ namespace WpfApp
     {
         private const string EncryptExtension = "extensionencrypt.csv";
         private string _BusinessAppName;
-
+        private List<string> extensionsList = new List<string>();
         public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
 
         public SettingsWindow()
@@ -41,6 +44,7 @@ namespace WpfApp
             ExtensionsGrid.Items.Add(new Extensions { Extension = extension });
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
+            extensionsList.Add(extension);
             SaveExtensionsToCsv();
         }
         public void DeleteExtensionButtonClick(object sender, RoutedEventArgs e )
@@ -50,6 +54,7 @@ namespace WpfApp
             {
                 ExtensionsGrid.Items.Remove(selectedExtension);
                 SaveExtensionsToCsv();
+                extensionsList.Remove(selectedExtension.Extension);
             }
         }
         private void GotFocusExtension(object sender, RoutedEventArgs e)
@@ -62,6 +67,7 @@ namespace WpfApp
             {
                 foreach (Extensions item in ExtensionsGrid.Items) 
                 {
+                    
                     writer.WriteLine(item.Extension);
                 }
             }
