@@ -10,9 +10,8 @@ namespace EasySaveModel
 {
     public class CryptoSoft
     {
-        Process process1 = new Process();
-        process1.StartInfo.FileName = "explorer.exe";
-        process1.Start();
-
+        Process processCryptoSoft = new Process();
+        processCryptoSoft.StartInfo.FileName = "..\CryptoSoft\CryptoSoft\bin\Debug\net6.0\";
+        processCryptoSoft.Start();
     }
 }
