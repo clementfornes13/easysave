@@ -11,6 +11,8 @@ namespace EasySaveModel
         private bool _cryptosoft;
         private string _pathFrom, _pathTo; //C:/dir/dir/dir
 
+        private double _progress = 0;
+
         private readonly List<FileInfo> _files = new List<FileInfo>();
         private List<DirectoryInfo> _subDirs = new List<DirectoryInfo>();
         private long _totalSizeFile = 0;
@@ -49,7 +51,12 @@ namespace EasySaveModel
             init();
             calcSizeFiles();
         }
-        private void init()
+        ~SaveFiles()
+        {
+            //File.close();
+        }
+
+        public void init()
         {
             //Need to make a feature for subdirectory
             string[] names = System.IO.Directory.GetFiles(_pathFrom);
@@ -66,10 +73,7 @@ namespace EasySaveModel
             DirectoryInfo dirFrom = new DirectoryInfo(_pathFrom);
             _subDirs = new List<DirectoryInfo>(dirFrom.GetDirectories());
         }
-        ~SaveFiles()
-        {
-            //File.close();
-        }
+        
         public void calcSizeFiles()
         {
             foreach (FileInfo file in _files)
@@ -106,5 +110,6 @@ namespace EasySaveModel
         public long TotalSizeFile { get => _totalSizeFile; }
         public string Name { get => _name; set => _name = value; }
         public bool Cryptosoft { get => _cryptosoft; set => _cryptosoft = value; }
+        public double Progress { get => _progress; set => _progress = value; }
     }
 }

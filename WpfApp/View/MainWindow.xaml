@@ -50,10 +50,10 @@
                     <DataGridTextColumn x:Name="PathFromColumn" Header="{x:Static language:Lang.WPF_From}" Binding="{Binding PathFrom}" IsReadOnly="True" Width="*" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="PathToColumn" Header="{x:Static language:Lang.WPF_To}" Binding="{Binding PathTo}" IsReadOnly="True" Width="*" Foreground="#303030"/>
                     <DataGridTextColumn x:Name="CryptosoftColumn" Header=" Cryptosoft " Binding="{Binding Cryptosoft}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
-                    <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Progression}">
+                    <DataGridTemplateColumn x:Name="ProgressBarColumn" Header="{x:Static language:Lang.WPF_Progression}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ProgressBar Value="{Binding Progress}" Width="auto" Background="Transparent"/>
+                                <ProgressBar x:Name="ProgressBarItem" Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" Width="auto" Background="Transparent"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

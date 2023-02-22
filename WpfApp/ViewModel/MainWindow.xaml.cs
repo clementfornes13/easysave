@@ -9,6 +9,7 @@ using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Controls;
 using System.Threading.Tasks;
 using System;
+using System.Net;
 
 namespace WpfApp
 {
@@ -21,6 +22,8 @@ namespace WpfApp
         private bool isStopped = false;
         private bool BusinessAppRunning = false;
         public string BusinessAppWindow1;
+
+        private static Mutex _pauseMutex = new Mutex();
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +31,8 @@ namespace WpfApp
             LoadJobsPropsFromCsv();
             Thread BusinessAppThread = new Thread(LogicielMetier);
             BusinessAppThread.Start();
+
+            TransfertJob.PauseMutex = _pauseMutex;
         }
         private void CreateWindowButtonClick(object sender, RoutedEventArgs e) //Bouton creer
         {
@@ -36,7 +41,7 @@ namespace WpfApp
         }
         private void LaunchMainButtonClick(object sender, RoutedEventArgs e)
         {
-            Func<bool> refreshProgressBar = () =>
+            /*Func<bool> refreshProgressBar = () =>
             {
                 uint tmpProgress = 0;
                 while (_transferts[_transferts.Count - 1].ActualStates)
@@ -44,7 +49,9 @@ namespace WpfApp
                     if (tmpProgress == 0 || tmpProgress != _transferts[_transferts.Count - 1].CalcProgress())
                     {
                         tmpProgress = _transferts[_transferts.Count - 1].CalcProgress();
-                        //refreshUI(tmpProgress)
+                        Progress progress = new Progress();
+                        progress.progress = tmpProgress; 
+                        JobsGrid.Items.Refresh();
                     }
                     else
                     {
@@ -52,7 +59,7 @@ namespace WpfApp
                     }
                 }
                 return true;
-            };
+            };*/
 
             if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
             {
@@ -71,7 +78,7 @@ namespace WpfApp
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                     {
-                        _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text, 
+                        _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
                                                    ((TextBlock)PathToColumn.GetCellContent(item)).Text);
                         foreach (SaveFiles file in _jobsProps)
                         {
@@ -79,10 +86,12 @@ namespace WpfApp
                             {
                                 _transferts.Add(new TransfertJob(file));
                                 _transferts[_transferts.Count - 1].ThreadBackUpDiff();
-
-                                Task t = Task.Run(refreshProgressBar);
+                                //ProgressBarItem.Value = 66;
+                                //Task t = Task.Run(refreshProgressBar);
                             }
                         }
+
+                        Debug.WriteLine(ProgressBarColumn.GetCellContent(item));
                     }
                 }
             }
@@ -94,7 +103,7 @@ namespace WpfApp
                     {
                         if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
                         {
-                            _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text, 
+                            _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
                                                        ((TextBlock)PathToColumn.GetCellContent(item)).Text);
                             foreach (SaveFiles file in _jobsProps)
                             {
@@ -102,8 +111,7 @@ namespace WpfApp
                                 {
                                     _transferts.Add(new TransfertJob(file));
                                     _transferts[_transferts.Count - 1].ThreadBackUp();
-
-                                    Task t = Task.Run(refreshProgressBar);
+                                    //Task t = Task.Run(refreshProgressBar);
                                 }
                             }
                         }
@@ -131,11 +139,30 @@ namespace WpfApp
         }
         private void PauseButtonClick(object sender, RoutedEventArgs e)
         {
-            isPaused = !isPaused;
+            if (!isStopped)
+            {
+                if (!isPaused)
+                {
+                    _pauseMutex.WaitOne();
+                }
+                else
+                {
+                    _pauseMutex.ReleaseMutex();
+                }
+                isPaused = !isPaused;
+            }
         }
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
-            isStopped = true;
+            if (!isStopped)
+            {
+                isStopped = true;
+                foreach (TransfertJob job in _transferts)
+                {
+                    job.MainThread.Abort();
+                    job.MainThread.Join();
+                }
+            }
         }
         private void EnglishButtonClick(object sender, RoutedEventArgs e)
         {
@@ -169,10 +196,15 @@ namespace WpfApp
                     Dispatcher.Invoke(() =>
                     {
                         BusinessSoftwareLabel.Content = " ";
+                        try
+                        {
+                            JobsGrid.Items.Refresh();
+                        }
+                        catch { }
                     });
                 }
                 //Ajouter la methode pause a ça
-                Thread.Sleep(2000);
+                Thread.Sleep(800);
             }
         }
         private void Delete(object sender, RoutedEventArgs e)
