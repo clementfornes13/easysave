@@ -4,6 +4,10 @@ using System.Windows.Input;
 using System.Windows.Documents;
 using EasySaveModel;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Windows.Forms;
+using Microsoft.Win32;
+using System.Runtime.CompilerServices;
 
 namespace WpfApp
 {
@@ -12,6 +16,7 @@ namespace WpfApp
         private const string EncryptExtension = "extensionencrypt.csv";
         private string _BusinessAppName;
         private List<string> extensionsList = new List<string>();
+        private string CryptoSoftPath;
         public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
 
         public SettingsWindow()
@@ -45,6 +50,7 @@ namespace WpfApp
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
             extensionsList.Add(extension);
+            Debug.WriteLine(extensionsList);
             SaveExtensionsToCsv();
         }
         public void DeleteExtensionButtonClick(object sender, RoutedEventArgs e )
@@ -94,6 +100,10 @@ namespace WpfApp
         {
             BusinessAppName = SaveBusinessApp.Text;
         }
+        public void SaveCryptoSoftClick(object sender, RoutedEventArgs e)
+        {
+            CryptoSoftPath=CryptoSoftTextbox.Text;
+        }
         public void BackMenuButtonClickSettings(object sender, RoutedEventArgs e)
         {
             MainWindow1.Show();
@@ -111,6 +121,17 @@ namespace WpfApp
         private void Window_MouseDownClick(object sender, MouseButtonEventArgs e)
         {
             App.Window_MouseDown(this, e);
+        }
+        private void ChooseCryptosoftPathClick(object sender, RoutedEventArgs e)
+        {
+            using (System.Windows.Forms.OpenFileDialog cryptosoftdialog = new System.Windows.Forms.OpenFileDialog())
+            {
+                cryptosoftdialog.Filter = "Executables (*.exe)|*.exe";
+                if (cryptosoftdialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    CryptoSoftTextbox.Text = cryptosoftdialog.FileName;
+                }
+            }
         }
     }
 
