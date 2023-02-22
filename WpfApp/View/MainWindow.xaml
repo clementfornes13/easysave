@@ -43,7 +43,7 @@
             <CheckBox x:Name ="DifferentialCheckBox" Foreground="#303030" Background="Transparent" Content="{x:Static language:Lang.WPF_Differential}" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Margin="60,0,0,31"/>
             <Label Content="{x:Static language:Lang.WPF_SaveType}" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="12" FontWeight="Bold" Margin="43,0,0,51" />
 
-            <DataGrid Style="{DynamicResource DataGridStyle}" ItemsSource="{Binding JobsProps}" x:Name="JobsGrid" Width="645" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"  VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Cursor="Arrow" CanUserReorderColumns="False" Margin="0,60,0,0">
+            <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="JobsGrid" Width="645" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"  VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" HorizontalAlignment="Left" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" Cursor="Arrow" CanUserReorderColumns="False" Margin="0,60,0,0">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn x:Name="CheckboxColumn" Header="" Width="auto"/>
                     <DataGridTextColumn Header="{x:Static language:Lang.WPF_Name}" Binding="{Binding Name}" IsReadOnly="True" Width="auto" Foreground="#303030"/>
@@ -70,7 +70,6 @@
                         <Setter Property="BorderThickness" Value="0 0 1 1"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
                         <Setter Property="VerticalContentAlignment" Value="Center"/>
-
                     </Style>
                     <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
                         <Setter Property="TextBlock.TextAlignment" Value="Center" />
