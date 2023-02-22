@@ -8,6 +8,7 @@ namespace EasySaveModel
 {
     public class CryptoSoft
     {
+        private readonly string _cryptoSoftPath = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
         public void StartProcess(List<string> extensionCrypt, SaveFiles files)
         {
             // On test chaque Fichier
@@ -19,7 +20,7 @@ namespace EasySaveModel
                     if (file.Extension == strExtensionCrypt)
                     {
                         Process processCryptoSoft = new Process();
-                        processCryptoSoft.StartInfo.FileName = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
+                        processCryptoSoft.StartInfo.FileName = _cryptoSoftPath;
                         processCryptoSoft.StartInfo.Arguments = file.FullName;
                         processCryptoSoft.Start();
                     }
@@ -39,7 +40,7 @@ namespace EasySaveModel
                         if (file.Extension == strExtensionCrypt)
                         {
                             Process processCryptoSoft = new Process();
-                            processCryptoSoft.StartInfo.FileName = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
+                            processCryptoSoft.StartInfo.FileName = _cryptoSoftPath;
                             processCryptoSoft.StartInfo.Arguments = file.FullName;
                             processCryptoSoft.Start();
                         }
