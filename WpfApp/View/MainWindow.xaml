@@ -53,11 +53,7 @@
                     <DataGridTemplateColumn x:Name="ProgressBarColumn" Header="{x:Static language:Lang.WPF_Progression}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-<<<<<<< HEAD
                                 <ProgressBar x:Name="ProgressBarItem" Value="{Binding Progress, UpdateSourceTrigger=PropertyChanged}" Width="auto" Background="Transparent"/>
-=======
-                                <ProgressBar x:Name="ProgressBarColumn" Value="{Binding progress}" Width="auto" Minimum="0" Maximum="100" />
->>>>>>> 4121c60e3b49fbf28135e409014b4008119d80a8
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
