@@ -1,13 +1,8 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Input;
-using System.Windows.Documents;
-using EasySaveModel;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Windows.Forms;
-using Microsoft.Win32;
-using System.Runtime.CompilerServices;
 
 namespace WpfApp
 {
@@ -16,8 +11,9 @@ namespace WpfApp
         private const string EncryptExtension = "extensionencrypt.csv";
         private string _BusinessAppName;
         private List<string> extensionsList = new List<string>();
-        private string CryptoSoftPath;
+        private string _CryptoSoftPath;
         public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
+        public string CryptoSoftPath { get => _CryptoSoftPath; set => _CryptoSoftPath = value; }
 
         public SettingsWindow()
         {

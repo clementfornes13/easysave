@@ -16,7 +16,6 @@ namespace WpfApp
         {
             InitializeComponent();
             ErrorLabelCopy = ErrorLabel.ContentStringFormat;
-            
         }
         public void ChooseFromButtonClick(object sender, RoutedEventArgs e)
         {
@@ -29,7 +28,6 @@ namespace WpfApp
                 }
             }
         }
-
         public void ChooseToButtonClick(object sender, RoutedEventArgs e)
         {
             using (FolderBrowserDialog destinationDialog = new FolderBrowserDialog())

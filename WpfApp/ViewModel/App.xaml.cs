@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Markup;
 
 namespace WpfApp
 {
@@ -56,8 +55,6 @@ namespace WpfApp
     public class MainWindow1
     {
         public static MainWindow mw = new MainWindow();
-
-
         public static void Show()
         {
             mw = new MainWindow();

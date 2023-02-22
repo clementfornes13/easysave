@@ -7,9 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Controls;
-using System.Threading.Tasks;
-using System;
-using System.Net;
+using System.Security.Cryptography.X509Certificates;
 
 namespace WpfApp
 {
@@ -20,10 +18,10 @@ namespace WpfApp
         private SaveFiles _savefiles;
         private bool isPaused = false;
         private bool isStopped = false;
-        private bool BusinessAppRunning = false;
-        private static Mutex _pauseMutex = new Mutex();
+        private static readonly Mutex _pauseMutex = new Mutex();
         private string _BusinessAppWindow;
-        private SettingsWindow settingsWindow;
+        private readonly SettingsWindow settingsWindow;
+        private string _CryptoSoftString;
 
         public MainWindow()
         {
@@ -31,10 +29,13 @@ namespace WpfApp
             JobsGrid.ItemsSource = JobsProps;
             settingsWindow = new SettingsWindow();
             _BusinessAppWindow = settingsWindow.BusinessAppName;
+            CryptoSoftString = settingsWindow.CryptoSoftPath;
             LoadJobsPropsFromCsv();
+            
             Thread BusinessAppThread = new Thread(BusinessApp);
+            Thread ProgressBarThread = new Thread(ProgressBar);
             BusinessAppThread.Start();
-
+            ProgressBarThread.Start();
             TransfertJob.PauseMutex = _pauseMutex;
         }
         private void CreateWindowButtonClick(object sender, RoutedEventArgs e) //Bouton creer
@@ -76,7 +77,6 @@ namespace WpfApp
             }
             if (DifferentialCheckBox.IsChecked == true)
             {
-                //Mettre la méthode differentielle
                 foreach (SaveFiles item in JobsGrid.ItemsSource)
                 {
                     if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
@@ -93,7 +93,6 @@ namespace WpfApp
                                 //Task t = Task.Run(refreshProgressBar);
                             }
                         }
-
                         Debug.WriteLine(ProgressBarColumn.GetCellContent(item));
                     }
                 }
@@ -138,6 +137,7 @@ namespace WpfApp
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
             SettingsWindow1.Show();
+            CryptoSoftString = settingsWindow.CryptoSoftPath;
             Close();
         }
         private void PauseButtonClick(object sender, RoutedEventArgs e)
@@ -187,7 +187,6 @@ namespace WpfApp
                 Process[] processes = Process.GetProcessesByName(_BusinessAppWindow);
                 if (processes.Length > 0)
                 {
-                    BusinessAppRunning = true;
                     Dispatcher.Invoke(() =>
                     {
                         BusinessSoftwareLabel.Content = "Logiciel métier détecté, travail mis en pause";
@@ -195,18 +194,27 @@ namespace WpfApp
                 }
                 else
                 {
-                    BusinessAppRunning = false;
                     Dispatcher.Invoke(() =>
                     {
                         BusinessSoftwareLabel.Content = " ";
-                        try
-                        {
-                            JobsGrid.Items.Refresh();
-                        }
-                        catch { }
                     });
                 }
                 //Ajouter la methode pause a ça
+                Thread.Sleep(800);
+            }
+        }
+        private void ProgressBar()
+        {
+            while(true)
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    try
+                    {
+                        JobsGrid.Items.Refresh();
+                    }
+                    catch { }
+                });
                 Thread.Sleep(800);
             }
         }
@@ -254,5 +262,6 @@ namespace WpfApp
         public static List<SaveFiles> JobsProps { get => _jobsProps; set => _jobsProps = value; }
         public string WPFCreationButtonText { get; set; }
         public string BusinessAppWindow { get => _BusinessAppWindow; set => _BusinessAppWindow = value; }
+        public string CryptoSoftString { get => _CryptoSoftString; set => _CryptoSoftString = value; }
     }
 }
