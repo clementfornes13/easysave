@@ -142,7 +142,6 @@ namespace WpfApp
             Properties.Settings.Default.languageCode = "en-US";
             Properties.Settings.Default.Save();
             MessageBox.Show("Redémarrer l'application pour que les changements prennent effet");
-
         }
         private void FrenchButtonClick(object sender, RoutedEventArgs e)
         {
