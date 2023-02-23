@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -14,7 +15,9 @@ namespace EasySaveModel
         private uint _maxSizeFile = 999999999;
 
         private CryptoSoft _cryptosoft;
-        private bool activecrypto;
+        private bool activecrypto = false;
+
+        private List<string> _prioritizeExts;
 
         private static Mutex _countMutex = new Mutex();
         private static Mutex _pauseMutex;
@@ -38,7 +41,7 @@ namespace EasySaveModel
             }
         }
 
-        public void ThreadBackUp()
+        public void ThreadBackUp(bool diff)
         {
             if (_mainThread != null)
             {
@@ -46,23 +49,18 @@ namespace EasySaveModel
             }
             else
             {
-                _mainThread = new Thread(BackUp);
-                Debug.WriteLine("Launch backup");
-                _mainThread.Start();
-            }
-        }
-
-        public void ThreadBackUpDiff()
-        {
-            if (_mainThread != null)
-            {
-                throw new Exception($"Back up Thread of {_files.Name} already alive");
-            }
-            else
-            {
-                _mainThread = new Thread(BackUpDiff);
-                Debug.WriteLine("Launch backupdiff");
-                _mainThread.Start();
+                if (diff)
+                {
+                    _mainThread = new Thread(BackUpDiff);
+                    Debug.WriteLine("Launch backupdiff");
+                    _mainThread.Start();
+                }
+                else
+                {
+                    _mainThread = new Thread(BackUp);
+                    Debug.WriteLine("Launch backup");
+                    _mainThread.Start();
+                }
             }
         }
 
@@ -79,11 +77,12 @@ namespace EasySaveModel
             {
                 Directory.CreateDirectory(_files.PathTo);
             }
-            if (activecrypto == true)
+            if (activecrypto)
             {
                 _cryptosoft.StartProcess(_files);
             }
-            //Move Files
+
+            //Move classic Files
             _actualStates = true;
             foreach (FileInfo file in _files.Files)
             {
@@ -174,7 +173,7 @@ namespace EasySaveModel
             //Start a chrono ofr mesuring time elaspsed
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); //Starting the timed for the log file
-            if (activecrypto == true)
+            if (activecrypto)
             {
                 _cryptosoft.StartProcess(_files);
             }
@@ -298,5 +297,6 @@ namespace EasySaveModel
         public static Mutex PauseMutex { get => _pauseMutex; set => _pauseMutex = value; }
         public static Mutex CountMutex { get => _countMutex; set => _countMutex = value; }
         public static Mutex PauseMutex1 { get => _pauseMutex; set => _pauseMutex = value; }
-      }
+        public List<string> PrioritizeExts { get => _prioritizeExts; set => _prioritizeExts = value; }
+    }
 }

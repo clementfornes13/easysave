@@ -31,11 +31,13 @@ namespace WpfApp
             settingsWindow = new SettingsWindow();
             _BusinessAppWindow = settingsWindow.BusinessAppName;
             LoadJobsPropsFromCsv();
+
             _cryptosoft = new CryptoSoft(settingsWindow.CryptoSoftPath, settingsWindow.ExtensionsList);
             Thread BusinessAppThread = new Thread(BusinessApp);
             Thread ProgressBarThread = new Thread(ProgressBarLoop);
             BusinessAppThread.Start();
             ProgressBarThread.Start();
+
             TransfertJob.PauseMutex = _pauseMutex;
         }
         private void CreateWindowButtonClick(object sender, RoutedEventArgs e) //Bouton creer
@@ -45,6 +47,7 @@ namespace WpfApp
         }
         private void LaunchMainButtonClick(object sender, RoutedEventArgs e)
         {
+            //trying to build an anonymous fonction for progress bar
             /*Func<bool> refreshProgressBar = () =>
             {
                 uint tmpProgress = 0;
@@ -65,83 +68,59 @@ namespace WpfApp
                 return true;
             };*/
 
-            if (DifferentialCheckBox.IsChecked == false && SequentialCheckBox.IsChecked == false)
+            //If both or neither are checked error
+            if (DifferentialCheckBox.IsChecked == SequentialCheckBox.IsChecked)
             {
                 MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
                 return;
             }
-            if (DifferentialCheckBox.IsChecked == true && SequentialCheckBox.IsChecked == true)
+            //Get all checked jobs
+            foreach (SaveFiles item in JobsGrid.ItemsSource)
             {
-                MessageBox.Show("Erreur, aucun type de sauvegarde n'est choisi");
-                return;
-            }
-            if (DifferentialCheckBox.IsChecked == true)
-            {
-                foreach (SaveFiles item in JobsGrid.ItemsSource)
+                if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                 {
-                    if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
+                    //Check cryptosoft option
+                    if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
                     {
                         _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
-                                                   ((TextBlock)PathToColumn.GetCellContent(item)).Text);
+                                               ((TextBlock)PathToColumn.GetCellContent(item)).Text);
                         foreach (SaveFiles file in _jobsProps)
                         {
                             if (file.PathFrom == _savefiles.PathFrom)
                             {
+                                //Create an thread job
                                 _transferts.Add(new TransfertJob(file));
-                                _transferts[_transferts.Count - 1].NbFilesMoved = settingsWindow.MaxSizeTransfert;
-                                _transferts[_transferts.Count - 1].ThreadBackUpDiff();
+                                _transferts[_transferts.Count - 1].Activecrypto = true;
+                                _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
+                                _transferts[_transferts.Count - 1].PrioritizeExts = settingsWindow.ExtensionsPrioList;
+                                _transferts[_transferts.Count - 1].MaxSizeFile = settingsWindow.MaxSizeTransfert;
+                                _transferts[_transferts.Count - 1].ThreadBackUp((bool)DifferentialCheckBox.IsChecked);
                             }
                         }
-                        Debug.WriteLine(ProgressBarColumn.GetCellContent(item));
                     }
-                }
-            }
-            else
-            {
-                foreach (SaveFiles item in JobsGrid.ItemsSource)
-                {
-                    if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
+                    else
                     {
-                        if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
+                        _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
+                                               ((TextBlock)PathToColumn.GetCellContent(item)).Text);
+                        foreach (SaveFiles file in _jobsProps)
                         {
-                            _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
-                                                       ((TextBlock)PathToColumn.GetCellContent(item)).Text);
-                            foreach (SaveFiles file in _jobsProps)
+                            if (file.PathFrom == _savefiles.PathFrom)
                             {
-                                if (file.PathFrom == _savefiles.PathFrom)
-                                {
-                                    _transferts.Add(new TransfertJob(file));
-                                    _transferts[_transferts.Count - 1].Activecrypto = false;
-                                    _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
-                                    _transferts[_transferts.Count - 1].ThreadBackUp();
-                                }
+                                //Create an thread job
+                                _transferts.Add(new TransfertJob(file));
+                                _transferts[_transferts.Count - 1].PrioritizeExts = settingsWindow.ExtensionsPrioList;
+                                _transferts[_transferts.Count - 1].MaxSizeFile = settingsWindow.MaxSizeTransfert;
+                                _transferts[_transferts.Count - 1].ThreadBackUp((bool)DifferentialCheckBox.IsChecked);
                             }
-                        }
-                        else
-                        {
-                            _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
-                            foreach (SaveFiles file in _jobsProps)
-                            {
-                                if (file.PathFrom == _savefiles.PathFrom)
-                                {
-                                    _transferts.Add(new TransfertJob(file));
-                                    _transferts[_transferts.Count - 1].Activecrypto = true;
-                                    _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
-                                    _transferts[_transferts.Count - 1].ThreadBackUp();
-                                    
-                                }
-                            }
-
-                            //_cryptosoft.StartProcess(ExtensionsListCopy, _savefiles, CryptoSoftString);
                         }
                     }
                 }
             }
         }
+
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
             SettingsWindow1.Show();
-
             Close();
         }
         private void PauseButtonClick(object sender, RoutedEventArgs e)

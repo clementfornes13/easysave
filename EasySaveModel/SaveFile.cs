@@ -112,5 +112,6 @@ namespace EasySaveModel
         public string Name { get => _name; set => _name = value; }
         public bool Cryptosoft { get => _cryptosoft; set => _cryptosoft = value; }
         public double Progress { get => _progress; set => _progress = value; }
+        public bool IsPriorited { get => isPriorited; set => isPriorited = value; }
     }
 }
