@@ -10,14 +10,20 @@ namespace EasySaveModel
 
         public string CryptoSoftPath => _cryptoSoftPath;
 
-        public void StartProcess(List<string> extensionCrypt, SaveFiles files, string cryptosoft)
+        public List<string> _extensionList = new List<string>();
+        public CryptoSoft(string cryptoSoftPath, List<string> extensionList)
         {
-            _cryptoSoftPath = cryptosoft;
+            _cryptoSoftPath = cryptoSoftPath;
+            _extensionList= extensionList;
+        }
+
+        public void StartProcess(SaveFiles files)
+        {
             // On test chaque Fichier
             foreach (FileInfo file in files.Files)
             {
                 //On test chaque Type paramétré
-                foreach (string strExtensionCrypt in extensionCrypt)
+                foreach (string strExtensionCrypt in _extensionList)
                 {
                     if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
                     {
@@ -38,7 +44,7 @@ namespace EasySaveModel
                 foreach (FileInfo file in subFiles)
                 {
                     //On test chaque Type paramétré 
-                    foreach (string strExtensionCrypt in extensionCrypt)
+                    foreach (string strExtensionCrypt in _extensionList)
                     {
                         if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
                         {
