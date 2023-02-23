@@ -19,19 +19,19 @@
 
         <Grid Grid.Row="0" Grid.Column="1">
             <Label Content="{x:Static language:Lang.WPF_EncryptExtension}" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="81,72,0,0" />
-            <Label Content="{x:Static language:Lang.WPF_MaxSize}" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,72,120,0"/>
-            <Label Content="Ko/s" HorizontalAlignment="Right" Foreground="#303030" VerticalAlignment="Top" Margin="0,100,119,0" RenderTransformOrigin="0.474,0.863"  />
-            <Label Content="{x:Static language:Lang.WPF_BusinessApp}" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,308,174,0"/>
-            <Label x:Name ="ExtensionLabelSuccess" Foreground="#0BD44A" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="194,100,0,0"/>
-            <Label x:Name ="ExtensionLabelError" Foreground="#D41F06" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="194,100,0,0"/>
+            <Label Content="{x:Static language:Lang.WPF_MaxSize}" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,72,18,0"/>
+            <Label Content="Ko/s" HorizontalAlignment="Right" Foreground="#303030" VerticalAlignment="Top" Margin="0,112,21,0" RenderTransformOrigin="0.474,0.863"  />
+            <Label Content="{x:Static language:Lang.WPF_BusinessApp}" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,278,72,0"/>
+            <Label x:Name ="ExtensionLabelSuccess" Foreground="#0BD44A" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="133,411,0,0"/>
+            <Label x:Name ="ExtensionLabelError" Foreground="#D41F06" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="133,412,0,0"/>
             <Label x:Name="LabelListeTravaux" Content="{x:Static language:Lang.WPF_Settings}" Foreground="#303030" HorizontalAlignment="Left" Margin="194,0,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Cursor="Arrow" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Button Style="{DynamicResource FirstButton}" x:Name ="AddExtensionButton" Content="{x:Static language:Lang.WPF_Add}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddExtensionButtonClick" Margin="94,126,0,0"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name="SaveMaxTransfertSizeButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="SaveMaxTransfertButtonClick" Margin="0,127,159,0"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name="SaveBusinessAppButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="SaveBusinessAppButtonClick" Margin="0,0,159,45"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name="ChooseCryptosoftPathButton" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ChooseCryptosoftPathClick"  Margin="0,237,124,0" Height="18" Width="24"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveMaxTransfertSizeButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Top" Click="SaveMaxTransfertButtonClick" Margin="0,126,57,0"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveBusinessAppButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="SaveBusinessAppButtonClick" Margin="0,0,57,75"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="ChooseCryptosoftPathButton" HorizontalAlignment="Right" VerticalAlignment="Top" Click="ChooseCryptosoftPathClick"  Margin="0,202,26,0" Height="18" Width="24"/>
             <TextBox x:Name="ExtensionBox" Background="#919191" Foreground="#303030" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension" Margin="78,103,0,0"/>
-            <TextBox x:Name="MaximumSizeTransfert" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,103,157,0"/>
-            <TextBox x:Name="SaveBusinessApp" Text="" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,339,157,0" x:FieldModifier="public"/>
+            <TextBox x:Name="MaximumSizeTransfert" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,103,55,0"/>
+            <TextBox x:Name="SaveBusinessApp" Text="" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,309,56,0" x:FieldModifier="public"/>
             <Ellipse Fill="#919191" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,30,0" MouseLeftButtonDown="ResizeButton_Click" ToolTip="Minimize" Cursor="Hand"/>
             <Ellipse Fill="#5e5e5e" Height="15" Width="15" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0" MouseLeftButtonDown="CloseButton_Click" ToolTip="Close" Cursor="Hand"/>
             <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="ExtensionsGrid" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" Margin="77,172,449,40">
@@ -72,9 +72,52 @@
                     </Style>
                 </DataGrid.Resources>
             </DataGrid>
-            <Label Content="CryptoSoft" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,198,184,0"/>
-            <TextBox x:Name="CryptoSoftTextbox" Text="" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,237,157,0" x:FieldModifier="public"/>
-            <Button Style="{DynamicResource FirstButton}" x:Name="SaveCryptoSoftPath" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="SaveCryptoSoftClick" Margin="0,0,159,144"/>
+            <Label Content="CryptoSoft" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,171,82,0"/>
+            <TextBox x:Name="CryptoSoftTextbox" Text="" Background="#919191" Foreground="#303030" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension"  Margin="0,202,55,0" x:FieldModifier="public"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveCryptoSoftPath" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="SaveCryptoSoftClick" Margin="0,0,57,174"/>
+            <Label Content="Extensions à prioriser" Foreground="#303030" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="256,72,0,0" />
+            <Button Style="{DynamicResource FirstButton}" x:Name ="AddPrioExtensionButton" Content="{x:Static language:Lang.WPF_Add}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddExtensionPrioButtonClick" Margin="269,126,0,0"/>
+            <Label x:Name ="ExtensionPrioLabelSuccess" Foreground="#0BD44A" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="308,412,0,0"/>
+            <Label x:Name ="ExtensionPrioLabelError" Foreground="#D41F06" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="308,411,0,0"/>
+            <TextBox x:Name="PrioritaryFilesExtension" Background="#919191" Foreground="#303030" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension" Margin="253,103,0,0"/>
+            <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="PrioritaryGrid" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" Margin="252,172,275,40">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="#303030"/>
+                        <Setter Property="BorderThickness" Value="0 0 1 1"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+
+                    </Style>
+                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+
+                    <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#303030"/>
+                        <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Extension" Binding="{Binding extension}" IsReadOnly="True" Width="*" Foreground="#303030">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Manage}" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="DeleteButtonPrioExtension" Content="{x:Static language:Lang.WPF_Delete}" Click="DeleteExtensionPrioButtonClick" Background="Transparent" Foreground="#303030" BorderThickness="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
         </Grid>
 

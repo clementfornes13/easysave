@@ -9,16 +9,21 @@ namespace WpfApp
     public partial class SettingsWindow : Window
     {
         private const string EncryptExtension = "extensionencrypt.csv";
+        private const string EncryptExtensionPrio = "extensionencryptprio.csv";
         private string _BusinessAppName;
         private List<string> extensionsList = new List<string>();
+        private List<string> extensionsPrioList = new List<string>();
+        private uint _MaxSizeTransfert;
         private string _CryptoSoftPath;
         public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
         public string CryptoSoftPath { get => _CryptoSoftPath; set => _CryptoSoftPath = value; }
+        public uint MaxSizeTransfert { get => _MaxSizeTransfert; set => _MaxSizeTransfert = value; }
 
         public SettingsWindow()
         {
             InitializeComponent();
             LoadExtensionsFromCsv();
+            LoadExtensionsPrioFromCsv();
         }
         public void AddExtensionButtonClick(object sender, RoutedEventArgs e)
         {
@@ -59,17 +64,82 @@ namespace WpfApp
                 extensionsList.Remove(selectedExtension.Extension);
             }
         }
+        public void AddPrioExtensionButtonClick( object sender, RoutedEventArgs e )
+        {
+            string extensionprio = ExtensionBox.Text;
+            if (string.IsNullOrWhiteSpace(extensionprio))
+            {
+                ExtensionPrioLabelError.Content = "Erreur, vide";
+                ExtensionPrioLabelSuccess.Content = null;
+                return;
+            }
+            if (!extensionprio.StartsWith("."))
+            {
+                extensionprio = "." + extensionprio;
+            }
+            foreach (ExtensionsPrio item in PrioritaryGrid.Items)
+            {
+                if (item.ExtensionPrio == extensionprio)
+                {
+                    ExtensionPrioLabelError.Content = "Extensions déjà ajoutée";
+                    ExtensionPrioLabelSuccess.Content = null;
+                    return;
+                }
+            }
+            PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = extensionprio });
+            ExtensionPrioLabelSuccess.Content = "Extension ajoutée avec succès";
+            ExtensionPrioLabelError.Content = null;
+            extensionsPrioList.Add(extensionprio);
+            Debug.WriteLine(extensionsPrioList);
+            SaveExtensionsPrioToCsv();
+        }
+        public void DeleteExtensionPrioButtonClick(object sender, RoutedEventArgs e)
+        {
+            ExtensionsPrio selectedExtension = PrioritaryGrid.SelectedItem as ExtensionsPrio;
+            if (selectedExtension != null)
+            {
+                PrioritaryGrid.Items.Remove(selectedExtension);
+                SaveExtensionsPrioToCsv();
+                extensionsPrioList.Remove(selectedExtension.ExtensionPrio);
+            }
+        }
         private void GotFocusExtension(object sender, RoutedEventArgs e)
         {
             ExtensionBox.Text = "";
+        }
+        private void SaveExtensionsPrioToCsv()
+        {
+            using (StreamWriter writer = new StreamWriter(EncryptExtensionPrio))
+            {
+                foreach (ExtensionsPrio item in PrioritaryGrid.Items) 
+                {
+                    
+                    writer.WriteLine(item.ExtensionPrio);
+                }
+            }
+        }
+        private void LoadExtensionsPrioFromCsv()
+        {
+            if (File.Exists(EncryptExtensionPrio))
+            {
+                using (StreamReader reader = new StreamReader(EncryptExtensionPrio))
+                {
+                    string ligne;
+                    while ((ligne = reader.ReadLine()) != null)
+                    {
+                        PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = ligne });
+                        extensionsPrioList.Add(ligne);
+                    }
+                }
+            }
         }
         private void SaveExtensionsToCsv()
         {
             using (StreamWriter writer = new StreamWriter(EncryptExtension))
             {
-                foreach (Extensions item in ExtensionsGrid.Items) 
+                foreach (Extensions item in ExtensionsGrid.Items)
                 {
-                    
+
                     writer.WriteLine(item.Extension);
                 }
             }
@@ -84,13 +154,21 @@ namespace WpfApp
                     while ((ligne = reader.ReadLine()) != null)
                     {
                         ExtensionsGrid.Items.Add(new Extensions { Extension = ligne });
+                        extensionsList.Add(ligne);
                     }
                 }
             }
         }
         public void SaveMaxTransfertButtonClick(object sender, RoutedEventArgs e)
         {
-
+            if (MaximumSizeTransfert.Text.GetType() == typeof(uint))
+            {
+                MaxSizeTransfert = uint.Parse(MaximumSizeTransfert.Text);
+            }
+            else
+            {
+                MessageBox.Show("FAUXXXXXXXXXXXXXXXX");
+            }
         }
         public void SaveBusinessAppButtonClick(object sender, RoutedEventArgs e)
         {
@@ -134,5 +212,9 @@ namespace WpfApp
     public class Extensions
     {
         public string Extension { get; set; }
+    }
+    public class ExtensionsPrio
+    {
+        public string ExtensionPrio { get; set; }
     }
 }
