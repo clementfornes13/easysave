@@ -28,7 +28,7 @@ namespace EasySaveModel
                     if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
                     {
                         Process processCryptoSoft = new Process(); // Create a new process for the encryption software
-                        processCryptoSoft.StartInfo.FileName = _cryptoSoftPath; // Set the process's filename to the encryption software path
+                        processCryptoSoft.StartInfo.FileName = "C:\\Users\\smite\\source\\repos\\prosoft\\CryptoSoft\\bin\\Debug\\CryptoSoft.exe"; // Set the process's filename to the encryption software path
                         processCryptoSoft.StartInfo.Arguments = file.FullName; // Set the process's arguments to the full file path
                         processCryptoSoft.Start(); // Start the encryption process
                     }
@@ -49,7 +49,7 @@ namespace EasySaveModel
                         if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
                         {
                             Process processCryptoSoft = new Process(); // Create a new process for the encryption software
-                            processCryptoSoft.StartInfo.FileName = _cryptoSoftPath; // Set the process's filename to the encryption software path
+                            processCryptoSoft.StartInfo.FileName = "C:\\Users\\smite\\source\\repos\\prosoft\\CryptoSoft\\bin\\Debug\\CryptoSoft.exe"; // Set the process's filename to the encryption software path
                             processCryptoSoft.StartInfo.Arguments = file.FullName; // Set the process's arguments to the full file path
                             processCryptoSoft.Start(); // Start the encryption process
                         }
