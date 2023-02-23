@@ -64,9 +64,9 @@ namespace WpfApp
                 extensionsList.Remove(selectedExtension.Extension);
             }
         }
-        public void AddPrioExtensionButtonClick( object sender, RoutedEventArgs e )
+        public void AddExtensionPrioButtonClick( object sender, RoutedEventArgs e )
         {
-            string extensionprio = ExtensionBox.Text;
+            string extensionprio = PrioritaryFilesExtension.Text;
             if (string.IsNullOrWhiteSpace(extensionprio))
             {
                 ExtensionPrioLabelError.Content = "Erreur, vide";
@@ -106,6 +106,7 @@ namespace WpfApp
         private void GotFocusExtension(object sender, RoutedEventArgs e)
         {
             ExtensionBox.Text = "";
+            PrioritaryFilesExtension.Text = "";
         }
         private void SaveExtensionsPrioToCsv()
         {
