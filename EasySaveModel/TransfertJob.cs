@@ -12,12 +12,14 @@ namespace EasySaveModel
         private double _elapsedTransfertTime;
         private double _nbFiles, _nbFilesMoved;
         private uint _maxSizeFile = 999999999;
+
+        private CryptoSoft _cryptosoft;
+        private bool activecrypto;
+
         private static Mutex _countMutex = new Mutex();
         private static Mutex _pauseMutex;
         private static Mutex _bigFileMutex = new Mutex();
-
         private Thread _mainThread = null;
-
         public TransfertJob(SaveFiles files)
         {
             _files = files;
@@ -77,7 +79,10 @@ namespace EasySaveModel
             {
                 Directory.CreateDirectory(_files.PathTo);
             }
-
+            if (activecrypto == true)
+            {
+                _cryptosoft.StartProcess(_files);
+            }
             //Move Files
             _actualStates = true;
             foreach (FileInfo file in _files.Files)
@@ -169,7 +174,10 @@ namespace EasySaveModel
             //Start a chrono ofr mesuring time elaspsed
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); //Starting the timed for the log file
-
+            if (activecrypto == true)
+            {
+                _cryptosoft.StartProcess(_files);
+            }
             //Move Files
             _actualStates = true;
             foreach (FileInfo file in _files.Files)
@@ -278,12 +286,17 @@ namespace EasySaveModel
         internal SaveFiles workingFile { get => _files; }
         public double NbFiles { get => _nbFiles; }
         public double NbFilesMoved { get => _nbFilesMoved; set => _nbFilesMoved = value; }
-        public Thread MainThread { get => _mainThread; set => _mainThread = value; }
         public string Name { get => _files.Name; set => _files.Name = value; }
-        public static Mutex PauseMutex { get => _pauseMutex; set => _pauseMutex = value; }
+
+        public CryptoSoft Cryptosoft { get => _cryptosoft; set => _cryptosoft = value; }
+        public bool Activecrypto { get => activecrypto; set => activecrypto = value; }
+
+
+        public Thread MainThread { get => _mainThread; set => _mainThread = value; }
         public uint MaxSizeFile { get => _maxSizeFile; set => _maxSizeFile = value; }
+        public static Mutex BigFileMutex { get => _bigFileMutex; set => _bigFileMutex = value; }
+        public static Mutex PauseMutex { get => _pauseMutex; set => _pauseMutex = value; }
         public static Mutex CountMutex { get => _countMutex; set => _countMutex = value; }
         public static Mutex PauseMutex1 { get => _pauseMutex; set => _pauseMutex = value; }
-        public static Mutex BigFileMutex { get => _bigFileMutex; set => _bigFileMutex = value; }
-    }
+      }
 }

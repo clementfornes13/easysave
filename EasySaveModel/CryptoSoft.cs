@@ -1,48 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-
 
 namespace EasySaveModel
 {
     public class CryptoSoft
     {
-        private readonly string _cryptoSoftPath = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
-        public void StartProcess(List<string> extensionCrypt, SaveFiles files)
+        private string _cryptoSoftPath;
+
+        public string CryptoSoftPath => _cryptoSoftPath;
+
+        public List<string> _extensionList = new List<string>();
+        public CryptoSoft(string cryptoSoftPath, List<string> extensionList)
+        {
+            _cryptoSoftPath = cryptoSoftPath;
+            _extensionList= extensionList;
+        }
+
+        public void StartProcess(SaveFiles files)
         {
             // On test chaque Fichier
             foreach (FileInfo file in files.Files)
             {
                 //On test chaque Type paramétré
-                foreach (string strExtensionCrypt in extensionCrypt)
+                foreach (string strExtensionCrypt in _extensionList)
                 {
-                    if (file.Extension == strExtensionCrypt)
+                    if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
                     {
-                        Process processCryptoSoft = new Process();
-                        processCryptoSoft.StartInfo.FileName = _cryptoSoftPath;
-                        processCryptoSoft.StartInfo.Arguments = file.FullName;
-                        processCryptoSoft.Start();
+                        Process processCryptoSoft = new Process(); // Create a new process for the encryption software
+                        processCryptoSoft.StartInfo.FileName = _cryptoSoftPath; // Set the process's filename to the encryption software path
+                        processCryptoSoft.StartInfo.Arguments = file.FullName; // Set the process's arguments to the full file path
+                        processCryptoSoft.Start(); // Start the encryption process
                     }
                 }
             }
 
-            //Manage sub dir for copy
+            // Loop through all subdirectories in the save files object
             foreach (DirectoryInfo dir in files.SubDirs)
             {
-                FileInfo[] subFiles = dir.GetFiles();
-                // On test chaque Fichier
+                FileInfo[] subFiles = dir.GetFiles(); // Get all files in the subdirectory
+
+                // Loop through all files in the subdirectory
                 foreach (FileInfo file in subFiles)
                 {
                     //On test chaque Type paramétré 
-                    foreach (string strExtensionCrypt in extensionCrypt)
+                    foreach (string strExtensionCrypt in _extensionList)
                     {
-                        if (file.Extension == strExtensionCrypt)
+                        if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
                         {
-                            Process processCryptoSoft = new Process();
-                            processCryptoSoft.StartInfo.FileName = _cryptoSoftPath;
-                            processCryptoSoft.StartInfo.Arguments = file.FullName;
-                            processCryptoSoft.Start();
+                            Process processCryptoSoft = new Process(); // Create a new process for the encryption software
+                            processCryptoSoft.StartInfo.FileName = _cryptoSoftPath; // Set the process's filename to the encryption software path
+                            processCryptoSoft.StartInfo.Arguments = file.FullName; // Set the process's arguments to the full file path
+                            processCryptoSoft.Start(); // Start the encryption process
                         }
                     }
                 }

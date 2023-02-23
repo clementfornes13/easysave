@@ -16,12 +16,13 @@ namespace WpfApp
         private static List<SaveFiles> _jobsProps = new List<SaveFiles>();
         private List<TransfertJob> _transferts = new List<TransfertJob>();
         private SaveFiles _savefiles;
+        private CryptoSoft _cryptosoft;
         private bool isPaused = false;
         private bool isStopped = false;
         private static readonly Mutex _pauseMutex = new Mutex();
         private string _BusinessAppWindow;
         private readonly SettingsWindow settingsWindow;
-        private string _CryptoSoftString;
+
 
         public MainWindow()
         {
@@ -29,9 +30,8 @@ namespace WpfApp
             JobsGrid.ItemsSource = JobsProps;
             settingsWindow = new SettingsWindow();
             _BusinessAppWindow = settingsWindow.BusinessAppName;
-            CryptoSoftString = settingsWindow.CryptoSoftPath;
             LoadJobsPropsFromCsv();
-            
+            _cryptosoft = new CryptoSoft(settingsWindow.CryptoSoftPath, settingsWindow.ExtensionsList);
             Thread BusinessAppThread = new Thread(BusinessApp);
             Thread ProgressBarThread = new Thread(ProgressBarLoop);
             BusinessAppThread.Start();
@@ -111,23 +111,29 @@ namespace WpfApp
                                 if (file.PathFrom == _savefiles.PathFrom)
                                 {
                                     _transferts.Add(new TransfertJob(file));
+                                    _transferts[_transferts.Count - 1].Activecrypto = false;
+                                    _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
                                     _transferts[_transferts.Count - 1].ThreadBackUp();
                                 }
                             }
                         }
-                        /*else
+                        else
                         {
                             _savefiles = new SaveFiles(((System.Windows.Controls.TextBlock)PathFromColumn.GetCellContent(item)).Text, ((System.Windows.Controls.TextBlock)PathToColumn.GetCellContent(item)).Text);
-                            foreach(SaveFiles file in _jobsProps)
+                            foreach (SaveFiles file in _jobsProps)
                             {
-                                if (file.PathFrom==_savefiles.PathFrom)
+                                if (file.PathFrom == _savefiles.PathFrom)
                                 {
-                                    Cryptage cryptage = new Cryptage();
-                                    SettingsWindow settingsWindow = new SettingsWindow();
-                                    cryptage.test(_savefiles.PathFrom);
+                                    _transferts.Add(new TransfertJob(file));
+                                    _transferts[_transferts.Count - 1].Activecrypto = true;
+                                    _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
+                                    _transferts[_transferts.Count - 1].ThreadBackUp();
+                                    
                                 }
                             }
-                        }*/
+
+                            //_cryptosoft.StartProcess(ExtensionsListCopy, _savefiles, CryptoSoftString);
+                        }
                     }
                 }
             }
@@ -135,7 +141,7 @@ namespace WpfApp
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
             SettingsWindow1.Show();
-            CryptoSoftString = settingsWindow.CryptoSoftPath;
+
             Close();
         }
         private void PauseButtonClick(object sender, RoutedEventArgs e)
@@ -260,6 +266,5 @@ namespace WpfApp
         public static List<SaveFiles> JobsProps { get => _jobsProps; set => _jobsProps = value; }
         public string WPFCreationButtonText { get; set; }
         public string BusinessAppWindow { get => _BusinessAppWindow; set => _BusinessAppWindow = value; }
-        public string CryptoSoftString { get => _CryptoSoftString; set => _CryptoSoftString = value; }
     }
 }
