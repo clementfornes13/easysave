@@ -140,12 +140,7 @@ namespace WpfApp
             {
                 foreach (Extensions item in ExtensionsGrid.Items)
                 {
-<<<<<<< HEAD
-                    writer.WriteLine(item.Extension);
-=======
-
                     writer.WriteLine(item.extension);
->>>>>>> dedff943ce094ca73ee4b0b836f761197d2a60fc
                 }
             }
         }
