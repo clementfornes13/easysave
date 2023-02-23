@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
-
 namespace EasySaveModel
 {
     public class CryptoSoft
     {
-        private readonly string _cryptoSoftPath = @"C:\Users\jorda\source\repos\eystone\prosoft\CryptoSoft\bin\Debug\CryptoSoft.exe";
-        public void StartProcess(List<string> extensionCrypt, SaveFiles files)
+        private string _cryptoSoftPath;
+
+        public string CryptoSoftPath => _cryptoSoftPath;
+
+        public void StartProcess(List<string> extensionCrypt, SaveFiles files, string cryptosoft)
         {
+            _cryptoSoftPath = cryptosoft;
             // On test chaque Fichier
             foreach (FileInfo file in files.Files)
             {
