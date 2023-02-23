@@ -37,6 +37,11 @@
             <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="ExtensionsGrid" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" Margin="77,172,449,40">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Extension" Binding="{Binding extension}" IsReadOnly="True" Width="*" Foreground="#303030">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Manage}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
@@ -74,11 +79,35 @@
             <Button Style="{DynamicResource FirstButton}" x:Name ="AddPrioExtensionButton" Content="{x:Static language:Lang.WPF_Add}" HorizontalAlignment="Left" VerticalAlignment="Top" Click="AddExtensionPrioButtonClick" Margin="269,126,0,0"/>
             <Label x:Name ="ExtensionPrioLabelSuccess" Foreground="#0BD44A" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="308,412,0,0"/>
             <Label x:Name ="ExtensionPrioLabelError" Foreground="#D41F06" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="308,411,0,0"/>
-            <TextBox x:Name="PrioritaryFilesBox" Background="#919191" Foreground="#303030" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension" Margin="253,103,0,0"/>
+            <TextBox x:Name="PrioritaryFilesExtension" Background="#919191" Foreground="#303030" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" GotFocus="GotFocusExtension" Margin="253,103,0,0"/>
             <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="PrioritaryGrid" Background="Transparent" Foreground="#303030" HorizontalGridLinesBrush="#303030" VerticalGridLinesBrush="#303030" BorderBrush="#5e5e5e" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled" Margin="252,172,275,40">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ExtensionPrio" Binding="{Binding extensionprio}" IsReadOnly="True" Width="*" Foreground="#303030">
+                <DataGrid.Resources>
+                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="#303030"/>
+                        <Setter Property="BorderThickness" Value="0 0 1 1"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
 
+                    </Style>
+                    <Style BasedOn="{StaticResource {x:Type DataGridCell}}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+
+                    <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#303030"/>
+                        <Setter Property="BorderThickness" Value="0 0 1 0"/>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Extension" Binding="{Binding extension}" IsReadOnly="True" Width="*" Foreground="#303030">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTemplateColumn Header="{x:Static language:Lang.WPF_Manage}" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
@@ -88,22 +117,10 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-                <DataGrid.Resources>
-                    <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="BorderBrush" Value="#303030"/>
-                        <Setter Property="BorderThickness" Value="0 0 1 1"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                    </Style>
-                    <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Setter Property="BorderBrush" Value="#303030"/>
-                        <Setter Property="BorderThickness" Value="0 0 1 0"/>
-                    </Style>
-                </DataGrid.Resources>
             </DataGrid>
+
         </Grid>
+
         <Grid Grid.Row="0" Grid.Column="0">
             <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="114" Source="/Resources/easysave logo.png" Margin="0,172,0,0" Cursor="Arrow"/>
             <Button Style="{DynamicResource SecondButton}" Content="{x:Static language:Lang.WPF_Back}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="BackMenuButtonClickSettings" Margin="10,0,0,10" Grid.Row="1"/>
