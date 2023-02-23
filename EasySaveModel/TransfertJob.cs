@@ -13,7 +13,8 @@ namespace EasySaveModel
         private static double _nbFiles, _nbFilesMoved;
         private static Mutex countMutex = new Mutex();
         private static Mutex _pauseMutex;
-
+        private CryptoSoft _cryptosoft;
+        private bool activecrypto;
         private Thread _mainThread = null;
 
         public TransfertJob(SaveFiles files)
@@ -63,7 +64,7 @@ namespace EasySaveModel
         }
 
         //Make a fill copy
-        public static void BackUp()
+        public void BackUp()
         {
             //Make state file
             //Start a chrono ofr mesuring time elaspsed
@@ -75,7 +76,10 @@ namespace EasySaveModel
             {
                 Directory.CreateDirectory(_files.PathTo);
             }
-
+            if (activecrypto == true)
+            {
+                _cryptosoft.StartProcess(_files);
+            }
             //Move Files
             _actualStates = true;
             foreach (FileInfo file in _files.Files)
@@ -87,7 +91,8 @@ namespace EasySaveModel
                 {
                     if (!File.Exists(targetFile))
                     {
-                        file.CopyTo(targetFile);
+
+                            file.CopyTo(targetFile);
                     }
                 }
                 catch (Exception e) { Console.Error.Write(e.ToString()); }
@@ -142,13 +147,16 @@ namespace EasySaveModel
         }
 
         //Make a fill copy
-        public static void BackUpDiff()
+        public void BackUpDiff()
         {
             //Make state file
             //Start a chrono ofr mesuring time elaspsed
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); //Starting the timed for the log file
-
+            if (activecrypto == true)
+            {
+                _cryptosoft.StartProcess(_files);
+            }
             //Move Files
             _actualStates = true;
             foreach (FileInfo file in _files.Files)
@@ -260,5 +268,7 @@ namespace EasySaveModel
         public Thread MainThread { get => _mainThread; set => _mainThread = value; }
         public string Name { get => _files.Name; set => _files.Name = value; }
         public static Mutex PauseMutex { get => _pauseMutex; set => _pauseMutex = value; }
+        public CryptoSoft Cryptosoft { get => _cryptosoft; set => _cryptosoft = value; }
+        public bool Activecrypto { get => activecrypto; set => activecrypto = value; }
     }
 }

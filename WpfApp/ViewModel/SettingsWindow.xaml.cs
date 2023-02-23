@@ -18,6 +18,8 @@ namespace WpfApp
         public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
         public string CryptoSoftPath { get => _CryptoSoftPath; set => _CryptoSoftPath = value; }
         public uint MaxSizeTransfert { get => _MaxSizeTransfert; set => _MaxSizeTransfert = value; }
+        public List<string> ExtensionsList { get => extensionsList; set => extensionsList = value; }
+        public List<string> ExtensionsPrioList { get => extensionsPrioList; set => extensionsPrioList = value; }
 
         public SettingsWindow()
         {
