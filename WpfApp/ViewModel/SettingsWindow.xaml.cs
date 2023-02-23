@@ -47,17 +47,16 @@ namespace WpfApp
                     return;
                 }
             }
-            ExtensionsGrid.Items.Add(new Extensions { Extension = extension });
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
             extensionsList.Add(extension);
+            ExtensionsGrid.Items.Add(new Extensions { Extension = extension });
             Debug.WriteLine(extensionsList);
             SaveExtensionsToCsv();
         }
         public void DeleteExtensionButtonClick(object sender, RoutedEventArgs e )
         {
-            Extensions selectedExtension = ExtensionsGrid.SelectedItem as Extensions;
-            if (selectedExtension != null )
+            if (ExtensionsGrid.SelectedItem is Extensions selectedExtension)
             {
                 ExtensionsGrid.Items.Remove(selectedExtension);
                 SaveExtensionsToCsv();
@@ -66,7 +65,7 @@ namespace WpfApp
         }
         public void AddExtensionPrioButtonClick( object sender, RoutedEventArgs e )
         {
-            string extensionprio = PrioritaryFilesExtension.Text;
+            string extensionprio = PrioritaryFilesBox.Text;
             if (string.IsNullOrWhiteSpace(extensionprio))
             {
                 ExtensionPrioLabelError.Content = "Erreur, vide";
@@ -77,26 +76,25 @@ namespace WpfApp
             {
                 extensionprio = "." + extensionprio;
             }
-            foreach (ExtensionsPrio item in PrioritaryGrid.Items)
+            foreach (ExtensionsPrio item2 in PrioritaryGrid.Items)
             {
-                if (item.ExtensionPrio == extensionprio)
+                if (item2.ExtensionPrio == extensionprio)
                 {
                     ExtensionPrioLabelError.Content = "Extensions déjà ajoutée";
                     ExtensionPrioLabelSuccess.Content = null;
                     return;
                 }
             }
-            PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = extensionprio });
             ExtensionPrioLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionPrioLabelError.Content = null;
             extensionsPrioList.Add(extensionprio);
+            PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = extensionprio });
             Debug.WriteLine(extensionsPrioList);
             SaveExtensionsPrioToCsv();
         }
         public void DeleteExtensionPrioButtonClick(object sender, RoutedEventArgs e)
         {
-            ExtensionsPrio selectedExtension = PrioritaryGrid.SelectedItem as ExtensionsPrio;
-            if (selectedExtension != null)
+            if (PrioritaryGrid.SelectedItem is ExtensionsPrio selectedExtension)
             {
                 PrioritaryGrid.Items.Remove(selectedExtension);
                 SaveExtensionsPrioToCsv();
@@ -106,16 +104,19 @@ namespace WpfApp
         private void GotFocusExtension(object sender, RoutedEventArgs e)
         {
             ExtensionBox.Text = "";
-            PrioritaryFilesExtension.Text = "";
+            PrioritaryFilesBox.Text = "";
+            MaximumSizeTransfert.Text = "";
+            CryptoSoftTextbox.Text = "";
+            SaveBusinessApp.Text = "";
         }
         private void SaveExtensionsPrioToCsv()
         {
-            using (StreamWriter writer = new StreamWriter(EncryptExtensionPrio))
+            using (StreamWriter writer2 = new StreamWriter(EncryptExtensionPrio))
             {
-                foreach (ExtensionsPrio item in PrioritaryGrid.Items) 
+                foreach (ExtensionsPrio item2 in PrioritaryGrid.Items) 
                 {
                     
-                    writer.WriteLine(item.ExtensionPrio);
+                    writer2.WriteLine(item2.ExtensionPrio);
                 }
             }
         }
@@ -123,13 +124,13 @@ namespace WpfApp
         {
             if (File.Exists(EncryptExtensionPrio))
             {
-                using (StreamReader reader = new StreamReader(EncryptExtensionPrio))
+                using (StreamReader reader2 = new StreamReader(EncryptExtensionPrio))
                 {
-                    string ligne;
-                    while ((ligne = reader.ReadLine()) != null)
+                    string ligne2;
+                    while ((ligne2 = reader2.ReadLine()) != null)
                     {
-                        PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = ligne });
-                        extensionsPrioList.Add(ligne);
+                        PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = ligne2 });
+                        extensionsPrioList.Add(ligne2);
                     }
                 }
             }
@@ -188,7 +189,6 @@ namespace WpfApp
         {
             App.CloseApp(this);
         }
-
         private void ResizeButton_Click(object sender, RoutedEventArgs e)
         {
             App.ResizeApp(this);
