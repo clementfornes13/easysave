@@ -72,19 +72,19 @@ namespace EasySaveModel
             }
         }
 
-        public void WriteLog(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+        public void WriteLog(string name, string fileSource, string fileTarget, string sizeFile, string transferTime, string cryptTime)
         {
             if (_jsonOrXml)
             {
-                WriteLogJson(name, fileSource, fileTarget, sizeFile, transferTime);
+                WriteLogJson(name, fileSource, fileTarget, sizeFile, transferTime, cryptTime);
             }
             else
             {
-                WriteLogXml(name, fileSource, fileTarget, sizeFile, transferTime);
+                WriteLogXml(name, fileSource, fileTarget, sizeFile, transferTime, cryptTime);
             }
         }
 
-        private void WriteLogJson(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+        private void WriteLogJson(string name, string fileSource, string fileTarget, string sizeFile, string transferTime, string cryptTime)
         {
             try
             {
@@ -101,7 +101,8 @@ namespace EasySaveModel
                     SourcePath = fileSource,
                     FileTarget = fileTarget,
                     SizeFile = sizeFile,
-                    TransferTime = transferTime,
+                    TransfertTime = transferTime,
+                    CryptTime = cryptTime,
                     Time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f")
                 };
 
@@ -141,7 +142,7 @@ namespace EasySaveModel
             }
 
         }
-        private void WriteLogXml(string name, string fileSource, string fileTarget, string sizeFile, string transferTime)
+        private void WriteLogXml(string name, string fileSource, string fileTarget, string sizeFile, string transferTime, string cryptTime )
 
         {
             try
@@ -160,6 +161,7 @@ namespace EasySaveModel
                         "\t< FileTarget >" + fileTarget + "< \\FileTarget >\n",
                         "\t< SizeFile >" + sizeFile + "< \\SizeFile >\n",
                         "\t< TransfertTime >" + transferTime + "< \\TransfertTime >\n",
+                        "\t< CryptTime >" + cryptTime + "< \\CryptTime >\n",
                         "\t< Time >" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.f") + "< \\Time >\n",
                         "< \\LogsFile > \n"
                     );
