@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace WpfApp
 {
@@ -87,9 +88,8 @@ namespace WpfApp
                             if (file.PathFrom == _savefiles.PathFrom)
                             {
                                 _transferts.Add(new TransfertJob(file));
+                                _transferts[_transferts.Count - 1].NbFilesMoved = settingsWindow.MaxSizeTransfert;
                                 _transferts[_transferts.Count - 1].ThreadBackUpDiff();
-                                //ProgressBarItem.Value = 66;
-                                //Task t = Task.Run(refreshProgressBar);
                             }
                         }
                         Debug.WriteLine(ProgressBarColumn.GetCellContent(item));
@@ -203,14 +203,13 @@ namespace WpfApp
         }
         private void ProgressBarLoop()
         {
-            while(true)
+            while (true)
             {
                 Dispatcher.Invoke(() =>
                 {
                     try
                     {
-                        //JobsGrid.Items.Refresh();
-                        ProgressBarColumn.CellTemplate.LoadContent();
+                        JobsGrid.Items.Refresh();
                     }
                     catch { }
                 });

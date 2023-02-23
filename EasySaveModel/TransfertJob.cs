@@ -7,12 +7,14 @@ namespace EasySaveModel
 {
     public class TransfertJob
     {
-        private static SaveFiles _files;
-        private static bool _actualStates = false; //Active/Waiting
-        private static double _elapsedTransfertTime;
-        private static double _nbFiles, _nbFilesMoved;
-        private static Mutex countMutex = new Mutex();
+        private SaveFiles _files;
+        private bool _actualStates = false; //Active/Waiting
+        private double _elapsedTransfertTime;
+        private double _nbFiles, _nbFilesMoved;
+        private uint _maxSizeFile = 999999999;
+        private static Mutex _countMutex = new Mutex();
         private static Mutex _pauseMutex;
+        private static Mutex _bigFileMutex = new Mutex();
 
         private Thread _mainThread = null;
 
@@ -63,7 +65,7 @@ namespace EasySaveModel
         }
 
         //Make a fill copy
-        public static void BackUp()
+        public void BackUp()
         {
             //Make state file
             //Start a chrono ofr mesuring time elaspsed
@@ -87,19 +89,30 @@ namespace EasySaveModel
                 {
                     if (!File.Exists(targetFile))
                     {
-                        file.CopyTo(targetFile);
+                        if (file.Length >= MaxSizeFile)
+                        {
+                            TransfertJob.BigFileMutex.WaitOne();
+                            file.CopyTo(targetFile);
+                            TransfertJob.BigFileMutex.ReleaseMutex();
+                        }
+                        else
+                        {
+                            TransfertJob.BigFileMutex.WaitOne();
+                            TransfertJob.BigFileMutex.ReleaseMutex();
+                            file.CopyTo(targetFile);
+                        }
                     }
                 }
                 catch (Exception e) { Console.Error.Write(e.ToString()); }
 
-                countMutex.WaitOne();
+                TransfertJob.CountMutex.WaitOne();
                 _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 _nbFilesMoved++;
                 _files.Progress = _nbFilesMoved / _nbFiles * 100;
                 Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles} of Main - {_files.Progress}");
-                countMutex.ReleaseMutex();
+                TransfertJob.CountMutex.ReleaseMutex();
 
-                _pauseMutex.ReleaseMutex();
+                TransfertJob.PauseMutex.ReleaseMutex();
             }
 
             //Manage sub dir for copy
@@ -119,21 +132,29 @@ namespace EasySaveModel
                     string targetFile = Path.Combine(targetdir, subfile.Name);
                     try
                     {
-                        if (!File.Exists(targetFile))
+                        if (subfile.Length >= MaxSizeFile)
                         {
+                            TransfertJob.BigFileMutex.WaitOne();
+                            subfile.CopyTo(targetFile);
+                            TransfertJob.BigFileMutex.ReleaseMutex();
+                        }
+                        else
+                        {
+                            TransfertJob.BigFileMutex.WaitOne();
+                            TransfertJob.BigFileMutex.ReleaseMutex();
                             subfile.CopyTo(targetFile);
                         }
                     }
                     catch (Exception e) { Console.Error.Write(e.ToString()); }
 
-                    countMutex.WaitOne();
+                    TransfertJob.CountMutex.WaitOne();
                     _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                     _nbFilesMoved++;
                     _files.Progress = _nbFilesMoved / _nbFiles * 100;
                     Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles} of Main - {_files.Progress}");
-                    countMutex.ReleaseMutex();
+                    TransfertJob.CountMutex.ReleaseMutex();
 
-                    _pauseMutex.ReleaseMutex();
+                    TransfertJob.PauseMutex.ReleaseMutex();
                 }
             }
             stopwatch.Stop();
@@ -142,7 +163,7 @@ namespace EasySaveModel
         }
 
         //Make a fill copy
-        public static void BackUpDiff()
+        public void BackUpDiff()
         {
             //Make state file
             //Start a chrono ofr mesuring time elaspsed
@@ -173,14 +194,14 @@ namespace EasySaveModel
                 }
                 catch (Exception e) { Debug.WriteLine(e.ToString()); }
 
-                countMutex.WaitOne();
+                TransfertJob.CountMutex.WaitOne();
                 _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                 _nbFilesMoved++;
                 _files.Progress = _nbFilesMoved / _nbFiles * 100;
                 Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles} - {_files.Progress}");
-                countMutex.ReleaseMutex();
+                TransfertJob.CountMutex.ReleaseMutex();
 
-                _pauseMutex.ReleaseMutex();
+                TransfertJob.PauseMutex.ReleaseMutex();
             }
 
             //Manage sub dir for copy
@@ -216,14 +237,14 @@ namespace EasySaveModel
                     }
                     catch (Exception e) { Debug.WriteLine(e.ToString()); }
 
-                    countMutex.WaitOne();
+                    TransfertJob.CountMutex.WaitOne();
                     _elapsedTransfertTime = stopwatch.Elapsed.TotalSeconds;
                     _nbFilesMoved++;
                     _files.Progress = _nbFilesMoved / _nbFiles * 100;
                     Debug.WriteLine($"Moved {_nbFilesMoved}/{_nbFiles} - {_files.Progress}");
-                    countMutex.ReleaseMutex();
+                    TransfertJob.CountMutex.ReleaseMutex();
 
-                    _pauseMutex.ReleaseMutex();
+                    TransfertJob.PauseMutex.ReleaseMutex();
                 }
             }
             stopwatch.Stop();
@@ -231,7 +252,7 @@ namespace EasySaveModel
             Loggin();
         }
 
-        public static void Loggin()
+        public void Loggin()
         {
             string nameLog = Path.GetFileName(_files.PathFrom);
             string totalSizeFileStr = _files.TotalSizeFile.ToString();
@@ -260,5 +281,9 @@ namespace EasySaveModel
         public Thread MainThread { get => _mainThread; set => _mainThread = value; }
         public string Name { get => _files.Name; set => _files.Name = value; }
         public static Mutex PauseMutex { get => _pauseMutex; set => _pauseMutex = value; }
+        public uint MaxSizeFile { get => _maxSizeFile; set => _maxSizeFile = value; }
+        public static Mutex CountMutex { get => _countMutex; set => _countMutex = value; }
+        public static Mutex PauseMutex1 { get => _pauseMutex; set => _pauseMutex = value; }
+        public static Mutex BigFileMutex { get => _bigFileMutex; set => _bigFileMutex = value; }
     }
 }
