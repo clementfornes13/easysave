@@ -40,14 +40,14 @@ namespace WpfApp
             }
             foreach (Extensions item in ExtensionsGrid.Items)
             {
-                if (item.Extension == extension)
+                if (item.extension == extension)
                 {
                     ExtensionLabelError.Content = "Extensions déjà ajoutée";
                     ExtensionLabelSuccess.Content = null;
                     return;
                 }
             }
-            ExtensionsGrid.Items.Add(new Extensions { Extension = extension });
+            ExtensionsGrid.Items.Add(new Extensions { extension = extension });
             ExtensionLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionLabelError.Content = null;
             extensionsList.Add(extension);
@@ -61,12 +61,12 @@ namespace WpfApp
             {
                 ExtensionsGrid.Items.Remove(selectedExtension);
                 SaveExtensionsToCsv();
-                extensionsList.Remove(selectedExtension.Extension);
+                extensionsList.Remove(selectedExtension.extension);
             }
         }
-        public void AddPrioExtensionButtonClick( object sender, RoutedEventArgs e )
+        public void AddExtensionPrioButtonClick( object sender, RoutedEventArgs e )
         {
-            string extensionprio = ExtensionBox.Text;
+            string extensionprio = PrioritaryFilesExtension.Text;
             if (string.IsNullOrWhiteSpace(extensionprio))
             {
                 ExtensionPrioLabelError.Content = "Erreur, vide";
@@ -79,14 +79,14 @@ namespace WpfApp
             }
             foreach (ExtensionsPrio item in PrioritaryGrid.Items)
             {
-                if (item.ExtensionPrio == extensionprio)
+                if (item.extensionPrio == extensionprio)
                 {
                     ExtensionPrioLabelError.Content = "Extensions déjà ajoutée";
                     ExtensionPrioLabelSuccess.Content = null;
                     return;
                 }
             }
-            PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = extensionprio });
+            PrioritaryGrid.Items.Add(new ExtensionsPrio { extensionPrio = extensionprio });
             ExtensionPrioLabelSuccess.Content = "Extension ajoutée avec succès";
             ExtensionPrioLabelError.Content = null;
             extensionsPrioList.Add(extensionprio);
@@ -100,12 +100,13 @@ namespace WpfApp
             {
                 PrioritaryGrid.Items.Remove(selectedExtension);
                 SaveExtensionsPrioToCsv();
-                extensionsPrioList.Remove(selectedExtension.ExtensionPrio);
+                extensionsPrioList.Remove(selectedExtension.extensionPrio);
             }
         }
         private void GotFocusExtension(object sender, RoutedEventArgs e)
         {
             ExtensionBox.Text = "";
+            PrioritaryFilesExtension.Text = "";
         }
         private void SaveExtensionsPrioToCsv()
         {
@@ -114,7 +115,7 @@ namespace WpfApp
                 foreach (ExtensionsPrio item in PrioritaryGrid.Items) 
                 {
                     
-                    writer.WriteLine(item.ExtensionPrio);
+                    writer.WriteLine(item.extensionPrio);
                 }
             }
         }
@@ -127,7 +128,7 @@ namespace WpfApp
                     string ligne;
                     while ((ligne = reader.ReadLine()) != null)
                     {
-                        PrioritaryGrid.Items.Add(new ExtensionsPrio { ExtensionPrio = ligne });
+                        PrioritaryGrid.Items.Add(new ExtensionsPrio { extensionPrio = ligne });
                         extensionsPrioList.Add(ligne);
                     }
                 }
@@ -139,7 +140,12 @@ namespace WpfApp
             {
                 foreach (Extensions item in ExtensionsGrid.Items)
                 {
+<<<<<<< HEAD
                     writer.WriteLine(item.Extension);
+=======
+
+                    writer.WriteLine(item.extension);
+>>>>>>> dedff943ce094ca73ee4b0b836f761197d2a60fc
                 }
             }
         }
@@ -152,7 +158,7 @@ namespace WpfApp
                     string ligne;
                     while ((ligne = reader.ReadLine()) != null)
                     {
-                        ExtensionsGrid.Items.Add(new Extensions { Extension = ligne });
+                        ExtensionsGrid.Items.Add(new Extensions { extension = ligne });
                         extensionsList.Add(ligne);
                     }
                 }
@@ -210,10 +216,10 @@ namespace WpfApp
 
     public class Extensions
     {
-        public string Extension { get; set; }
+        public string extension { get; set; }
     }
     public class ExtensionsPrio
     {
-        public string ExtensionPrio { get; set; }
+        public string extensionPrio { get; set; }
     }
 }

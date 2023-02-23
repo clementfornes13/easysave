@@ -102,7 +102,7 @@
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Extension" Binding="{Binding extension}" IsReadOnly="True" Width="*" Foreground="#303030">
+                    <DataGridTextColumn Header="ExtensionPrio" Binding="{Binding extensionPrio}" IsReadOnly="True" Width="*" Foreground="#303030">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -118,7 +118,6 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="0">
