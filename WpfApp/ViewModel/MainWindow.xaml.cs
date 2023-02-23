@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Threading;
 using CheckBox = System.Windows.Controls.CheckBox;
 using System.Windows.Controls;
-using System.Security.Cryptography.X509Certificates;
 
 namespace WpfApp
 {
@@ -33,7 +32,7 @@ namespace WpfApp
             LoadJobsPropsFromCsv();
             
             Thread BusinessAppThread = new Thread(BusinessApp);
-            Thread ProgressBarThread = new Thread(ProgressBar);
+            Thread ProgressBarThread = new Thread(ProgressBarLoop);
             BusinessAppThread.Start();
             ProgressBarThread.Start();
             TransfertJob.PauseMutex = _pauseMutex;
@@ -113,7 +112,6 @@ namespace WpfApp
                                 {
                                     _transferts.Add(new TransfertJob(file));
                                     _transferts[_transferts.Count - 1].ThreadBackUp();
-                                    //Task t = Task.Run(refreshProgressBar);
                                 }
                             }
                         }
@@ -203,7 +201,7 @@ namespace WpfApp
                 Thread.Sleep(800);
             }
         }
-        private void ProgressBar()
+        private void ProgressBarLoop()
         {
             while(true)
             {
@@ -211,7 +209,8 @@ namespace WpfApp
                 {
                     try
                     {
-                        JobsGrid.Items.Refresh();
+                        //JobsGrid.Items.Refresh();
+                        ProgressBarColumn.CellTemplate.LoadContent();
                     }
                     catch { }
                 });
