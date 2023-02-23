@@ -95,12 +95,13 @@ namespace EasySaveModel
             string m_nameLog = Path.GetFileName(_pathFrom);
             string totalSizeFileLog = _totalSizeFile.ToString();
             string transferTime = "0";
+            string cryptTime = "0";
 
             LogsFile JSONmyLogs = LogsFile.GetInstance(true);
             LogsFile XMLmyLogs = LogsFile.GetInstance(true);
 
-            JSONmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime);
-            XMLmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime);
+            JSONmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime, cryptTime);
+            XMLmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime, cryptTime);
         }
 
         public List<FileInfo> Files { get => _files; }

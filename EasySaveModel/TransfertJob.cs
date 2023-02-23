@@ -236,6 +236,7 @@ namespace EasySaveModel
             string nameLog = Path.GetFileName(_files.PathFrom);
             string totalSizeFileStr = _files.TotalSizeFile.ToString();
             string elapsedTransfertTimeStr = _elapsedTransfertTime.ToString();
+            string cryptTime = "0";
 
             LogsFile JSONmyLogs = LogsFile.GetInstance(true);
             LogsFile XMLmyLogs = LogsFile.GetInstance(false);
@@ -243,11 +244,11 @@ namespace EasySaveModel
             Mutex XMLMutex = LogsFile.GetMutex(false);
 
             JSONMutex.WaitOne();
-            JSONmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr);
+            JSONmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr, cryptTime);
             JSONMutex.ReleaseMutex();
 
             XMLMutex.WaitOne();
-            XMLmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr);
+            XMLmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr, cryptTime);
             XMLMutex.ReleaseMutex();
         }
 
