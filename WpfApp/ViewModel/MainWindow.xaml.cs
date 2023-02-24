@@ -19,21 +19,22 @@ namespace WpfApp
         private bool _isPaused = false;
         private bool _isStopped = false;
         private static readonly Mutex _pauseMutex = new Mutex();
-        private string _BusinessAppWindow;
+        private string _BusinessAppName;
         private readonly SettingsWindow _settingsWindow;
-
 
         public MainWindow()
         {
             //initiate UI
-            InitializeComponent();
+            InitializeComponent();            
             JobsGrid.ItemsSource = JobsProps;
-            _settingsWindow = new SettingsWindow();
             LoadJobsPropsFromCsv();
 
+            _settingsWindow = new SettingsWindow();
+
             Thread BusinessAppThread = new Thread(BusinessApp);
-            Thread ProgressBarThread = new Thread(ProgressBarLoop);
             BusinessAppThread.Start();
+
+            Thread ProgressBarThread = new Thread(ProgressBarLoop);
             ProgressBarThread.Start();
 
             TransfertJob.PauseMutex = _pauseMutex;
@@ -78,7 +79,7 @@ namespace WpfApp
                 if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                 {
                     //Check cryptosoft option
-                    if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
+                    if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "True")
                     {
                         _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
                                                ((TextBlock)PathToColumn.GetCellContent(item)).Text);
@@ -89,10 +90,12 @@ namespace WpfApp
                                 //Create an thread job
                                 _transferts.Add(new TransfertJob(file));
                                 _transferts[_transferts.Count - 1].Activecrypto = true;
-                                _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
-                                _transferts[_transferts.Count - 1].PrioritizeExts = settingsWindow.ExtensionsPrioList;
-                                _transferts[_transferts.Count - 1].MaxSizeFile = settingsWindow.MaxSizeTransfert;
+                                _transferts[_transferts.Count - 1].PrioritizeExts = _settingsWindow.ExtensionsPrioList;
+                                _transferts[_transferts.Count - 1].MaxSizeFile = _settingsWindow.MaxSizeTransfert;
+                                _transferts[_transferts.Count - 1].CryptoSoftPath = _settingsWindow.CryptoSoftPath;
+                                _transferts[_transferts.Count - 1]._extensionList = _settingsWindow.ExtensionsList;
                                 _transferts[_transferts.Count - 1].ThreadBackUp((bool)DifferentialCheckBox.IsChecked);
+
                             }
                         }
                     }
@@ -106,8 +109,8 @@ namespace WpfApp
                             {
                                 //Create an thread job
                                 _transferts.Add(new TransfertJob(file));
-                                _transferts[_transferts.Count - 1].PrioritizeExts = settingsWindow.ExtensionsPrioList;
-                                _transferts[_transferts.Count - 1].MaxSizeFile = settingsWindow.MaxSizeTransfert;
+                                _transferts[_transferts.Count - 1].PrioritizeExts = _settingsWindow.ExtensionsPrioList;
+                                _transferts[_transferts.Count - 1].MaxSizeFile = _settingsWindow.MaxSizeTransfert;
                                 _transferts[_transferts.Count - 1].ThreadBackUp((bool)DifferentialCheckBox.IsChecked);
                             }
                         }
@@ -123,9 +126,9 @@ namespace WpfApp
         }
         private void PauseButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!isStopped)
+            if (!_isStopped)
             {
-                if (!isPaused)
+                if (!_isPaused)
                 {
                     _pauseMutex.WaitOne();
                 }
@@ -133,14 +136,14 @@ namespace WpfApp
                 {
                     _pauseMutex.ReleaseMutex();
                 }
-                isPaused = !isPaused;
+                _isPaused = !_isPaused;
             }
         }
         private void StopButtonClick(object sender, RoutedEventArgs e)
         {
-            if (!isStopped)
+            if (!_isStopped)
             {
-                isStopped = true;
+                _isStopped = true;
                 foreach (TransfertJob job in _transferts)
                 {
                     job.MainThread.Abort();
@@ -165,8 +168,8 @@ namespace WpfApp
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
-                _BusinessAppWindow = _settingsWindow.BusinessAppName;
-                Process[] processes = Process.GetProcessesByName(_BusinessAppWindow);
+                Process[] processes = Process.GetProcessesByName(_BusinessAppName);
+
                 if (processes.Length > 0)
                 {
                     Dispatcher.Invoke(() =>
@@ -178,7 +181,7 @@ namespace WpfApp
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        BusinessSoftwareLabel.Content = " ";
+                        BusinessSoftwareLabel.Content = "";
                     });
                 }
                 //Ajouter la methode pause a ça
@@ -210,12 +213,12 @@ namespace WpfApp
         }
         private void LoadJobsPropsFromCsv()
         {
-            if (!File.Exists(CreateWindow.CsvFilePath1))
+            if (!File.Exists(CreateWindow.CsvFilePath))
             {
                 return;
             }
             JobsProps.Clear();
-            StreamReader reader = new StreamReader(CreateWindow.CsvFilePath1);
+            StreamReader reader = new StreamReader(CreateWindow.CsvFilePath);
             reader.ReadLine();
             while (!reader.EndOfStream)
             {
@@ -239,10 +242,13 @@ namespace WpfApp
         {
             App.Window_MouseDown(this, e);
         }
-        public bool IsPaused { get => isPaused; set => isPaused = value; }
-        public bool IsStopped { get => isStopped; set => isStopped = value; }
+        public void SaveBusinessAppButtonClick(object sender, RoutedEventArgs e)
+        {
+            _BusinessAppName = SaveBusinessApp.Text;
+        }
+        public bool IsPaused { get => _isPaused; set => _isPaused = value; }
+        public bool IsStopped { get => _isStopped; set => _isStopped = value; }
         public static List<SaveFiles> JobsProps { get => _jobsProps; set => _jobsProps = value; }
         public string WPFCreationButtonText { get; set; }
-        public string BusinessAppWindow { get => _BusinessAppWindow; set => _BusinessAppWindow = value; }
     }
 }

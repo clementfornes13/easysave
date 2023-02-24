@@ -20,6 +20,9 @@
 
 
         <Grid Grid.Row="0" Grid.Column="0" Cursor="Hand">
+            <TextBox x:Name="SaveBusinessApp" Text="" Background="#919191" Foreground="#303030" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,309,0,0" x:FieldModifier="public"/>
+            <Label Content="{x:Static language:Lang.WPF_BusinessApp}" Foreground="#303030" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,278,0,0"/>
+            <Button Style="{DynamicResource FirstButton}" x:Name="SaveBusinessAppButton" Content="{x:Static language:Lang.WPF_Save}" HorizontalAlignment="Center" VerticalAlignment="Top" Click="SaveBusinessAppButtonClick" Margin="0,332,0,0" Height="41" Width="120"/>
             <Button x:Name="SettingsButton" Style="{DynamicResource SecondButton}" Content="{x:Static language:Lang.WPF_Settings}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,229,0,0" Click="SettingsButtonClick" Width="108"/>
             <Image HorizontalAlignment="Center" Height="116" VerticalAlignment="Top" Width="115" Source="../Resources/easysave logo.png" Margin="0,32,0,0" Cursor="Arrow" Opacity="2"/>
             <Button Style="{DynamicResource FirstButton}" Content="{x:Static language:Lang.WPF_Create}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,184,0,0" Click="CreateWindowButtonClick" Width="108"/>

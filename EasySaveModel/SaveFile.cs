@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Resources;
 
@@ -7,7 +8,7 @@ namespace EasySaveModel
 {
     public class SaveFiles
     {
-        private string _name; 
+        private string _name;
         private bool _cryptosoft;
         private string _pathFrom, _pathTo; //C:/dir/dir/dir
 
@@ -58,50 +59,71 @@ namespace EasySaveModel
 
         public void init()
         {
-            //Need to make a feature for subdirectory
-            string[] names = System.IO.Directory.GetFiles(_pathFrom);
-            if (names.Length == 0)
+            try
             {
-                //throw new DirectoryNotFoundException("DirectoryError" + m_pathFrom);
-            }
+                //Need to make a feature for subdirectory
+                string[] names = System.IO.Directory.GetFiles(_pathFrom);
+                if (names.Length == 0)
+                {
+                    //throw new DirectoryNotFoundException("DirectoryError" + m_pathFrom);
+                }
 
-            foreach (string filename in names)
+                foreach (string filename in names)
+                {
+                    _files.Add(new FileInfo(filename));
+                }
+
+                DirectoryInfo dirFrom = new DirectoryInfo(_pathFrom);
+                _subDirs = new List<DirectoryInfo>(dirFrom.GetDirectories());
+            }
+            catch (Exception e)
             {
-                _files.Add(new FileInfo(filename));
+                Debug.WriteLine(e.ToString());
             }
-
-            DirectoryInfo dirFrom = new DirectoryInfo(_pathFrom);
-            _subDirs = new List<DirectoryInfo>(dirFrom.GetDirectories());
         }
-        
+
         public void calcSizeFiles()
         {
-            foreach (FileInfo file in _files)
+            try
             {
-                _totalSizeFile += file.Length;
-            }
-            foreach (DirectoryInfo dir in _subDirs)
-            {
-                FileInfo[] subFiles = dir.GetFiles();
-                foreach (FileInfo file in subFiles)
+                foreach (FileInfo file in _files)
                 {
                     _totalSizeFile += file.Length;
                 }
+                foreach (DirectoryInfo dir in _subDirs)
+                {
+                    FileInfo[] subFiles = dir.GetFiles();
+                    foreach (FileInfo file in subFiles)
+                    {
+                        _totalSizeFile += file.Length;
+                    }
+                }
+                Logging();
             }
-            Logging();
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
         }
         public void Logging()
         {
-            string m_nameLog = Path.GetFileName(_pathFrom);
-            string totalSizeFileLog = _totalSizeFile.ToString();
-            string transferTime = "0";
-            string cryptTime = "0";
+            try
+            {
+                string m_nameLog = Path.GetFileName(_pathFrom);
+                string totalSizeFileLog = _totalSizeFile.ToString();
+                string transferTime = "0";
+                string cryptTime = "0";
 
-            LogsFile JSONmyLogs = LogsFile.GetInstance(true);
-            LogsFile XMLmyLogs = LogsFile.GetInstance(true);
+                LogsFile JSONmyLogs = LogsFile.GetInstance(true);
+                LogsFile XMLmyLogs = LogsFile.GetInstance(true);
 
-            JSONmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime, cryptTime);
-            XMLmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime, cryptTime);
+                JSONmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime, cryptTime);
+                XMLmyLogs.WriteLog(m_nameLog, _pathFrom, _pathTo, totalSizeFileLog, transferTime, cryptTime);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
         }
 
         public List<FileInfo> Files { get => _files; }
@@ -112,6 +134,5 @@ namespace EasySaveModel
         public string Name { get => _name; set => _name = value; }
         public bool Cryptosoft { get => _cryptosoft; set => _cryptosoft = value; }
         public double Progress { get => _progress; set => _progress = value; }
-        public bool IsPriorited { get => isPriorited; set => isPriorited = value; }
     }
 }
