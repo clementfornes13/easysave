@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using static System.Net.WebRequestMethods;
 
 namespace EasySaveModel
 {
@@ -23,6 +24,12 @@ namespace EasySaveModel
         private static Mutex _pauseMutex;
         private static Mutex _bigFileMutex = new Mutex();
         private Thread _mainThread = null;
+
+        private string _cryptoSoftPath;
+
+        public List<string> _extensionList = new List<string>();
+
+
         public TransfertJob(SaveFiles files)
         {
             _files = files;
@@ -77,10 +84,7 @@ namespace EasySaveModel
             {
                 Directory.CreateDirectory(_files.PathTo);
             }
-            if (activecrypto)
-            {
-                _cryptosoft.StartProcess(_files);
-            }
+
 
             //Move classic Files
             _actualStates = true;
@@ -91,12 +95,16 @@ namespace EasySaveModel
 
                 try
                 {
-                    if (!File.Exists(targetFile))
+                    if (!System.IO.File.Exists(targetFile))
                     {
                         if (file.Length >= MaxSizeFile)
                         {
                             TransfertJob.BigFileMutex.WaitOne();
                             file.CopyTo(targetFile);
+                            if (activecrypto==true)
+                            {
+                                Encrypt(targetFile, targetFile, _cryptoSoftPath, _extensionList);
+                            }
                             TransfertJob.BigFileMutex.ReleaseMutex();
                         }
                         else
@@ -104,6 +112,10 @@ namespace EasySaveModel
                             TransfertJob.BigFileMutex.WaitOne();
                             TransfertJob.BigFileMutex.ReleaseMutex();
                             file.CopyTo(targetFile);
+                            if (activecrypto==true)
+                            {
+                                Encrypt(targetFile, targetFile, _cryptoSoftPath, _extensionList);
+                            }
                         }
                     }
                 }
@@ -186,16 +198,24 @@ namespace EasySaveModel
 
                 try
                 {
-                    if (!File.Exists(targetFile))
+                    if (!System.IO.File.Exists(targetFile))
                     {
                         file.CopyTo(targetFile);
+                        if (activecrypto == true)
+                        {
+                            Encrypt(targetFile, targetFile, _cryptoSoftPath, _extensionList);
+                        }
                     }
                     else
                     {
-                        var lastwrite = File.GetLastAccessTimeUtc(targetFile);
+                        var lastwrite = System.IO.File.GetLastAccessTimeUtc(targetFile);
                         if (lastwrite != file.LastAccessTimeUtc)
                         {
                             file.CopyTo(targetFile, true);
+                            if (activecrypto == true)
+                            {
+                                Encrypt(targetFile, targetFile, _cryptoSoftPath, _extensionList);
+                            }
                         }
                     }
                 }
@@ -229,16 +249,24 @@ namespace EasySaveModel
                     Console.WriteLine($"File {file.Name} written");
                     try
                     {
-                        if (!File.Exists(targetFile))
+                        if (!System.IO.File.Exists(targetFile))
                         {
                             file.CopyTo(targetFile);
+                            if (activecrypto == true)
+                            {
+                                Encrypt(targetFile, targetFile, _cryptoSoftPath, _extensionList);
+                            }
                         }
                         else
                         {
-                            var lastwrite = File.GetLastAccessTimeUtc(targetFile);
+                            var lastwrite = System.IO.File.GetLastAccessTimeUtc(targetFile);
                             if (lastwrite != file.LastAccessTimeUtc)
                             {
                                 file.CopyTo(targetFile, true);
+                                if (activecrypto == true)
+                                {
+                                    Encrypt(targetFile, targetFile, _cryptoSoftPath, _extensionList);
+                                }
                             }
                         }
                     }
@@ -279,7 +307,61 @@ namespace EasySaveModel
             XMLmyLogs.WriteLog(nameLog, _files.PathFrom, _files.PathTo, totalSizeFileStr, elapsedTransfertTimeStr, cryptTime);
             XMLMutex.ReleaseMutex();
         }
+        public void Encrypt(string sourceDir, string targetDir, string _cryptoSoftPath, List<string> _extension)//This function allows you to encrypt files. 
+        {
+            CryptoSoftPath = _cryptoSoftPath;
+            _extension = _extensionList;
+            foreach (FileInfo file in _files.Files)
+            {
+                //On test chaque Type paramétré
+                foreach (string strExtensionCrypt in _extension)
+                {
+                    if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
+                    {
+                        using (Process process = new Process())//Declaration of the process
+                        {
+                            process.StartInfo.FileName = "CryptoSoft.exe"; //Calls the process that is CryptoSoft
+                            process.StartInfo.Arguments = String.Format("\"{0}\"", sourceDir) + " " + String.Format("\"{0}\"", targetDir.Replace(".","_encrypted.")); //Preparation of variables for the process.
+                            Debug.Write(process.StartInfo.Arguments);
+                            process.StartInfo.WorkingDirectory = Path.GetDirectoryName("C:\\Users\\smite\\source\\repos\\prosoft\\CryptoSoft\\bin\\Debug\\");
+                            process.Start(); //Launching the process
+                            process.Close(); 
 
+                        }
+                    }
+                }
+            }
+
+            // Loop through all subdirectories in the save files object
+            foreach (DirectoryInfo dir in _files.SubDirs)
+            {
+                FileInfo[] subFiles = dir.GetFiles(); // Get all files in the subdirectory
+
+                // Loop through all files in the subdirectory
+                foreach (FileInfo file in subFiles)
+                {
+                    //On test chaque Type paramétré 
+                    foreach (string strExtensionCrypt in _extension)
+                    {
+                        if (file.Extension == strExtensionCrypt) // If the extension matches, encrypt the file
+                        {
+                            using (Process process = new Process())//Declaration of the process
+                            {
+                                process.StartInfo.FileName = "CryptoSoft.exe"; //Calls the process that is CryptoSoft
+                                process.StartInfo.Arguments = String.Format("\"{0}\"", sourceDir) + " " + String.Format("\"{0}\"", targetDir.Replace(".", "_encrypted.")); //Preparation of variables for the process.
+                                Debug.Write(process.StartInfo.Arguments);
+                                process.StartInfo.WorkingDirectory = Path.GetDirectoryName("C:\\Users\\smite\\source\\repos\\prosoft\\CryptoSoft\\bin\\Debug\\");
+                                process.Start(); //Launching the process
+                                process.Close();
+
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }
         public bool ActualStates { get => _actualStates; set => _actualStates = value; }
         public double ElapsedTransfertTime { get => _elapsedTransfertTime; }
         internal SaveFiles workingFile { get => _files; }
@@ -298,5 +380,6 @@ namespace EasySaveModel
         public static Mutex CountMutex { get => _countMutex; set => _countMutex = value; }
         public static Mutex PauseMutex1 { get => _pauseMutex; set => _pauseMutex = value; }
         public List<string> PrioritizeExts { get => _prioritizeExts; set => _prioritizeExts = value; }
+        public string CryptoSoftPath { get => _cryptoSoftPath; set => _cryptoSoftPath = value; }
     }
 }

@@ -10,13 +10,11 @@ namespace WpfApp
     {
         private const string EncryptExtension = "extensionencrypt.csv";
         private const string EncryptExtensionPrio = "extensionencryptprio.csv";
-        private string _BusinessAppName;
         private List<string> extensionsList = new List<string>();
         private List<string> extensionsPrioList = new List<string>();
         private uint _MaxSizeTransfert;
         private string _CryptoSoftPath;
 
-        public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
         public string CryptoSoftPath { get => _CryptoSoftPath; set => _CryptoSoftPath = value; }
         public uint MaxSizeTransfert { get => _MaxSizeTransfert; set => _MaxSizeTransfert = value; }
         public List<string> ExtensionsList { get => extensionsList; set => extensionsList = value; }
@@ -173,10 +171,7 @@ namespace WpfApp
                 MessageBox.Show("FAUXXXXXXXXXXXXXXXX");
             }
         }
-        public void SaveBusinessAppButtonClick(object sender, RoutedEventArgs e)
-        {
-            BusinessAppName = SaveBusinessApp.Text;
-        }
+
         public void SaveCryptoSoftClick(object sender, RoutedEventArgs e)
         {
             CryptoSoftPath=CryptoSoftTextbox.Text;

@@ -16,26 +16,24 @@ namespace WpfApp
         private static List<SaveFiles> _jobsProps = new List<SaveFiles>();
         private List<TransfertJob> _transferts = new List<TransfertJob>();
         private SaveFiles _savefiles;
-        private CryptoSoft _cryptosoft;
+        private TransfertJob _transfertjob;
         private bool isPaused = false;
         private bool isStopped = false;
         private static readonly Mutex _pauseMutex = new Mutex();
-        private string _BusinessAppWindow;
         private readonly SettingsWindow settingsWindow;
+        private string _BusinessAppName;
+        public string BusinessAppName { get => _BusinessAppName; set => _BusinessAppName = value; }
 
 
         public MainWindow()
         {
             InitializeComponent();
+            Thread BusinessAppThread = new Thread(BusinessApp);
+            BusinessAppThread.Start();
             JobsGrid.ItemsSource = JobsProps;
             settingsWindow = new SettingsWindow();
-            _BusinessAppWindow = settingsWindow.BusinessAppName;
             LoadJobsPropsFromCsv();
-
-            _cryptosoft = new CryptoSoft(settingsWindow.CryptoSoftPath, settingsWindow.ExtensionsList);
-            Thread BusinessAppThread = new Thread(BusinessApp);
             Thread ProgressBarThread = new Thread(ProgressBarLoop);
-            BusinessAppThread.Start();
             ProgressBarThread.Start();
 
             TransfertJob.PauseMutex = _pauseMutex;
@@ -80,7 +78,7 @@ namespace WpfApp
                 if (((CheckBox)CheckboxColumn.GetCellContent(item)).IsChecked == true)
                 {
                     //Check cryptosoft option
-                    if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "False")
+                    if (((TextBlock)CryptosoftColumn.GetCellContent(item)).Text == "True")
                     {
                         _savefiles = new SaveFiles(((TextBlock)PathFromColumn.GetCellContent(item)).Text,
                                                ((TextBlock)PathToColumn.GetCellContent(item)).Text);
@@ -91,10 +89,12 @@ namespace WpfApp
                                 //Create an thread job
                                 _transferts.Add(new TransfertJob(file));
                                 _transferts[_transferts.Count - 1].Activecrypto = true;
-                                _transferts[_transferts.Count - 1].Cryptosoft = _cryptosoft;
                                 _transferts[_transferts.Count - 1].PrioritizeExts = settingsWindow.ExtensionsPrioList;
                                 _transferts[_transferts.Count - 1].MaxSizeFile = settingsWindow.MaxSizeTransfert;
+                                _transferts[_transferts.Count - 1].CryptoSoftPath = settingsWindow.CryptoSoftPath;
+                                _transferts[_transferts.Count - 1]._extensionList = settingsWindow.ExtensionsList;
                                 _transferts[_transferts.Count - 1].ThreadBackUp((bool)DifferentialCheckBox.IsChecked);
+
                             }
                         }
                     }
@@ -167,7 +167,7 @@ namespace WpfApp
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
-                Process[] processes = Process.GetProcessesByName(_BusinessAppWindow);
+                Process[] processes = Process.GetProcessesByName(BusinessAppName);
                 if (processes.Length > 0)
                 {
                     Dispatcher.Invoke(() =>
@@ -179,7 +179,7 @@ namespace WpfApp
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        BusinessSoftwareLabel.Content = " ";
+                        BusinessSoftwareLabel.Content = "";
                     });
                 }
                 //Ajouter la methode pause a ça
@@ -240,10 +240,13 @@ namespace WpfApp
         {
             App.Window_MouseDown(this, e);
         }
+        public void SaveBusinessAppButtonClick(object sender, RoutedEventArgs e)
+        {
+            BusinessAppName = SaveBusinessApp.Text;
+        }
         public bool IsPaused { get => isPaused; set => isPaused = value; }
         public bool IsStopped { get => isStopped; set => isStopped = value; }
         public static List<SaveFiles> JobsProps { get => _jobsProps; set => _jobsProps = value; }
         public string WPFCreationButtonText { get; set; }
-        public string BusinessAppWindow { get => _BusinessAppWindow; set => _BusinessAppWindow = value; }
     }
 }
