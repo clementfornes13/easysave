@@ -93,7 +93,7 @@ namespace ConsoleApp
                 {
                     _transferts.Add(new TransfertJob(file));
                     Console.WriteLine(rm.GetString("BeginBackup"));
-                    _transferts[_transferts.Count - 1].ThreadBackUp();
+                    _transferts[_transferts.Count - 1].ThreadBackUp(false);
                     Console.Write(rm.GetString("BackupTime") + $"{_transferts[_transferts.Count - 1].ElapsedTransfertTime}" + "s");
                 }
             }

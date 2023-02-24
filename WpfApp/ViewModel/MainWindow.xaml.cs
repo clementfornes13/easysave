@@ -16,23 +16,21 @@ namespace WpfApp
         private static List<SaveFiles> _jobsProps = new List<SaveFiles>();
         private List<TransfertJob> _transferts = new List<TransfertJob>();
         private SaveFiles _savefiles;
-        private CryptoSoft _cryptosoft;
-        private bool isPaused = false;
-        private bool isStopped = false;
+        private bool _isPaused = false;
+        private bool _isStopped = false;
         private static readonly Mutex _pauseMutex = new Mutex();
         private string _BusinessAppWindow;
-        private readonly SettingsWindow settingsWindow;
+        private readonly SettingsWindow _settingsWindow;
 
 
         public MainWindow()
         {
+            //initiate UI
             InitializeComponent();
             JobsGrid.ItemsSource = JobsProps;
-            settingsWindow = new SettingsWindow();
-            _BusinessAppWindow = settingsWindow.BusinessAppName;
+            _settingsWindow = new SettingsWindow();
             LoadJobsPropsFromCsv();
 
-            _cryptosoft = new CryptoSoft(settingsWindow.CryptoSoftPath, settingsWindow.ExtensionsList);
             Thread BusinessAppThread = new Thread(BusinessApp);
             Thread ProgressBarThread = new Thread(ProgressBarLoop);
             BusinessAppThread.Start();
@@ -167,6 +165,7 @@ namespace WpfApp
             // Faire un fichier settings pour extensions, logiciel metier, max transfert size --> revoir methodes
             while (true)
             {
+                _BusinessAppWindow = _settingsWindow.BusinessAppName;
                 Process[] processes = Process.GetProcessesByName(_BusinessAppWindow);
                 if (processes.Length > 0)
                 {

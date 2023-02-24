@@ -8,29 +8,29 @@ namespace ConsoleApp
 {
     public class ConsoleCLI
     {
-        private string SaveChoix = "";
-        private string PathFrom = "";
-        private string DeletePath = "";
-        private string ExecutePath = "";
-        private string PathTo = "";
-        private string LangueChoix = "";
-        private string ContinueBlank = "";
+        private string _saveChoix = "";
+        private string _pathFrom = "";
+        private string _deletePath = "";
+        private string _executePath = "";
+        private string _pathTo = "";
+        private string _langueChoix = "";
+        private string _continueBlank = "";
         ResourceManager rm = new ResourceManager("ConsoleApp.Resources.Langue", typeof(ConsoleApp).Assembly);
 
-        public string SaveChoix1 { get => SaveChoix; }
-        public string PathFrom1 { get => PathFrom; }
-        public string DeletePath1 { get => DeletePath; }
-        public string ExecutePath1 { get => ExecutePath; }
-        public string PathTo1 { get => PathTo; }
-        public string LangueChoix1 { get => LangueChoix; }
+        public string SaveChoix1 { get => _saveChoix; }
+        public string PathFrom1 { get => _pathFrom; }
+        public string DeletePath1 { get => _deletePath; }
+        public string ExecutePath1 { get => _executePath; }
+        public string PathTo1 { get => _pathTo; }
+        public string LangueChoix1 { get => _langueChoix; }
         public bool ChoixLangue()
         {
             //Setting up the language French or English of the program
             Console.WriteLine("*--------------Bienvenue sur le programme EasySave--------------*\n");
             Console.WriteLine("-> Choisir la langue désirée : Anglais (0), Français (1) : ");
             Console.WriteLine("-> Choose desired language : English (0), French (1) : \n");
-            LangueChoix = Console.ReadLine();
-            switch (LangueChoix)
+            _langueChoix = Console.ReadLine();
+            switch (_langueChoix)
             {
                 case "0":
                     Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
@@ -67,30 +67,30 @@ namespace ConsoleApp
             Console.WriteLine(rm.GetString("ExitProgram"));
             Console.WriteLine("\n");
             Console.WriteLine("-------------------------------------------------");
-            SaveChoix = Console.ReadLine();
-            switch (SaveChoix)
+            _saveChoix = Console.ReadLine();
+            switch (_saveChoix)
             {
                 case "1"://Create
                     Console.WriteLine(rm.GetString("Create choice"));
                     Console.WriteLine(rm.GetString("pathFrom"));
                     Console.WriteLine("\tC:\\...\\...");
-                    PathFrom = Console.ReadLine();
-                    switch (Directory.Exists(PathFrom))
+                    _pathFrom = Console.ReadLine();
+                    switch (Directory.Exists(_pathFrom))
                     {
                         case true:
                             Console.WriteLine(rm.GetString("pathTo"));
-                            PathTo = Console.ReadLine();
-                            switch (Directory.Exists(PathTo))
+                            _pathTo = Console.ReadLine();
+                            switch (Directory.Exists(_pathTo))
                             {
                                 case true:
                                     return 1;
                                 case false:
                                     Console.WriteLine(rm.GetString("BlankOrInvalid"));
-                                    ContinueBlank = Console.ReadLine();
-                                    switch (ContinueBlank)
+                                    _continueBlank = Console.ReadLine();
+                                    switch (_continueBlank)
                                     {
                                         case "Y":
-                                            PathTo = null;
+                                            _pathTo = null;
                                             return 1;
                                         case "N":
                                             return ChoixSave();
@@ -110,8 +110,8 @@ namespace ConsoleApp
                     Console.WriteLine(rm.GetString("Delete choice"));
                     Console.WriteLine(rm.GetString("Delete path"));
                     Console.WriteLine("\tC:\\...\\...");
-                    DeletePath = Console.ReadLine();
-                    switch (Directory.Exists(DeletePath))
+                    _deletePath = Console.ReadLine();
+                    switch (Directory.Exists(_deletePath))
                     {
                         case true:
                             return 2;
@@ -125,8 +125,8 @@ namespace ConsoleApp
                     Console.WriteLine(rm.GetString("Execute choice"));
                     Console.WriteLine(rm.GetString("Execute path"));
                     Console.WriteLine("\tC:\\...\\...");
-                    ExecutePath = Console.ReadLine();
-                    switch (Directory.Exists(ExecutePath))
+                    _executePath = Console.ReadLine();
+                    switch (Directory.Exists(_executePath))
                     {
                         case true:
                             return 3;

@@ -8,14 +8,14 @@ namespace WpfApp
 {
     public partial class CreateWindow : Window
     {
-        private const string CsvFilePath = "jobsproperties.csv";
-        public static string CsvFilePath1 => CsvFilePath;
+        private const string _csvFilePath = "jobsproperties.csv";
         private SaveFiles _savefiles;
-        public string ErrorLabelCopy;
+        public string _errorLabelCopy;
+
         public CreateWindow()
         {
             InitializeComponent();
-            ErrorLabelCopy = ErrorLabel.ContentStringFormat;
+            _errorLabelCopy = ErrorLabel.ContentStringFormat;
         }
         public void ChooseFromButtonClick(object sender, RoutedEventArgs e)
         {
@@ -48,7 +48,7 @@ namespace WpfApp
         {
             if (TextBlockDestination.Text == "" || TextBlockSource.Text =="")
             {
-                ErrorLabel.Content = ErrorLabelCopy;
+                ErrorLabel.Content = _errorLabelCopy;
             }
             else 
             {
@@ -98,5 +98,7 @@ namespace WpfApp
         {
             App.Window_MouseDown(this, e);
         }
+
+        public static string CsvFilePath => _csvFilePath;
     }
 }

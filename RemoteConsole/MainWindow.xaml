@@ -3,20 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RemoteConsole"
         mc:Ignorable="d"
-        Title="Remote console" Height="362" Width="527" >
-    <Grid x:Name="pbstatus" Margin="0,0,10,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="383*"/>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <ProgressBar x:Name="ProgressBarJobStatus" HorizontalAlignment="Left" Height="51" Margin="65,64,0,0" VerticalAlignment="Top" Width="379"/>
-        <Label x:Name="lb_etat_prog_server" Content="" HorizontalAlignment="Left" Margin="305,0,0,0" VerticalAlignment="Center" Height="58" Width="108" FontSize="24"/>
-        <Label HorizontalAlignment="Left" Margin="203,264,0,0" VerticalAlignment="Top"/>
-        <Label Content="Save job progress" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="3.024,1.668" FontSize="18" FontFamily="Arial Rounded MT Bold" FontWeight="Bold"/>
+        Title="MainWindow" Height="360" Width="750" ResizeMode="NoResize" WindowStyle="None">
 
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1">
+                <Button Margin="10" Click="StartClient" Background="#FF0056A7" Height="48" BorderBrush="{x:Null}">
+                    <Grid Width="150" Height="30">
+                        <TextBlock x:Name="StartCo" Text="START CONNECTION" Margin="16,0,0,0" FontFamily="Sitka Text" TextAlignment="Justify"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="154" FontSize="10" Foreground="White"/>
+                    </Grid>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="91*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Rectangle Grid.Row="1"  Margin="15" Fill="#FFD0D1D0" RadiusX="11" RadiusY="11"/>
+                <Label x:Name="ipserver" Content="IP SERVER : " FontFamily="Sitka Text" Margin="21,33,0,264"/>
+                
+                <Label x:Name="name_backup" Content="Name:" FontFamily="Sitka Text" Margin="191,70,22,224"/>
+                <Label x:Name="progression" Content="Progressing : " FontFamily="Sitka Text" Margin="190,98,148,204"/>
+
+                <Button Margin="283,233,114,45" Click="LoadProgress" Background="#FF0056A7" Height="48" BorderBrush="{x:Null}">
+                    <Grid Width="150" Height="30">
+                        <TextBlock x:Name="LoadProgressText" Text="PROGRESSING" Margin="21,0,0,0" FontFamily="Sitka Text" TextAlignment="Justify"  VerticalAlignment="Center" HorizontalAlignment="Left" Width="84" FontSize="10" Foreground="White"/>
+                    </Grid>
+                </Button>
+
+            </Grid>
+
+        </Grid>
+        <Grid x:Name="GridMenu" Grid.ColumnSpan="2" Background="#FF0056A7" MouseDown="GridMenu_MouseDown">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="Buttonexit" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="Button_exit">
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

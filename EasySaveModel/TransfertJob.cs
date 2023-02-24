@@ -10,12 +10,11 @@ namespace EasySaveModel
     {
         private SaveFiles _files;
         private bool _actualStates = false; //Active/Waiting
-        private double _elapsedTransfertTime;
+        private double _elapsedTransfertTime = 0, _elapsedCrytoTime = 0;
         private double _nbFiles, _nbFilesMoved;
         private uint _maxSizeFile = 999999999;
 
-        private CryptoSoft _cryptosoft;
-        private bool activecrypto = false;
+        private bool _activecrypto = false;
 
         private List<string> _prioritizeExts;
 
@@ -77,9 +76,13 @@ namespace EasySaveModel
             {
                 Directory.CreateDirectory(_files.PathTo);
             }
-            if (activecrypto)
+            if (_activecrypto)
             {
+                Stopwatch cryptoWatch = new Stopwatch();
+                cryptoWatch.Start();
                 _cryptosoft.StartProcess(_files);
+                cryptoWatch.Stop();
+                _elapsedCrytoTime += cryptoWatch.Elapsed.TotalSeconds;
             }
 
             //Move classic Files
@@ -173,9 +176,13 @@ namespace EasySaveModel
             //Start a chrono ofr mesuring time elaspsed
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start(); //Starting the timed for the log file
-            if (activecrypto)
+            if (_activecrypto)
             {
+                Stopwatch cryptoWatch = new Stopwatch();
+                cryptoWatch.Start();
                 _cryptosoft.StartProcess(_files);
+                cryptoWatch.Stop();
+                _elapsedCrytoTime += cryptoWatch.Elapsed.TotalSeconds;
             }
             //Move Files
             _actualStates = true;
@@ -264,7 +271,7 @@ namespace EasySaveModel
             string nameLog = Path.GetFileName(_files.PathFrom);
             string totalSizeFileStr = _files.TotalSizeFile.ToString();
             string elapsedTransfertTimeStr = _elapsedTransfertTime.ToString();
-            string cryptTime = "0";
+            string cryptTime = _elapsedCrytoTime.ToString();
 
             LogsFile JSONmyLogs = LogsFile.GetInstance(true);
             LogsFile XMLmyLogs = LogsFile.GetInstance(false);
@@ -298,5 +305,6 @@ namespace EasySaveModel
         public static Mutex CountMutex { get => _countMutex; set => _countMutex = value; }
         public static Mutex PauseMutex1 { get => _pauseMutex; set => _pauseMutex = value; }
         public List<string> PrioritizeExts { get => _prioritizeExts; set => _prioritizeExts = value; }
+        public double ElapsedCrytoTime { get => _elapsedCrytoTime; set => _elapsedCrytoTime = value; }
     }
 }
