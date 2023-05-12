@@ -113,7 +113,7 @@ Mettre des exemples par la suite.
 	> Application Console Multi-langues
 
 	> Maximum de 5 travaux de sauvegarde
-	
+
 	> Fichier Log, Etat en JSON
 
 	> Type de fonctionnement (Sequentielle)
@@ -125,24 +125,24 @@ Mettre des exemples par la suite.
 	> Passage en Application WPF
 
 	> Travaux de sauvegarde illimités
-	
+
 	> Ajout temps de cryptage dans fichier log
-	
+
 	> Détection logiciel métier (Pas de lancement de travail)
-	
+
     	> Utilisation de CryptoSoft
 
 - Version 3 :
 	> Possibilité de mettre en pause
 
 	> Ajout type de fonctionnement (Parallèle)
-	
+
     	> Détection logiciel métier (Arrêt de tout travail en cours)
-	
+
     	> Gestion fichiers prioritaires avant les autres
-	
+
 	> Choix taille maximum de fichier pour sauvegarde en simultané
-	
+
 	> Interface déportée
 
 <p align="right">(<a href="#readme-top">Revenir en haut</a>)</p>
