@@ -120,6 +120,7 @@ Mettre des exemples par la suite.
 
 - Version 1.1 :
 	> Ajout du fichier Log en XML
+
 - Version 2 :
 	> Passage en Application WPF
 
@@ -130,7 +131,7 @@ Mettre des exemples par la suite.
 	> Détection logiciel métier (Pas de lancement de travail)
 	
     	> Utilisation de CryptoSoft
-	
+
 - Version 3 :
 	> Possibilité de mettre en pause
 
