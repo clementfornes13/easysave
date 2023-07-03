@@ -123,9 +123,13 @@ Mettre des exemples par la suite.
 
 - Version 2 :
    > Passage en Application WPF
+   
    > Travaux de sauvegarde illimités
+   
    > Ajout temps de cryptage dans fichier log
+   
    > Détection logiciel métier (Pas de lancement de travail)
+   
    > Utilisation de CryptoSoft
 
 - Version 3 :
